@@ -22,7 +22,7 @@ RUN curl https://raw.githubusercontent.com/jreinke/modgit/master/modgit > modgit
 
 # Install Magento 1.9.x
 RUN cd $MAGENTO_PATH && wget https://github.com/OpenMage/magento-mirror/archive/magento-1.9.zip -P . && unzip ./magento-1.9.zip -d . && mv ./magento-mirror-magento-1.9/* . && rm -rf magento-mirror-magento-1.9 && rm ./magento-1.9.zip
-RUN chmod 777 -R /var/www/  && chown -R www-data:1000 /var/www  && usermod -u 1000 www-data  && chsh -s /bin/bash www-data && a2enmod rewrite  && a2enmod headers && service apache2 restart
+RUN chmod 777 -R /var/www/  && chown -R www-data:1000 /var/www  && usermod -u 1000 www-data  && chsh -s /bin/bash www-data && a2enmod rewrite  && a2enmod headers && service apache2 restart && wget https://raw.githubusercontent.com/vindi/dockerfiles/master/magento1/apache/.htaccess
 
 # Install test support
 RUN modgit init && wget https://raw.githubusercontent.com/vindi/vindi-magento/master/composer.json && composer install
