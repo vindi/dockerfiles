@@ -14,9 +14,6 @@ RUN echo "127.0.0.1  vindi.magento" >> /etc/hosts
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
-# Install codeception
-RUN curl -O https://codeception.com/codecept.phar && chmod +x codecept.phar && mv codecept.phar /usr/local/bin/codecept
-
 # Install modgit
 RUN curl https://raw.githubusercontent.com/jreinke/modgit/master/modgit > modgit && chmod +x modgit && mv modgit /usr/local/bin
 
@@ -29,3 +26,5 @@ RUN modgit init && wget https://raw.githubusercontent.com/vindi/vindi-magento/ma
 
 # Set database
 RUN cd app/etc/ && rm -rf config.xml local.xml && wget https://raw.githubusercontent.com/vindi/dockerfiles/master/magento1/mysql/config.xml && wget https://raw.githubusercontent.com/vindi/dockerfiles/master/magento1/mysql/local.xml
+
+CMD ["apache2-foreground"]
