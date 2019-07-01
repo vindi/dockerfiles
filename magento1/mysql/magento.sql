@@ -4718,7 +4718,7 @@ CREATE TABLE `customer_address_entity_varchar` (
 
 LOCK TABLES `customer_address_entity_varchar` WRITE;
 /*!40000 ALTER TABLE `customer_address_entity_varchar` DISABLE KEYS */;
-INSERT INTO `customer_address_entity_varchar` VALUES (1,2,19,1,NULL),(2,2,20,1,'Vindi'),(3,2,21,1,NULL),(4,2,22,1,'Recorrência'),(5,2,23,1,NULL),(6,2,24,1,NULL),(7,2,26,1,'São Paulo'),(8,2,27,1,'BR'),(9,2,28,1,'São Paulo'),(10,2,30,1,'04031-050'),(11,2,31,1,'1159047380'),(12,2,32,1,NULL),(13,2,36,1,NULL);
+INSERT INTO `customer_address_entity_varchar` VALUES (1,2,19,1,NULL),(2,2,20,1,'Vindi'),(3,2,21,1,NULL),(4,2,22,1,'Recorrência'),(5,2,23,1,NULL),(6,2,24,1,NULL),(7,2,26,1,'São Paulo'),(8,2,27,1,'BR'),(9,2,28,1,'SP'),(10,2,30,1,'04031-050'),(11,2,31,1,'1159047380'),(12,2,32,1,NULL),(13,2,36,1,NULL);
 /*!40000 ALTER TABLE `customer_address_entity_varchar` ENABLE KEYS */;
 UNLOCK TABLES;
 
