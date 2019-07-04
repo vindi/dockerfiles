@@ -10264,6 +10264,7 @@ CREATE TABLE `salesrule` (
 
 LOCK TABLES `salesrule` WRITE;
 /*!40000 ALTER TABLE `salesrule` DISABLE KEYS */;
+INSERT INTO `salesrule` VALUES (1,'desconto',NULL,NULL,NULL,0,1,'a:6:{s:4:\"type\";s:32:\"salesrule/rule_condition_combine\";s:9:\"attribute\";N;s:8:\"operator\";N;s:5:\"value\";s:1:\"1\";s:18:\"is_value_processed\";N;s:10:\"aggregator\";s:3:\"all\";}','a:6:{s:4:\"type\";s:40:\"salesrule/rule_condition_product_combine\";s:9:\"attribute\";N;s:8:\"operator\";N;s:5:\"value\";s:1:\"1\";s:18:\"is_value_processed\";N;s:10:\"aggregator\";s:3:\"all\";}',0,1,NULL,0,'by_percent',2.0000,NULL,0,0,0,1,1,2,0,0);
 /*!40000 ALTER TABLE `salesrule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -10299,6 +10300,7 @@ CREATE TABLE `salesrule_coupon` (
 
 LOCK TABLES `salesrule_coupon` WRITE;
 /*!40000 ALTER TABLE `salesrule_coupon` DISABLE KEYS */;
+INSERT INTO `salesrule_coupon` VALUES (1,1,'desconto',NULL,NULL,1,NULL,1,'2019-07-02 16:36:18',0);
 /*!40000 ALTER TABLE `salesrule_coupon` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -10383,6 +10385,7 @@ CREATE TABLE `salesrule_customer_group` (
 
 LOCK TABLES `salesrule_customer_group` WRITE;
 /*!40000 ALTER TABLE `salesrule_customer_group` DISABLE KEYS */;
+INSERT INTO `salesrule_customer_group` VALUES (1,0),(1,1),(1,2),(1,3);
 /*!40000 ALTER TABLE `salesrule_customer_group` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -10472,6 +10475,7 @@ CREATE TABLE `salesrule_website` (
 
 LOCK TABLES `salesrule_website` WRITE;
 /*!40000 ALTER TABLE `salesrule_website` DISABLE KEYS */;
+INSERT INTO `salesrule_website` VALUES (1,1);
 /*!40000 ALTER TABLE `salesrule_website` ENABLE KEYS */;
 UNLOCK TABLES;
 
