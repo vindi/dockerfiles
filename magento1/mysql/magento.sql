@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.7.23, for Linux (x86_64)
+-- MariaDB dump 10.17  Distrib 10.4.7-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: magento
 -- ------------------------------------------------------
--- Server version	5.7.23
+-- Server version 10.4.7-MariaDB-1:10.4.7+maria~bionic
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -15,11 +15,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Current Database: `magento`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `magento` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE IF NOT EXISTS `magento`;
 
 USE `magento`;
 
@@ -33,7 +29,7 @@ DROP TABLE IF EXISTS `admin_assert`;
 CREATE TABLE `admin_assert` (
   `assert_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Assert ID',
   `assert_type` varchar(20) DEFAULT NULL COMMENT 'Assert Type',
-  `assert_data` text COMMENT 'Assert Data',
+  `assert_data` text DEFAULT NULL COMMENT 'Assert Data',
   PRIMARY KEY (`assert_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Admin Assert Table';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -56,11 +52,11 @@ DROP TABLE IF EXISTS `admin_role`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `admin_role` (
   `role_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Role ID',
-  `parent_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Parent Role ID',
-  `tree_level` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Role Tree Level',
-  `sort_order` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Role Sort Order',
+  `parent_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Parent Role ID',
+  `tree_level` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Role Tree Level',
+  `sort_order` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Role Sort Order',
   `role_type` varchar(1) NOT NULL DEFAULT '0' COMMENT 'Role Type',
-  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'User ID',
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'User ID',
   `role_name` varchar(50) DEFAULT NULL COMMENT 'Role Name',
   PRIMARY KEY (`role_id`),
   KEY `IDX_ADMIN_ROLE_PARENT_ID_SORT_ORDER` (`parent_id`,`sort_order`),
@@ -87,10 +83,10 @@ DROP TABLE IF EXISTS `admin_rule`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `admin_rule` (
   `rule_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Rule ID',
-  `role_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Role ID',
+  `role_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Role ID',
   `resource_id` varchar(255) DEFAULT NULL COMMENT 'Resource ID',
   `privileges` varchar(20) DEFAULT NULL COMMENT 'Privileges',
-  `assert_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Assert ID',
+  `assert_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Assert ID',
   `role_type` varchar(1) DEFAULT NULL COMMENT 'Role Type',
   `permission` varchar(10) DEFAULT NULL COMMENT 'Permission',
   PRIMARY KEY (`rule_id`),
@@ -127,11 +123,11 @@ CREATE TABLE `admin_user` (
   `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'User Created Time',
   `modified` timestamp NULL DEFAULT NULL COMMENT 'User Modified Time',
   `logdate` timestamp NULL DEFAULT NULL COMMENT 'User Last Login Time',
-  `lognum` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'User Login Number',
-  `reload_acl_flag` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Reload ACL',
-  `is_active` smallint(6) NOT NULL DEFAULT '1' COMMENT 'User Is Active',
-  `extra` text COMMENT 'User Extra Data',
-  `rp_token` text COMMENT 'Reset Password Link Token',
+  `lognum` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'User Login Number',
+  `reload_acl_flag` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Reload ACL',
+  `is_active` smallint(6) NOT NULL DEFAULT 1 COMMENT 'User Is Active',
+  `extra` text DEFAULT NULL COMMENT 'User Extra Data',
+  `rp_token` text DEFAULT NULL COMMENT 'Reset Password Link Token',
   `rp_token_created_at` timestamp NULL DEFAULT NULL COMMENT 'Reset Password Link Token Creation Date',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `UNQ_ADMIN_USER_USERNAME` (`username`)
@@ -144,7 +140,7 @@ CREATE TABLE `admin_user` (
 
 LOCK TABLES `admin_user` WRITE;
 /*!40000 ALTER TABLE `admin_user` DISABLE KEYS */;
-INSERT INTO `admin_user` VALUES (1,'Vindi','Recorrência','comunidade@vindi.com.br','admin','df6089382676b9f10c23bdb6c122a779:tAi8r5GCAxjwoKi9GBU3sN0fphxlMvL6','2018-10-04 16:25:26','2018-10-04 16:25:26','2018-10-04 17:00:33',3,0,1,'a:1:{s:11:\"configState\";a:1:{s:31:\"advanced_modules_disable_output\";s:1:\"1\";}}',NULL,NULL);
+INSERT INTO `admin_user` VALUES (1,'Vindi','Recorrência','comunidade@vindi.com.br','admin','df6089382676b9f10c23bdb6c122a779:tAi8r5GCAxjwoKi9GBU3sN0fphxlMvL6','2018-10-04 16:25:26','2018-10-04 16:25:26','2019-08-21 20:27:47',4,0,1,'a:1:{s:11:\"configState\";a:2:{s:31:\"advanced_modules_disable_output\";s:1:\"1\";s:26:\"vindi_subscription_general\";s:1:\"1\";}}',NULL,NULL);
 /*!40000 ALTER TABLE `admin_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,18 +153,18 @@ DROP TABLE IF EXISTS `adminnotification_inbox`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `adminnotification_inbox` (
   `notification_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Notification id',
-  `severity` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Problem type',
+  `severity` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Problem type',
   `date_added` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Create date',
   `title` varchar(255) NOT NULL COMMENT 'Title',
-  `description` text COMMENT 'Description',
+  `description` text DEFAULT NULL COMMENT 'Description',
   `url` varchar(255) DEFAULT NULL COMMENT 'Url',
-  `is_read` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Flag if notification read',
-  `is_remove` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Flag if notification might be removed',
+  `is_read` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Flag if notification read',
+  `is_remove` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Flag if notification might be removed',
   PRIMARY KEY (`notification_id`),
   KEY `IDX_ADMINNOTIFICATION_INBOX_SEVERITY` (`severity`),
   KEY `IDX_ADMINNOTIFICATION_INBOX_IS_READ` (`is_read`),
   KEY `IDX_ADMINNOTIFICATION_INBOX_IS_REMOVE` (`is_remove`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Adminnotification Inbox';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='Adminnotification Inbox';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -177,7 +173,7 @@ CREATE TABLE `adminnotification_inbox` (
 
 LOCK TABLES `adminnotification_inbox` WRITE;
 /*!40000 ALTER TABLE `adminnotification_inbox` DISABLE KEYS */;
-INSERT INTO `adminnotification_inbox` VALUES (1,1,'2018-09-06 18:22:45','Magento Open Source 1 software security patches thru June 2020','Magento Open Source 1 software security patches thru June 2020\n\nFor Magento Open Source 1.5 to 1.9, we are providing software security patches through June 2020 to ensure those sites remain secure and compliant. Visit our information page for more details about our software maintenance policy and other considerations for your business.\n\nhttps://info2.magento.com/M1OpenSource.html\n','https://info2.magento.com/M1OpenSource.html',0,1),(2,1,'2018-09-19 02:21:37','Magento Open Source 2.2.6 delivers important security updates along with performance and functionality enhancements – 9/18/2018','The latest release of Magento Open Source includes important security enhancements along with performance and functionality improvements. With these important updates we strongly recommend that you upgrade to ensure your sites maintain the highest level of security. You can review the release notes for more information about all of the enhancements. For more information about security updates included in these versions of Magento please see our Security Center: https://magento.com/security/patches/magento-2.2.6-and-2.1.15-security-update','https://devdocs.magento.com/guides/v2.2/release-notes/bk-release-notes.html',0,1),(3,2,'2018-09-27 18:49:45','PHP 7.2 support patches are now available for Magento 1','PHP 7.2 support patches for Magento 1 are now available. It is critical you are on a supported version of PHP to ensure your site is secure and in compliance. For compatibility and download details, please visit our developer forum post.\n\nhttps://community.magento.com/t5/News-Announcements/PHP-7-2-Support-Patches-for-Magento-1-are-now-available/m-p/106999#M211','https://community.magento.com/t5/News-Announcements/PHP-7-2-Support-Patches-for-Magento-1-are-now-available/m-p/106999#M211',0,1);
+INSERT INTO `adminnotification_inbox` VALUES (1,1,'2018-09-06 18:22:45','Magento Open Source 1 software security patches thru June 2020','Magento Open Source 1 software security patches thru June 2020\n\nFor Magento Open Source 1.5 to 1.9, we are providing software security patches through June 2020 to ensure those sites remain secure and compliant. Visit our information page for more details about our software maintenance policy and other considerations for your business.\n\nhttps://info2.magento.com/M1OpenSource.html\n','https://info2.magento.com/M1OpenSource.html',0,1),(2,1,'2018-09-19 02:21:37','Magento Open Source 2.2.6 delivers important security updates along with performance and functionality enhancements – 9/18/2018','The latest release of Magento Open Source includes important security enhancements along with performance and functionality improvements. With these important updates we strongly recommend that you upgrade to ensure your sites maintain the highest level of security. You can review the release notes for more information about all of the enhancements. For more information about security updates included in these versions of Magento please see our Security Center: https://magento.com/security/patches/magento-2.2.6-and-2.1.15-security-update','https://devdocs.magento.com/guides/v2.2/release-notes/bk-release-notes.html',0,1),(3,2,'2018-09-27 18:49:45','PHP 7.2 support patches are now available for Magento 1','PHP 7.2 support patches for Magento 1 are now available. It is critical you are on a supported version of PHP to ensure your site is secure and in compliance. For compatibility and download details, please visit our developer forum post.\n\nhttps://community.magento.com/t5/News-Announcements/PHP-7-2-Support-Patches-for-Magento-1-are-now-available/m-p/106999#M211','https://community.magento.com/t5/News-Announcements/PHP-7-2-Support-Patches-for-Magento-1-are-now-available/m-p/106999#M211',0,1),(4,1,'2019-03-01 20:19:27','Action required: Update Authorize.Net Direct Post from MD5 to SHA-512 – 3/1/2019','Magento\'s implementation of the Authorize.Net Direct Post payment method uses MD5 based hash, and on March 14, 2019 Authorize.net will stop supporting MD5 based hash usage. This will result in Magento merchants not being able to process payments using Authorize.Net Direct Post. To avoid disruption and to continue processing payments, merchants need to apply a patch provided by Magento and add a Signature Key (SHA-512) in the Magento Admin configuration settings. For information on applying this patch please see the Magento Help Center.\n\nhttps://support.magento.com/hc/en-us/articles/360024368392','https://support.magento.com/hc/en-us/articles/360024368392',0,0),(5,1,'2019-03-26 18:05:45','Magento Open Source 1.9.4.1 released with important security enhancements – 3/26/2019','The latest release of Magento Open Source 1 delivers important security enhancements. With these important updates we strongly recommend that you upgrade to ensure your sites maintain the highest level of security. You can review the release notes for more information about these enhancements. For more information about security updates included in this version of Magento please see our Security Center: https://magento.com/security/','https://devdocs.magento.com/guides/m1x/ce19-ee114/ce1.9_release-notes.html',0,0),(6,4,'2019-06-24 14:44:20','Success on Tap: Beer Hawk\'s upgrade to Magento Commerce 2','Read how this customer achieved astronomical eCommerce growth and successfully rode the wave of popularity for craft beer since their upgrade from Magento 1 Open Source to Magento Commerce 2. Case study:  http://bit.ly/2WTWYyO','http://bit.ly/2WTWYyO',0,0),(7,1,'2019-06-25 16:08:15','Important Security and Performance Updates Released in Magento 2.3.2  ','The latest releases of Magento include important security enhancements, along with performance and productivity improvements. We strongly recommend that you upgrade to ensure your sites maintain the highest level of security. You can review the release notes for more information about all of the enhancements and information on security updates included in these versions of Magento at our Security Center: https://magento.com/security/','https://devdocs.magento.com/guides/v2.3/release-notes/bk-release-notes.html',0,0),(8,4,'2019-07-08 15:12:19','Shoe retailer Loake saw a 45% increase in conversion rate after they migrated to Magento Commerce 2. Let us analyze your site now.','After migrating to Magento Commerce 2, Shoe retailer Loake increased their conversion rate by 45%. You can find out more about your own opportunities to evolve your eCommerce strategy with a free site assessment from our expert team.  And with Magento 1 sunsetting soon, there’s no better time to evolve your eCommerce strategy. Learn more: http://bit.ly/2KThop8','http://bit.ly/2KThop8',0,0),(9,4,'2019-07-26 19:21:53','Learn how reimagining your eCommerce experience can drive revenue growth. Don\'t delay- register today for your free site assessment.','Don\'t miss this opportunity to boost your sales, streamline operations, and scale effortlessly by moving to Magento Commerce 2. Our team of experts are ready to evaluate your site and identify specific areas for enhancement. Reserve your spot today: http://bit.ly/30EK2Pr','http://bit.ly/30EK2Pr',0,0),(10,4,'2019-08-01 21:21:52','Ready, Set, Grow! Check out our five best practices for ensuring your eCommerce platform has the necessary scalability.','The future is full of opportunity, but your eCommerce platform has to be ready for it. We’ve got five best practices to ensure your platform has what it takes to grow with your business. Download guide here: http://bit.ly/2YFTrsI','http://bit.ly/2YFTrsI',0,0),(11,4,'2019-08-07 23:24:38','6 Must-Haves for a Fast, Flexible eCommerce Platform','The future of digital eCommerce is knocking. You\'ll need a competitive eCommerce platform which meets escalating operational demands and consumer experience expectations. Download eBook here: http://bit.ly/315BbGI','http://bit.ly/315BbGI',0,0),(12,4,'2019-08-15 13:39:29','Tackle the diverse demands of modern eCommerce with Magento Commerce 2.  Get started now- sign up today for your free site assessment. ','Gain an edge on the competition using the next-generation features found on Magento Commerce 2. Grow your revenue, personalize the customer experience, and streamline the checkout process. Learn more about our free site assessment by speaking with our team of experts today: http://bit.ly/30EK2Pr','http://bit.ly/30EK2Pr',0,0);
 /*!40000 ALTER TABLE `adminnotification_inbox` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,7 +189,7 @@ CREATE TABLE `api2_acl_attribute` (
   `user_type` varchar(20) NOT NULL COMMENT 'Type of user',
   `resource_id` varchar(255) NOT NULL COMMENT 'Resource ID',
   `operation` varchar(20) NOT NULL COMMENT 'Operation',
-  `allowed_attributes` text COMMENT 'Allowed attributes',
+  `allowed_attributes` text DEFAULT NULL COMMENT 'Allowed attributes',
   PRIMARY KEY (`entity_id`),
   UNIQUE KEY `UNQ_API2_ACL_ATTRIBUTE_USER_TYPE_RESOURCE_ID_OPERATION` (`user_type`,`resource_id`,`operation`),
   KEY `IDX_API2_ACL_ATTRIBUTE_USER_TYPE` (`user_type`)
@@ -218,7 +214,7 @@ DROP TABLE IF EXISTS `api2_acl_role`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `api2_acl_role` (
   `entity_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity ID',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Created At',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Created At',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Updated At',
   `role_name` varchar(255) NOT NULL COMMENT 'Name of role',
   PRIMARY KEY (`entity_id`),
@@ -300,7 +296,7 @@ DROP TABLE IF EXISTS `api_assert`;
 CREATE TABLE `api_assert` (
   `assert_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Assert id',
   `assert_type` varchar(20) DEFAULT NULL COMMENT 'Assert type',
-  `assert_data` text COMMENT 'Assert additional data',
+  `assert_data` text DEFAULT NULL COMMENT 'Assert additional data',
   PRIMARY KEY (`assert_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Api ACL Asserts';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -323,11 +319,11 @@ DROP TABLE IF EXISTS `api_role`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `api_role` (
   `role_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Role id',
-  `parent_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Parent role id',
-  `tree_level` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Role level in tree',
-  `sort_order` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Sort order to display on admin area',
+  `parent_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Parent role id',
+  `tree_level` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Role level in tree',
+  `sort_order` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Sort order to display on admin area',
   `role_type` varchar(1) NOT NULL DEFAULT '0' COMMENT 'Role type',
-  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'User id',
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'User id',
   `role_name` varchar(50) DEFAULT NULL COMMENT 'Role name',
   PRIMARY KEY (`role_id`),
   KEY `IDX_API_ROLE_PARENT_ID_SORT_ORDER` (`parent_id`,`sort_order`),
@@ -353,10 +349,10 @@ DROP TABLE IF EXISTS `api_rule`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `api_rule` (
   `rule_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Api rule Id',
-  `role_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Api role Id',
+  `role_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Api role Id',
   `resource_id` varchar(255) DEFAULT NULL COMMENT 'Module code',
   `api_privileges` varchar(20) DEFAULT NULL COMMENT 'Privileges',
-  `assert_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Assert id',
+  `assert_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Assert id',
   `role_type` varchar(1) DEFAULT NULL COMMENT 'Role type',
   `api_permission` varchar(10) DEFAULT NULL COMMENT 'Permission',
   PRIMARY KEY (`rule_id`),
@@ -417,9 +413,9 @@ CREATE TABLE `api_user` (
   `api_key` varchar(100) DEFAULT NULL COMMENT 'Api key',
   `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'User record create date',
   `modified` timestamp NULL DEFAULT NULL COMMENT 'User record modify date',
-  `lognum` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Quantity of log ins',
-  `reload_acl_flag` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Refresh ACL flag',
-  `is_active` smallint(6) NOT NULL DEFAULT '1' COMMENT 'Account status',
+  `lognum` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Quantity of log ins',
+  `reload_acl_flag` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Refresh ACL flag',
+  `is_active` smallint(6) NOT NULL DEFAULT 1 COMMENT 'Account status',
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Api Users';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -443,7 +439,7 @@ DROP TABLE IF EXISTS `captcha_log`;
 CREATE TABLE `captcha_log` (
   `type` varchar(32) NOT NULL COMMENT 'Type',
   `value` varchar(32) NOT NULL COMMENT 'Value',
-  `count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Count',
+  `count` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Count',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Update Time',
   PRIMARY KEY (`type`,`value`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Count Login Attempts';
@@ -466,7 +462,7 @@ DROP TABLE IF EXISTS `catalog_category_anc_categs_index_idx`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_anc_categs_index_idx` (
-  `category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Category ID',
+  `category_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Category ID',
   `path` varchar(255) DEFAULT NULL COMMENT 'Path',
   KEY `IDX_CATALOG_CATEGORY_ANC_CATEGS_INDEX_IDX_CATEGORY_ID` (`category_id`),
   KEY `IDX_CATALOG_CATEGORY_ANC_CATEGS_INDEX_IDX_PATH_CATEGORY_ID` (`path`,`category_id`)
@@ -490,7 +486,7 @@ DROP TABLE IF EXISTS `catalog_category_anc_categs_index_tmp`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_anc_categs_index_tmp` (
-  `category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Category ID',
+  `category_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Category ID',
   `path` varchar(255) DEFAULT NULL COMMENT 'Path',
   KEY `IDX_CATALOG_CATEGORY_ANC_CATEGS_INDEX_TMP_CATEGORY_ID` (`category_id`),
   KEY `IDX_CATALOG_CATEGORY_ANC_CATEGS_INDEX_TMP_PATH_CATEGORY_ID` (`path`,`category_id`)
@@ -514,8 +510,8 @@ DROP TABLE IF EXISTS `catalog_category_anc_products_index_idx`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_anc_products_index_idx` (
-  `category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Category ID',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
+  `category_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Category ID',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
   `position` int(10) unsigned DEFAULT NULL COMMENT 'Position',
   KEY `IDX_CAT_CTGR_ANC_PRDS_IDX_IDX_CTGR_ID_PRD_ID_POSITION` (`category_id`,`product_id`,`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Catalog Category Anchor Product Indexer Index Table';
@@ -538,8 +534,8 @@ DROP TABLE IF EXISTS `catalog_category_anc_products_index_tmp`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_anc_products_index_tmp` (
-  `category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Category ID',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
+  `category_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Category ID',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
   `position` int(10) unsigned DEFAULT NULL COMMENT 'Position',
   KEY `IDX_CAT_CTGR_ANC_PRDS_IDX_TMP_CTGR_ID_PRD_ID_POSITION` (`category_id`,`product_id`,`position`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8 COMMENT='Catalog Category Anchor Product Indexer Temp Table';
@@ -563,14 +559,14 @@ DROP TABLE IF EXISTS `catalog_category_entity`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_entity` (
   `entity_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity ID',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type ID',
-  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attriute Set ID',
-  `parent_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Parent Category ID',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type ID',
+  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attriute Set ID',
+  `parent_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Parent Category ID',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Creation Time',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Update Time',
   `path` varchar(255) NOT NULL COMMENT 'Tree Path',
   `position` int(11) NOT NULL COMMENT 'Position',
-  `level` int(11) NOT NULL DEFAULT '0' COMMENT 'Tree Level',
+  `level` int(11) NOT NULL DEFAULT 0 COMMENT 'Tree Level',
   `children_count` int(11) NOT NULL COMMENT 'Child Count',
   PRIMARY KEY (`entity_id`),
   KEY `IDX_CATALOG_CATEGORY_ENTITY_LEVEL` (`level`),
@@ -597,10 +593,10 @@ DROP TABLE IF EXISTS `catalog_category_entity_datetime`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_entity_datetime` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type ID',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity ID',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type ID',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
   `value` datetime DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CAT_CTGR_ENTT_DTIME_ENTT_TYPE_ID_ENTT_ID_ATTR_ID_STORE_ID` (`entity_type_id`,`entity_id`,`attribute_id`,`store_id`),
@@ -631,10 +627,10 @@ DROP TABLE IF EXISTS `catalog_category_entity_decimal`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_entity_decimal` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type ID',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity ID',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type ID',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
   `value` decimal(12,4) DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CAT_CTGR_ENTT_DEC_ENTT_TYPE_ID_ENTT_ID_ATTR_ID_STORE_ID` (`entity_type_id`,`entity_id`,`attribute_id`,`store_id`),
@@ -665,10 +661,10 @@ DROP TABLE IF EXISTS `catalog_category_entity_int`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_entity_int` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type ID',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity ID',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type ID',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
   `value` int(11) DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CAT_CTGR_ENTT_INT_ENTT_TYPE_ID_ENTT_ID_ATTR_ID_STORE_ID` (`entity_type_id`,`entity_id`,`attribute_id`,`store_id`),
@@ -700,11 +696,11 @@ DROP TABLE IF EXISTS `catalog_category_entity_text`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_entity_text` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type ID',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity ID',
-  `value` text COMMENT 'Value',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type ID',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
+  `value` text DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CAT_CTGR_ENTT_TEXT_ENTT_TYPE_ID_ENTT_ID_ATTR_ID_STORE_ID` (`entity_type_id`,`entity_id`,`attribute_id`,`store_id`),
   KEY `IDX_CATALOG_CATEGORY_ENTITY_TEXT_ENTITY_ID` (`entity_id`),
@@ -735,10 +731,10 @@ DROP TABLE IF EXISTS `catalog_category_entity_varchar`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_entity_varchar` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type ID',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity ID',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type ID',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
   `value` varchar(255) DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CAT_CTGR_ENTT_VCHR_ENTT_TYPE_ID_ENTT_ID_ATTR_ID_STORE_ID` (`entity_type_id`,`entity_id`,`attribute_id`,`store_id`),
@@ -770,25 +766,25 @@ DROP TABLE IF EXISTS `catalog_category_flat_store_1`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_flat_store_1` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'entity_id',
-  `parent_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'parent_id',
+  `parent_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'parent_id',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'created_at',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'updated_at',
   `path` varchar(255) NOT NULL DEFAULT '' COMMENT 'path',
   `position` int(11) NOT NULL COMMENT 'position',
-  `level` int(11) NOT NULL DEFAULT '0' COMMENT 'level',
+  `level` int(11) NOT NULL DEFAULT 0 COMMENT 'level',
   `children_count` int(11) NOT NULL COMMENT 'children_count',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
-  `all_children` text COMMENT 'All Children',
-  `available_sort_by` text COMMENT 'Available Product Listing Sort By',
-  `children` text COMMENT 'Children',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
+  `all_children` text DEFAULT NULL COMMENT 'All Children',
+  `available_sort_by` text DEFAULT NULL COMMENT 'Available Product Listing Sort By',
+  `children` text DEFAULT NULL COMMENT 'Children',
   `custom_apply_to_products` int(11) DEFAULT NULL COMMENT 'Apply To Products',
   `custom_design` varchar(255) DEFAULT NULL COMMENT 'Custom Design',
   `custom_design_from` datetime DEFAULT NULL COMMENT 'Active From',
   `custom_design_to` datetime DEFAULT NULL COMMENT 'Active To',
-  `custom_layout_update` text COMMENT 'Custom Layout Update',
+  `custom_layout_update` text DEFAULT NULL COMMENT 'Custom Layout Update',
   `custom_use_parent_settings` int(11) DEFAULT NULL COMMENT 'Use Parent Category Settings',
   `default_sort_by` varchar(255) DEFAULT NULL COMMENT 'Default Product Listing Sort By',
-  `description` text COMMENT 'Description',
+  `description` text DEFAULT NULL COMMENT 'Description',
   `display_mode` varchar(255) DEFAULT NULL COMMENT 'Display Mode',
   `filter_price_range` decimal(12,4) DEFAULT NULL COMMENT 'Layered Navigation Price Step',
   `image` varchar(255) DEFAULT NULL COMMENT 'Image',
@@ -796,12 +792,12 @@ CREATE TABLE `catalog_category_flat_store_1` (
   `is_active` int(11) DEFAULT NULL COMMENT 'Is Active',
   `is_anchor` int(11) DEFAULT NULL COMMENT 'Is Anchor',
   `landing_page` int(11) DEFAULT NULL COMMENT 'CMS Block',
-  `meta_description` text COMMENT 'Meta Description',
-  `meta_keywords` text COMMENT 'Meta Keywords',
+  `meta_description` text DEFAULT NULL COMMENT 'Meta Description',
+  `meta_keywords` text DEFAULT NULL COMMENT 'Meta Keywords',
   `meta_title` varchar(255) DEFAULT NULL COMMENT 'Page Title',
   `name` varchar(255) DEFAULT NULL COMMENT 'Name',
   `page_layout` varchar(255) DEFAULT NULL COMMENT 'Page Layout',
-  `path_in_store` text COMMENT 'Path In Store',
+  `path_in_store` text DEFAULT NULL COMMENT 'Path In Store',
   `url_key` varchar(255) DEFAULT NULL COMMENT 'URL Key',
   `url_path` varchar(255) DEFAULT NULL COMMENT 'Url Path',
   PRIMARY KEY (`entity_id`),
@@ -831,9 +827,9 @@ DROP TABLE IF EXISTS `catalog_category_product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_product` (
-  `category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Category ID',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
-  `position` int(11) NOT NULL DEFAULT '0' COMMENT 'Position',
+  `category_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Category ID',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
+  `position` int(11) NOT NULL DEFAULT 0 COMMENT 'Position',
   PRIMARY KEY (`category_id`,`product_id`),
   KEY `IDX_CATALOG_CATEGORY_PRODUCT_PRODUCT_ID` (`product_id`),
   CONSTRAINT `FK_CAT_CTGR_PRD_CTGR_ID_CAT_CTGR_ENTT_ENTT_ID` FOREIGN KEY (`category_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -859,11 +855,11 @@ DROP TABLE IF EXISTS `catalog_category_product_index`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_product_index` (
-  `category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Category ID',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
+  `category_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Category ID',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
   `position` int(11) DEFAULT NULL COMMENT 'Position',
-  `is_parent` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Parent',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
+  `is_parent` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Parent',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
   `visibility` smallint(5) unsigned NOT NULL COMMENT 'Visibility',
   PRIMARY KEY (`category_id`,`product_id`,`store_id`),
   KEY `IDX_CAT_CTGR_PRD_IDX_PRD_ID_STORE_ID_CTGR_ID_VISIBILITY` (`product_id`,`store_id`,`category_id`,`visibility`),
@@ -880,7 +876,7 @@ CREATE TABLE `catalog_category_product_index` (
 
 LOCK TABLES `catalog_category_product_index` WRITE;
 /*!40000 ALTER TABLE `catalog_category_product_index` DISABLE KEYS */;
-INSERT INTO `catalog_category_product_index` VALUES (2,1,1,1,1,4);
+INSERT INTO `catalog_category_product_index` VALUES (2,2,0,0,1,4),(2,1,1,1,1,4);
 /*!40000 ALTER TABLE `catalog_category_product_index` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -892,8 +888,8 @@ DROP TABLE IF EXISTS `catalog_category_product_index_enbl_idx`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_product_index_enbl_idx` (
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
-  `visibility` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Visibility',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
+  `visibility` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Visibility',
   KEY `IDX_CAT_CTGR_PRD_IDX_ENBL_IDX_PRD_ID_VISIBILITY` (`product_id`,`visibility`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Catalog Category Product Enabled Indexer Index Table';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -915,8 +911,8 @@ DROP TABLE IF EXISTS `catalog_category_product_index_enbl_tmp`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_product_index_enbl_tmp` (
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
-  `visibility` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Visibility',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
+  `visibility` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Visibility',
   KEY `IDX_CAT_CTGR_PRD_IDX_ENBL_TMP_PRD_ID_VISIBILITY` (`product_id`,`visibility`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8 COMMENT='Catalog Category Product Enabled Indexer Temp Table';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -938,11 +934,11 @@ DROP TABLE IF EXISTS `catalog_category_product_index_idx`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_product_index_idx` (
-  `category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Category ID',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
-  `position` int(11) NOT NULL DEFAULT '0' COMMENT 'Position',
-  `is_parent` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Parent',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
+  `category_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Category ID',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
+  `position` int(11) NOT NULL DEFAULT 0 COMMENT 'Position',
+  `is_parent` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Parent',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
   `visibility` smallint(5) unsigned NOT NULL COMMENT 'Visibility',
   KEY `IDX_CAT_CTGR_PRD_IDX_IDX_PRD_ID_CTGR_ID_STORE_ID` (`product_id`,`category_id`,`store_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Catalog Category Product Indexer Index Table';
@@ -965,11 +961,11 @@ DROP TABLE IF EXISTS `catalog_category_product_index_tmp`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_category_product_index_tmp` (
-  `category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Category ID',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
-  `position` int(11) NOT NULL DEFAULT '0' COMMENT 'Position',
-  `is_parent` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Parent',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
+  `category_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Category ID',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
+  `position` int(11) NOT NULL DEFAULT 0 COMMENT 'Position',
+  `is_parent` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Parent',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
   `visibility` smallint(5) unsigned NOT NULL COMMENT 'Visibility',
   KEY `IDX_CAT_CTGR_PRD_IDX_TMP_PRD_ID_CTGR_ID_STORE_ID` (`product_id`,`category_id`,`store_id`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8 COMMENT='Catalog Category Product Indexer Temp Table';
@@ -993,9 +989,9 @@ DROP TABLE IF EXISTS `catalog_compare_item`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_compare_item` (
   `catalog_compare_item_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Compare Item ID',
-  `visitor_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Visitor ID',
+  `visitor_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Visitor ID',
   `customer_id` int(10) unsigned DEFAULT NULL COMMENT 'Customer ID',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store ID',
   PRIMARY KEY (`catalog_compare_item_id`),
   KEY `IDX_CATALOG_COMPARE_ITEM_CUSTOMER_ID` (`customer_id`),
@@ -1028,23 +1024,23 @@ DROP TABLE IF EXISTS `catalog_eav_attribute`;
 CREATE TABLE `catalog_eav_attribute` (
   `attribute_id` smallint(5) unsigned NOT NULL COMMENT 'Attribute ID',
   `frontend_input_renderer` varchar(255) DEFAULT NULL COMMENT 'Frontend Input Renderer',
-  `is_global` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Is Global',
-  `is_visible` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Is Visible',
-  `is_searchable` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Searchable',
-  `is_filterable` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Filterable',
-  `is_comparable` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Comparable',
-  `is_visible_on_front` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Visible On Front',
-  `is_html_allowed_on_front` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is HTML Allowed On Front',
-  `is_used_for_price_rules` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Used For Price Rules',
-  `is_filterable_in_search` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Filterable In Search',
-  `used_in_product_listing` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Used In Product Listing',
-  `used_for_sort_by` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Used For Sorting',
-  `is_configurable` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Is Configurable',
+  `is_global` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Is Global',
+  `is_visible` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Is Visible',
+  `is_searchable` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Searchable',
+  `is_filterable` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Filterable',
+  `is_comparable` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Comparable',
+  `is_visible_on_front` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Visible On Front',
+  `is_html_allowed_on_front` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is HTML Allowed On Front',
+  `is_used_for_price_rules` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Used For Price Rules',
+  `is_filterable_in_search` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Filterable In Search',
+  `used_in_product_listing` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Used In Product Listing',
+  `used_for_sort_by` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Used For Sorting',
+  `is_configurable` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Is Configurable',
   `apply_to` varchar(255) DEFAULT NULL COMMENT 'Apply To',
-  `is_visible_in_advanced_search` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Visible In Advanced Search',
-  `position` int(11) NOT NULL DEFAULT '0' COMMENT 'Position',
-  `is_wysiwyg_enabled` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is WYSIWYG Enabled',
-  `is_used_for_promo_rules` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Used For Promo Rules',
+  `is_visible_in_advanced_search` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Visible In Advanced Search',
+  `position` int(11) NOT NULL DEFAULT 0 COMMENT 'Position',
+  `is_wysiwyg_enabled` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is WYSIWYG Enabled',
+  `is_used_for_promo_rules` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Used For Promo Rules',
   PRIMARY KEY (`attribute_id`),
   KEY `IDX_CATALOG_EAV_ATTRIBUTE_USED_FOR_SORT_BY` (`used_for_sort_by`),
   KEY `IDX_CATALOG_EAV_ATTRIBUTE_USED_IN_PRODUCT_LISTING` (`used_in_product_listing`),
@@ -1058,7 +1054,7 @@ CREATE TABLE `catalog_eav_attribute` (
 
 LOCK TABLES `catalog_eav_attribute` WRITE;
 /*!40000 ALTER TABLE `catalog_eav_attribute` DISABLE KEYS */;
-INSERT INTO `catalog_eav_attribute` VALUES (43,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(44,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(45,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(46,NULL,0,1,0,0,0,0,1,0,0,0,0,1,NULL,0,0,1,0),(47,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(48,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(49,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(50,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(51,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(52,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(53,NULL,1,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(54,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(55,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(56,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(57,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(58,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(59,NULL,0,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(60,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(61,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(62,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(63,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(64,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(65,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(66,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(67,'adminhtml/catalog_category_helper_sortby_available',0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(68,'adminhtml/catalog_category_helper_sortby_default',0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(69,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(70,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(71,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(72,'adminhtml/catalog_category_helper_pricestep',0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(73,NULL,0,1,1,0,0,0,0,0,0,1,1,1,NULL,1,0,0,0),(74,NULL,0,1,1,0,1,0,1,0,0,0,0,1,NULL,1,0,1,0),(75,NULL,0,1,1,0,1,0,1,0,0,1,0,1,NULL,1,0,1,0),(76,NULL,1,1,1,0,1,0,0,0,0,0,0,1,NULL,1,0,0,0),(77,NULL,2,1,1,1,0,0,0,0,0,1,1,1,'simple,configurable,virtual,bundle,downloadable',1,0,0,0),(78,NULL,2,1,0,0,0,0,0,0,0,1,0,1,'simple,configurable,virtual,bundle,downloadable',0,0,0,0),(79,NULL,2,1,0,0,0,0,0,0,0,1,0,1,'simple,configurable,virtual,bundle,downloadable',0,0,0,0),(80,NULL,2,1,0,0,0,0,0,0,0,1,0,1,'simple,configurable,virtual,bundle,downloadable',0,0,0,0),(81,NULL,2,1,0,0,0,0,0,0,0,0,0,1,'virtual,downloadable',0,0,0,0),(82,NULL,1,1,0,0,0,0,0,0,0,0,0,1,'simple,bundle',0,0,0,0),(83,NULL,1,1,1,1,1,0,0,0,0,0,0,1,'simple',1,0,0,0),(84,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(85,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(86,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(87,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(88,NULL,0,1,0,0,0,0,0,0,0,1,0,1,NULL,0,0,0,0),(89,NULL,0,1,0,0,0,0,0,0,0,1,0,1,NULL,0,0,0,0),(90,NULL,1,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(91,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(92,NULL,2,1,0,0,0,0,0,0,0,0,0,1,'simple,configurable,virtual,bundle,downloadable',0,0,0,0),(93,NULL,2,1,0,0,0,0,0,0,0,0,0,1,'simple,configurable,virtual,bundle,downloadable',0,0,0,0),(94,NULL,1,1,1,1,1,0,0,0,0,0,0,1,'simple',1,0,0,0),(95,NULL,2,1,0,0,0,0,0,0,0,1,0,1,NULL,0,0,0,0),(96,NULL,2,1,0,0,0,0,0,0,0,1,0,1,NULL,0,0,0,0),(97,NULL,1,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(98,NULL,2,1,1,0,0,0,0,0,0,1,0,1,NULL,0,0,0,0),(99,NULL,0,1,0,0,0,0,0,0,0,1,0,1,NULL,0,0,0,0),(100,NULL,0,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(101,NULL,0,0,0,0,0,0,0,0,0,0,0,1,'simple,configurable,virtual,bundle,downloadable',0,0,0,0),(102,NULL,1,1,0,0,0,0,0,0,0,0,0,0,'simple,virtual',0,0,0,0),(103,NULL,1,1,0,0,0,0,0,0,0,0,0,0,'simple,virtual',0,0,0,0),(104,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(105,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(106,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(107,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(108,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(109,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(110,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(111,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(112,NULL,1,0,0,0,0,0,0,0,0,1,0,1,NULL,0,0,0,0),(113,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(114,NULL,0,0,0,0,0,0,0,0,0,1,0,0,NULL,0,0,0,0),(115,NULL,0,0,0,0,0,0,0,0,0,1,0,0,NULL,0,0,0,0),(116,NULL,0,0,0,0,0,0,0,0,0,1,0,0,NULL,0,0,0,0),(117,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(118,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(119,NULL,2,1,0,0,0,0,0,0,0,0,0,0,'simple,configurable,bundle,grouped',0,0,0,0),(120,'adminhtml/catalog_product_helper_form_msrp_enabled',2,1,0,0,0,0,0,0,0,1,0,1,'simple,bundle,configurable,virtual,downloadable',0,0,0,0),(121,'adminhtml/catalog_product_helper_form_msrp_price',2,1,0,0,0,0,0,0,0,1,0,1,'simple,bundle,configurable,virtual,downloadable',0,0,0,0),(122,NULL,2,1,0,0,0,0,0,0,0,1,0,1,'simple,bundle,configurable,virtual,downloadable',0,0,0,0),(123,NULL,2,1,1,0,0,0,0,0,0,1,0,1,'simple,configurable,virtual,downloadable,bundle',1,0,0,0),(124,'giftmessage/adminhtml_product_helper_form_config',1,1,0,0,0,0,0,0,0,0,0,0,NULL,0,0,0,0),(125,NULL,1,0,0,0,0,0,0,0,0,1,0,0,'bundle',0,0,0,0),(126,NULL,1,0,0,0,0,0,0,0,0,0,0,0,'bundle',0,0,0,0),(127,NULL,1,0,0,0,0,0,0,0,0,1,0,0,'bundle',0,0,0,0),(128,NULL,1,1,0,0,0,0,0,0,0,1,0,0,'bundle',0,0,0,0),(129,NULL,1,0,0,0,0,0,0,0,0,1,0,0,'bundle',0,0,0,0),(130,NULL,1,0,0,0,0,0,0,0,0,1,0,0,'downloadable',0,0,0,0),(131,NULL,0,0,0,0,0,0,0,0,0,0,0,0,'downloadable',0,0,0,0),(132,NULL,0,0,0,0,0,0,0,0,0,0,0,0,'downloadable',0,0,0,0),(133,NULL,1,0,0,0,0,0,0,0,0,1,0,0,'downloadable',0,0,0,0);
+INSERT INTO `catalog_eav_attribute` VALUES (43,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(44,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(45,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(46,NULL,0,1,0,0,0,0,1,0,0,0,0,1,NULL,0,0,1,0),(47,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(48,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(49,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(50,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(51,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(52,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(53,NULL,1,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(54,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(55,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(56,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(57,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(58,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(59,NULL,0,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(60,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(61,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(62,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(63,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(64,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(65,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(66,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(67,'adminhtml/catalog_category_helper_sortby_available',0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(68,'adminhtml/catalog_category_helper_sortby_default',0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(69,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(70,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(71,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(72,'adminhtml/catalog_category_helper_pricestep',0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(73,NULL,0,1,1,0,0,0,0,0,0,1,1,1,NULL,1,0,0,0),(74,NULL,0,1,1,0,1,0,1,0,0,0,0,1,NULL,1,0,1,0),(75,NULL,0,1,1,0,1,0,1,0,0,1,0,1,NULL,1,0,1,0),(76,NULL,1,1,1,0,1,0,0,0,0,0,0,1,NULL,1,0,0,0),(77,NULL,2,1,1,1,0,0,0,0,0,1,1,1,'simple,configurable,virtual,bundle,downloadable,subscription',1,0,0,0),(78,NULL,2,1,0,0,0,0,0,0,0,1,0,1,'simple,configurable,virtual,bundle,downloadable,subscription',0,0,0,0),(79,NULL,2,1,0,0,0,0,0,0,0,1,0,1,'simple,configurable,virtual,bundle,downloadable,subscription',0,0,0,0),(80,NULL,2,1,0,0,0,0,0,0,0,1,0,1,'simple,configurable,virtual,bundle,downloadable,subscription',0,0,0,0),(81,NULL,2,1,0,0,0,0,0,0,0,0,0,1,'virtual,downloadable,subscription',0,0,0,0),(82,NULL,1,1,0,0,0,0,0,0,0,0,0,1,'simple,bundle,subscription',0,0,0,0),(83,NULL,1,1,1,1,1,0,0,0,0,0,0,1,'simple',1,0,0,0),(84,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(85,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(86,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(87,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(88,NULL,0,1,0,0,0,0,0,0,0,1,0,1,NULL,0,0,0,0),(89,NULL,0,1,0,0,0,0,0,0,0,1,0,1,NULL,0,0,0,0),(90,NULL,1,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(91,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(92,NULL,2,1,0,0,0,0,0,0,0,0,0,1,'simple,configurable,virtual,bundle,downloadable',0,0,0,0),(93,NULL,2,1,0,0,0,0,0,0,0,0,0,1,'simple,configurable,virtual,bundle,downloadable,subscription',0,0,0,0),(94,NULL,1,1,1,1,1,0,0,0,0,0,0,1,'simple',1,0,0,0),(95,NULL,2,1,0,0,0,0,0,0,0,1,0,1,NULL,0,0,0,0),(96,NULL,2,1,0,0,0,0,0,0,0,1,0,1,NULL,0,0,0,0),(97,NULL,1,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(98,NULL,2,1,1,0,0,0,0,0,0,1,0,1,NULL,0,0,0,0),(99,NULL,0,1,0,0,0,0,0,0,0,1,0,1,NULL,0,0,0,0),(100,NULL,0,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(101,NULL,0,0,0,0,0,0,0,0,0,0,0,1,'simple,configurable,virtual,bundle,downloadable,subscription',0,0,0,0),(102,NULL,1,1,0,0,0,0,0,0,0,0,0,0,'simple,virtual',0,0,0,0),(103,NULL,1,1,0,0,0,0,0,0,0,0,0,0,'simple,virtual',0,0,0,0),(104,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(105,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(106,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(107,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(108,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(109,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(110,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(111,NULL,0,1,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(112,NULL,1,0,0,0,0,0,0,0,0,1,0,1,NULL,0,0,0,0),(113,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(114,NULL,0,0,0,0,0,0,0,0,0,1,0,0,NULL,0,0,0,0),(115,NULL,0,0,0,0,0,0,0,0,0,1,0,0,NULL,0,0,0,0),(116,NULL,0,0,0,0,0,0,0,0,0,1,0,0,NULL,0,0,0,0),(117,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(118,NULL,1,0,0,0,0,0,0,0,0,0,0,1,NULL,0,0,0,0),(119,NULL,2,1,0,0,0,0,0,0,0,0,0,0,'simple,configurable,bundle,grouped',0,0,0,0),(120,'adminhtml/catalog_product_helper_form_msrp_enabled',2,1,0,0,0,0,0,0,0,1,0,1,'simple,bundle,configurable,virtual,downloadable',0,0,0,0),(121,'adminhtml/catalog_product_helper_form_msrp_price',2,1,0,0,0,0,0,0,0,1,0,1,'simple,bundle,configurable,virtual,downloadable',0,0,0,0),(122,NULL,2,1,0,0,0,0,0,0,0,1,0,1,'simple,bundle,configurable,virtual,downloadable',0,0,0,0),(123,NULL,2,1,1,0,0,0,0,0,0,1,0,1,'simple,configurable,virtual,downloadable,bundle,subscription',1,0,0,0),(124,'giftmessage/adminhtml_product_helper_form_config',1,1,0,0,0,0,0,0,0,0,0,0,NULL,0,0,0,0),(125,NULL,1,0,0,0,0,0,0,0,0,1,0,0,'bundle',0,0,0,0),(126,NULL,1,0,0,0,0,0,0,0,0,0,0,0,'bundle',0,0,0,0),(127,NULL,1,0,0,0,0,0,0,0,0,1,0,0,'bundle',0,0,0,0),(128,NULL,1,1,0,0,0,0,0,0,0,1,0,0,'bundle',0,0,0,0),(129,NULL,1,0,0,0,0,0,0,0,0,1,0,0,'bundle',0,0,0,0),(130,NULL,1,0,0,0,0,0,0,0,0,1,0,0,'downloadable',0,0,0,0),(131,NULL,0,0,0,0,0,0,0,0,0,0,0,0,'downloadable',0,0,0,0),(132,NULL,0,0,0,0,0,0,0,0,0,0,0,0,'downloadable',0,0,0,0),(133,NULL,1,0,0,0,0,0,0,0,0,1,0,0,'downloadable',0,0,0,0),(134,NULL,0,1,0,0,0,0,0,0,0,0,0,0,'subscription',0,0,0,0),(136,NULL,0,1,0,0,0,0,0,0,0,0,0,0,'subscription',0,0,0,0);
 /*!40000 ALTER TABLE `catalog_eav_attribute` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1072,8 +1068,8 @@ DROP TABLE IF EXISTS `catalog_product_bundle_option`;
 CREATE TABLE `catalog_product_bundle_option` (
   `option_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Option Id',
   `parent_id` int(10) unsigned NOT NULL COMMENT 'Parent Id',
-  `required` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Required',
-  `position` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Position',
+  `required` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Required',
+  `position` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Position',
   `type` varchar(255) DEFAULT NULL COMMENT 'Type',
   PRIMARY KEY (`option_id`),
   KEY `IDX_CATALOG_PRODUCT_BUNDLE_OPTION_PARENT_ID` (`parent_id`),
@@ -1160,12 +1156,12 @@ CREATE TABLE `catalog_product_bundle_selection` (
   `option_id` int(10) unsigned NOT NULL COMMENT 'Option Id',
   `parent_product_id` int(10) unsigned NOT NULL COMMENT 'Parent Product Id',
   `product_id` int(10) unsigned NOT NULL COMMENT 'Product Id',
-  `position` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Position',
-  `is_default` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Default',
-  `selection_price_type` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Selection Price Type',
-  `selection_price_value` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Selection Price Value',
+  `position` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Position',
+  `is_default` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Default',
+  `selection_price_type` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Selection Price Type',
+  `selection_price_value` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Selection Price Value',
   `selection_qty` decimal(12,4) DEFAULT NULL COMMENT 'Selection Qty',
-  `selection_can_change_qty` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Selection Can Change Qty',
+  `selection_can_change_qty` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Selection Can Change Qty',
   PRIMARY KEY (`selection_id`),
   KEY `IDX_CATALOG_PRODUCT_BUNDLE_SELECTION_OPTION_ID` (`option_id`),
   KEY `IDX_CATALOG_PRODUCT_BUNDLE_SELECTION_PRODUCT_ID` (`product_id`),
@@ -1193,8 +1189,8 @@ DROP TABLE IF EXISTS `catalog_product_bundle_selection_price`;
 CREATE TABLE `catalog_product_bundle_selection_price` (
   `selection_id` int(10) unsigned NOT NULL COMMENT 'Selection Id',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website Id',
-  `selection_price_type` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Selection Price Type',
-  `selection_price_value` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Selection Price Value',
+  `selection_price_type` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Selection Price Type',
+  `selection_price_value` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Selection Price Value',
   PRIMARY KEY (`selection_id`,`website_id`),
   KEY `IDX_CATALOG_PRODUCT_BUNDLE_SELECTION_PRICE_WEBSITE_ID` (`website_id`),
   CONSTRAINT `FK_CAT_PRD_BNDL_SELECTION_PRICE_WS_ID_CORE_WS_WS_ID` FOREIGN KEY (`website_id`) REFERENCES `core_website` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -1222,8 +1218,8 @@ CREATE TABLE `catalog_product_bundle_stock_index` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity Id',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website Id',
   `stock_id` smallint(5) unsigned NOT NULL COMMENT 'Stock Id',
-  `option_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Option Id',
-  `stock_status` smallint(6) DEFAULT '0' COMMENT 'Stock Status',
+  `option_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Option Id',
+  `stock_status` smallint(6) DEFAULT 0 COMMENT 'Stock Status',
   PRIMARY KEY (`entity_id`,`website_id`,`stock_id`,`option_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Catalog Product Bundle Stock Index';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1245,9 +1241,9 @@ DROP TABLE IF EXISTS `catalog_product_enabled_index`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_enabled_index` (
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `visibility` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Visibility',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `visibility` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Visibility',
   PRIMARY KEY (`product_id`,`store_id`),
   KEY `IDX_CATALOG_PRODUCT_ENABLED_INDEX_STORE_ID` (`store_id`),
   CONSTRAINT `FK_CATALOG_PRODUCT_ENABLED_INDEX_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -1273,12 +1269,12 @@ DROP TABLE IF EXISTS `catalog_product_entity`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_entity` (
   `entity_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity ID',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type ID',
-  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Set ID',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type ID',
+  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Set ID',
   `type_id` varchar(32) NOT NULL DEFAULT 'simple' COMMENT 'Type ID',
   `sku` varchar(64) DEFAULT NULL COMMENT 'SKU',
-  `has_options` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Has Options',
-  `required_options` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Required Options',
+  `has_options` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Has Options',
+  `required_options` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Required Options',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Creation Time',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Update Time',
   PRIMARY KEY (`entity_id`),
@@ -1287,7 +1283,7 @@ CREATE TABLE `catalog_product_entity` (
   KEY `IDX_CATALOG_PRODUCT_ENTITY_SKU` (`sku`),
   CONSTRAINT `FK_CAT_PRD_ENTT_ATTR_SET_ID_EAV_ATTR_SET_ATTR_SET_ID` FOREIGN KEY (`attribute_set_id`) REFERENCES `eav_attribute_set` (`attribute_set_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CAT_PRD_ENTT_ENTT_TYPE_ID_EAV_ENTT_TYPE_ENTT_TYPE_ID` FOREIGN KEY (`entity_type_id`) REFERENCES `eav_entity_type` (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Catalog Product Table';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Catalog Product Table';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1296,7 +1292,7 @@ CREATE TABLE `catalog_product_entity` (
 
 LOCK TABLES `catalog_product_entity` WRITE;
 /*!40000 ALTER TABLE `catalog_product_entity` DISABLE KEYS */;
-INSERT INTO `catalog_product_entity` VALUES (1,4,4,'simple','vindi_product_01',0,0,'2018-10-04 17:07:28','2018-10-04 17:07:59');
+INSERT INTO `catalog_product_entity` VALUES (1,4,4,'simple','vindi_product_01',0,0,'2018-10-04 17:07:28','2018-10-04 17:07:59'),(2,4,4,'subscription','vindi_product_02',0,0,'2019-08-21 20:31:31','2019-08-21 20:32:40');
 /*!40000 ALTER TABLE `catalog_product_entity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1309,10 +1305,10 @@ DROP TABLE IF EXISTS `catalog_product_entity_datetime`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_entity_datetime` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type ID',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity ID',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type ID',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
   `value` datetime DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CAT_PRD_ENTT_DTIME_ENTT_ID_ATTR_ID_STORE_ID` (`entity_id`,`attribute_id`,`store_id`),
@@ -1322,7 +1318,7 @@ CREATE TABLE `catalog_product_entity_datetime` (
   CONSTRAINT `FK_CATALOG_PRODUCT_ENTITY_DATETIME_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CAT_PRD_ENTT_DTIME_ATTR_ID_EAV_ATTR_ATTR_ID` FOREIGN KEY (`attribute_id`) REFERENCES `eav_attribute` (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CAT_PRD_ENTT_DTIME_ENTT_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='Catalog Product Datetime Attribute Backend Table';
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='Catalog Product Datetime Attribute Backend Table';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1331,7 +1327,7 @@ CREATE TABLE `catalog_product_entity_datetime` (
 
 LOCK TABLES `catalog_product_entity_datetime` WRITE;
 /*!40000 ALTER TABLE `catalog_product_entity_datetime` DISABLE KEYS */;
-INSERT INTO `catalog_product_entity_datetime` VALUES (1,4,95,0,1,NULL),(2,4,96,0,1,NULL),(3,4,79,0,1,NULL),(4,4,80,0,1,NULL),(5,4,106,0,1,NULL),(6,4,107,0,1,NULL);
+INSERT INTO `catalog_product_entity_datetime` VALUES (1,4,95,0,1,NULL),(2,4,96,0,1,NULL),(3,4,79,0,1,NULL),(4,4,80,0,1,NULL),(5,4,106,0,1,NULL),(6,4,107,0,1,NULL),(13,4,95,0,2,NULL),(14,4,96,0,2,NULL),(15,4,79,0,2,NULL),(16,4,80,0,2,NULL),(17,4,106,0,2,NULL),(18,4,107,0,2,NULL);
 /*!40000 ALTER TABLE `catalog_product_entity_datetime` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1344,10 +1340,10 @@ DROP TABLE IF EXISTS `catalog_product_entity_decimal`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_entity_decimal` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type ID',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity ID',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type ID',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
   `value` decimal(12,4) DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CAT_PRD_ENTT_DEC_ENTT_ID_ATTR_ID_STORE_ID` (`entity_id`,`attribute_id`,`store_id`),
@@ -1357,7 +1353,7 @@ CREATE TABLE `catalog_product_entity_decimal` (
   CONSTRAINT `FK_CATALOG_PRODUCT_ENTITY_DECIMAL_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CAT_PRD_ENTT_DEC_ATTR_ID_EAV_ATTR_ATTR_ID` FOREIGN KEY (`attribute_id`) REFERENCES `eav_attribute` (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CAT_PRD_ENTT_DEC_ENTT_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='Catalog Product Decimal Attribute Backend Table';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='Catalog Product Decimal Attribute Backend Table';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1366,7 +1362,7 @@ CREATE TABLE `catalog_product_entity_decimal` (
 
 LOCK TABLES `catalog_product_entity_decimal` WRITE;
 /*!40000 ALTER TABLE `catalog_product_entity_decimal` DISABLE KEYS */;
-INSERT INTO `catalog_product_entity_decimal` VALUES (1,4,82,0,1,10.0000),(2,4,77,0,1,10.0000),(3,4,78,0,1,NULL),(4,4,122,0,1,NULL);
+INSERT INTO `catalog_product_entity_decimal` VALUES (1,4,82,0,1,10.0000),(2,4,77,0,1,10.0000),(3,4,78,0,1,NULL),(4,4,122,0,1,NULL),(8,4,82,0,2,10.0000),(9,4,77,0,2,10.0000),(10,4,78,0,2,NULL),(11,4,81,0,2,NULL);
 /*!40000 ALTER TABLE `catalog_product_entity_decimal` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1379,11 +1375,11 @@ DROP TABLE IF EXISTS `catalog_product_entity_gallery`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_entity_gallery` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type ID',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity ID',
-  `position` int(11) NOT NULL DEFAULT '0' COMMENT 'Position',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type ID',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
+  `position` int(11) NOT NULL DEFAULT 0 COMMENT 'Position',
   `value` varchar(255) DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CAT_PRD_ENTT_GLR_ENTT_TYPE_ID_ENTT_ID_ATTR_ID_STORE_ID` (`entity_type_id`,`entity_id`,`attribute_id`,`store_id`),
@@ -1414,12 +1410,12 @@ DROP TABLE IF EXISTS `catalog_product_entity_group_price`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_entity_group_price` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity ID',
-  `all_groups` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Is Applicable To All Customer Groups',
-  `customer_group_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Customer Group ID',
-  `value` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Value',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
+  `all_groups` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Is Applicable To All Customer Groups',
+  `customer_group_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Customer Group ID',
+  `value` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Value',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website ID',
-  `is_percent` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Percent',
+  `is_percent` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Percent',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `CC12C83765B562314470A24F2BDD0F36` (`entity_id`,`all_groups`,`customer_group_id`,`website_id`),
   KEY `IDX_CATALOG_PRODUCT_ENTITY_GROUP_PRICE_ENTITY_ID` (`entity_id`),
@@ -1449,10 +1445,10 @@ DROP TABLE IF EXISTS `catalog_product_entity_int`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_entity_int` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `entity_type_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type ID',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity ID',
+  `entity_type_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type ID',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
   `value` int(11) DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CATALOG_PRODUCT_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` (`entity_id`,`attribute_id`,`store_id`),
@@ -1462,7 +1458,7 @@ CREATE TABLE `catalog_product_entity_int` (
   CONSTRAINT `FK_CATALOG_PRODUCT_ENTITY_INT_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CAT_PRD_ENTT_INT_ATTR_ID_EAV_ATTR_ATTR_ID` FOREIGN KEY (`attribute_id`) REFERENCES `eav_attribute` (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CAT_PRD_ENTT_INT_ENTT_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='Catalog Product Integer Attribute Backend Table';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='Catalog Product Integer Attribute Backend Table';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1471,7 +1467,7 @@ CREATE TABLE `catalog_product_entity_int` (
 
 LOCK TABLES `catalog_product_entity_int` WRITE;
 /*!40000 ALTER TABLE `catalog_product_entity_int` DISABLE KEYS */;
-INSERT INTO `catalog_product_entity_int` VALUES (1,4,98,0,1,1),(2,4,104,0,1,4),(3,4,123,0,1,0),(4,4,102,0,1,0);
+INSERT INTO `catalog_product_entity_int` VALUES (1,4,98,0,1,1),(2,4,104,0,1,4),(3,4,123,0,1,0),(4,4,102,0,1,0),(5,4,98,0,2,1),(6,4,104,0,2,4),(7,4,123,0,2,0),(8,4,134,0,2,870),(9,4,136,0,2,1);
 /*!40000 ALTER TABLE `catalog_product_entity_int` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1484,8 +1480,8 @@ DROP TABLE IF EXISTS `catalog_product_entity_media_gallery`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_entity_media_gallery` (
   `value_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute ID',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity ID',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute ID',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
   `value` varchar(255) DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   KEY `IDX_CATALOG_PRODUCT_ENTITY_MEDIA_GALLERY_ATTRIBUTE_ID` (`attribute_id`),
@@ -1512,11 +1508,11 @@ DROP TABLE IF EXISTS `catalog_product_entity_media_gallery_value`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_entity_media_gallery_value` (
-  `value_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Value ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
+  `value_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Value ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
   `label` varchar(255) DEFAULT NULL COMMENT 'Label',
   `position` int(10) unsigned DEFAULT NULL COMMENT 'Position',
-  `disabled` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Disabled',
+  `disabled` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Disabled',
   PRIMARY KEY (`value_id`,`store_id`),
   KEY `IDX_CATALOG_PRODUCT_ENTITY_MEDIA_GALLERY_VALUE_STORE_ID` (`store_id`),
   CONSTRAINT `FK_CAT_PRD_ENTT_MDA_GLR_VAL_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -1542,11 +1538,11 @@ DROP TABLE IF EXISTS `catalog_product_entity_text`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_entity_text` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `entity_type_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type ID',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity ID',
-  `value` text COMMENT 'Value',
+  `entity_type_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type ID',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
+  `value` text DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CATALOG_PRODUCT_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` (`entity_id`,`attribute_id`,`store_id`),
   KEY `IDX_CATALOG_PRODUCT_ENTITY_TEXT_ATTRIBUTE_ID` (`attribute_id`),
@@ -1555,7 +1551,7 @@ CREATE TABLE `catalog_product_entity_text` (
   CONSTRAINT `FK_CATALOG_PRODUCT_ENTITY_TEXT_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CAT_PRD_ENTT_TEXT_ATTR_ID_EAV_ATTR_ATTR_ID` FOREIGN KEY (`attribute_id`) REFERENCES `eav_attribute` (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CAT_PRD_ENTT_TEXT_ENTT_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='Catalog Product Text Attribute Backend Table';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='Catalog Product Text Attribute Backend Table';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1564,7 +1560,7 @@ CREATE TABLE `catalog_product_entity_text` (
 
 LOCK TABLES `catalog_product_entity_text` WRITE;
 /*!40000 ALTER TABLE `catalog_product_entity_text` DISABLE KEYS */;
-INSERT INTO `catalog_product_entity_text` VALUES (1,4,74,0,1,'Vindi Product'),(2,4,75,0,1,'Vindi Product'),(3,4,85,0,1,NULL),(4,4,108,0,1,NULL);
+INSERT INTO `catalog_product_entity_text` VALUES (1,4,74,0,1,'Vindi Product'),(2,4,75,0,1,'Vindi Product'),(3,4,85,0,1,NULL),(4,4,108,0,1,NULL),(7,4,74,0,2,'Vindi Subscription'),(8,4,75,0,2,'Vindi Subscription'),(9,4,85,0,2,NULL),(10,4,108,0,2,NULL);
 /*!40000 ALTER TABLE `catalog_product_entity_text` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1577,11 +1573,11 @@ DROP TABLE IF EXISTS `catalog_product_entity_tier_price`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_entity_tier_price` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity ID',
-  `all_groups` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Is Applicable To All Customer Groups',
-  `customer_group_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Customer Group ID',
-  `qty` decimal(12,4) NOT NULL DEFAULT '1.0000' COMMENT 'QTY',
-  `value` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Value',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
+  `all_groups` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Is Applicable To All Customer Groups',
+  `customer_group_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Customer Group ID',
+  `qty` decimal(12,4) NOT NULL DEFAULT 1.0000 COMMENT 'QTY',
+  `value` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Value',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website ID',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `E8AB433B9ACB00343ABB312AD2FAB087` (`entity_id`,`all_groups`,`customer_group_id`,`qty`,`website_id`),
@@ -1612,10 +1608,10 @@ DROP TABLE IF EXISTS `catalog_product_entity_varchar`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_entity_varchar` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `entity_type_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type ID',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity ID',
+  `entity_type_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type ID',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
   `value` varchar(255) DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CAT_PRD_ENTT_VCHR_ENTT_ID_ATTR_ID_STORE_ID` (`entity_id`,`attribute_id`,`store_id`),
@@ -1625,7 +1621,7 @@ CREATE TABLE `catalog_product_entity_varchar` (
   CONSTRAINT `FK_CATALOG_PRODUCT_ENTITY_VARCHAR_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CAT_PRD_ENTT_VCHR_ATTR_ID_EAV_ATTR_ATTR_ID` FOREIGN KEY (`attribute_id`) REFERENCES `eav_attribute` (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CAT_PRD_ENTT_VCHR_ENTT_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='Catalog Product Varchar Attribute Backend Table';
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COMMENT='Catalog Product Varchar Attribute Backend Table';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1634,7 +1630,7 @@ CREATE TABLE `catalog_product_entity_varchar` (
 
 LOCK TABLES `catalog_product_entity_varchar` WRITE;
 /*!40000 ALTER TABLE `catalog_product_entity_varchar` DISABLE KEYS */;
-INSERT INTO `catalog_product_entity_varchar` VALUES (1,4,73,0,1,'Vindi Product'),(2,4,99,0,1,'vindi-product'),(3,4,119,0,1,NULL),(4,4,120,0,1,'2'),(5,4,121,0,1,'4'),(6,4,84,0,1,NULL),(7,4,86,0,1,NULL),(8,4,87,0,1,'no_selection'),(9,4,88,0,1,'no_selection'),(10,4,89,0,1,'no_selection'),(11,4,105,0,1,NULL),(12,4,109,0,1,NULL),(13,4,111,0,1,'container1'),(14,4,124,0,1,NULL),(15,4,100,1,1,'vindi-product.html'),(16,4,100,0,1,'vindi-product.html');
+INSERT INTO `catalog_product_entity_varchar` VALUES (1,4,73,0,1,'Vindi Product'),(2,4,99,0,1,'vindi-product'),(3,4,119,0,1,NULL),(4,4,120,0,1,'2'),(5,4,121,0,1,'4'),(6,4,84,0,1,NULL),(7,4,86,0,1,NULL),(8,4,87,0,1,'no_selection'),(9,4,88,0,1,'no_selection'),(10,4,89,0,1,'no_selection'),(11,4,105,0,1,NULL),(12,4,109,0,1,NULL),(13,4,111,0,1,'container1'),(14,4,124,0,1,NULL),(15,4,100,1,1,'vindi-product.html'),(16,4,100,0,1,'vindi-product.html'),(23,4,73,0,2,'Vindi Subscription'),(24,4,99,0,2,'vindi-subscription'),(25,4,84,0,2,NULL),(26,4,86,0,2,NULL),(27,4,87,0,2,'no_selection'),(28,4,88,0,2,'no_selection'),(29,4,89,0,2,'no_selection'),(30,4,105,0,2,NULL),(31,4,109,0,2,NULL),(32,4,111,0,2,'container1'),(33,4,124,0,2,NULL),(34,4,100,1,2,'vindi-subscription.html'),(35,4,100,0,2,'vindi-subscription.html');
 /*!40000 ALTER TABLE `catalog_product_entity_varchar` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1647,12 +1643,12 @@ DROP TABLE IF EXISTS `catalog_product_flat_1`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_flat_1` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'entity_id',
-  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'attribute_set_id',
+  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'attribute_set_id',
   `type_id` varchar(32) NOT NULL DEFAULT 'simple' COMMENT 'type_id',
   `cost` decimal(12,4) DEFAULT NULL COMMENT 'cost',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'created_at',
   `gift_message_available` smallint(6) DEFAULT NULL COMMENT 'gift_message_available',
-  `has_options` smallint(6) NOT NULL DEFAULT '0' COMMENT 'has_options',
+  `has_options` smallint(6) NOT NULL DEFAULT 0 COMMENT 'has_options',
   `image_label` varchar(255) DEFAULT NULL COMMENT 'image_label',
   `is_recurring` smallint(6) DEFAULT NULL COMMENT 'is_recurring',
   `links_exist` int(11) DEFAULT NULL COMMENT 'links_exist',
@@ -1667,10 +1663,10 @@ CREATE TABLE `catalog_product_flat_1` (
   `price` decimal(12,4) DEFAULT NULL COMMENT 'price',
   `price_type` int(11) DEFAULT NULL COMMENT 'price_type',
   `price_view` int(11) DEFAULT NULL COMMENT 'price_view',
-  `recurring_profile` text COMMENT 'recurring_profile',
-  `required_options` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'required_options',
+  `recurring_profile` text DEFAULT NULL COMMENT 'recurring_profile',
+  `required_options` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'required_options',
   `shipment_type` int(11) DEFAULT NULL COMMENT 'shipment_type',
-  `short_description` text COMMENT 'short_description',
+  `short_description` text DEFAULT NULL COMMENT 'short_description',
   `sku` varchar(64) DEFAULT NULL COMMENT 'sku',
   `sku_type` int(11) DEFAULT NULL COMMENT 'sku_type',
   `small_image` varchar(255) DEFAULT NULL COMMENT 'small_image',
@@ -1736,7 +1732,7 @@ CREATE TABLE `catalog_product_index_eav` (
 
 LOCK TABLES `catalog_product_index_eav` WRITE;
 /*!40000 ALTER TABLE `catalog_product_index_eav` DISABLE KEYS */;
-INSERT INTO `catalog_product_index_eav` VALUES (1,123,1,0);
+INSERT INTO `catalog_product_index_eav` VALUES (1,123,1,0),(2,123,1,0);
 /*!40000 ALTER TABLE `catalog_product_index_eav` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1886,7 +1882,7 @@ CREATE TABLE `catalog_product_index_eav_tmp` (
 
 LOCK TABLES `catalog_product_index_eav_tmp` WRITE;
 /*!40000 ALTER TABLE `catalog_product_index_eav_tmp` DISABLE KEYS */;
-INSERT INTO `catalog_product_index_eav_tmp` VALUES (1,123,1,0);
+INSERT INTO `catalog_product_index_eav_tmp` VALUES (2,123,1,0);
 /*!40000 ALTER TABLE `catalog_product_index_eav_tmp` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1931,7 +1927,7 @@ CREATE TABLE `catalog_product_index_price` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity ID',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group ID',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website ID',
-  `tax_class_id` smallint(5) unsigned DEFAULT '0' COMMENT 'Tax Class ID',
+  `tax_class_id` smallint(5) unsigned DEFAULT 0 COMMENT 'Tax Class ID',
   `price` decimal(12,4) DEFAULT NULL COMMENT 'Price',
   `final_price` decimal(12,4) DEFAULT NULL COMMENT 'Final Price',
   `min_price` decimal(12,4) DEFAULT NULL COMMENT 'Min Price',
@@ -1955,7 +1951,7 @@ CREATE TABLE `catalog_product_index_price` (
 
 LOCK TABLES `catalog_product_index_price` WRITE;
 /*!40000 ALTER TABLE `catalog_product_index_price` DISABLE KEYS */;
-INSERT INTO `catalog_product_index_price` VALUES (1,0,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(1,1,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(1,2,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(1,3,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL);
+INSERT INTO `catalog_product_index_price` VALUES (1,0,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(1,1,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(1,2,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(1,3,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(2,0,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(2,1,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(2,2,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(2,3,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL);
 /*!40000 ALTER TABLE `catalog_product_index_price` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1970,7 +1966,7 @@ CREATE TABLE `catalog_product_index_price_bundle_idx` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity Id',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group Id',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website Id',
-  `tax_class_id` smallint(5) unsigned DEFAULT '0' COMMENT 'Tax Class Id',
+  `tax_class_id` smallint(5) unsigned DEFAULT 0 COMMENT 'Tax Class Id',
   `price_type` smallint(5) unsigned NOT NULL COMMENT 'Price Type',
   `special_price` decimal(12,4) DEFAULT NULL COMMENT 'Special Price',
   `tier_percent` decimal(12,4) DEFAULT NULL COMMENT 'Tier Percent',
@@ -2007,7 +2003,7 @@ CREATE TABLE `catalog_product_index_price_bundle_opt_idx` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity Id',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group Id',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website Id',
-  `option_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Option Id',
+  `option_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Option Id',
   `min_price` decimal(12,4) DEFAULT NULL COMMENT 'Min Price',
   `alt_price` decimal(12,4) DEFAULT NULL COMMENT 'Alt Price',
   `max_price` decimal(12,4) DEFAULT NULL COMMENT 'Max Price',
@@ -2039,7 +2035,7 @@ CREATE TABLE `catalog_product_index_price_bundle_opt_tmp` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity Id',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group Id',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website Id',
-  `option_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Option Id',
+  `option_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Option Id',
   `min_price` decimal(12,4) DEFAULT NULL COMMENT 'Min Price',
   `alt_price` decimal(12,4) DEFAULT NULL COMMENT 'Alt Price',
   `max_price` decimal(12,4) DEFAULT NULL COMMENT 'Max Price',
@@ -2071,10 +2067,10 @@ CREATE TABLE `catalog_product_index_price_bundle_sel_idx` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity Id',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group Id',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website Id',
-  `option_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Option Id',
-  `selection_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Selection Id',
-  `group_type` smallint(5) unsigned DEFAULT '0' COMMENT 'Group Type',
-  `is_required` smallint(5) unsigned DEFAULT '0' COMMENT 'Is Required',
+  `option_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Option Id',
+  `selection_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Selection Id',
+  `group_type` smallint(5) unsigned DEFAULT 0 COMMENT 'Group Type',
+  `is_required` smallint(5) unsigned DEFAULT 0 COMMENT 'Is Required',
   `price` decimal(12,4) DEFAULT NULL COMMENT 'Price',
   `tier_price` decimal(12,4) DEFAULT NULL COMMENT 'Tier Price',
   `group_price` decimal(12,4) DEFAULT NULL COMMENT 'Group price',
@@ -2102,10 +2098,10 @@ CREATE TABLE `catalog_product_index_price_bundle_sel_tmp` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity Id',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group Id',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website Id',
-  `option_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Option Id',
-  `selection_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Selection Id',
-  `group_type` smallint(5) unsigned DEFAULT '0' COMMENT 'Group Type',
-  `is_required` smallint(5) unsigned DEFAULT '0' COMMENT 'Is Required',
+  `option_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Option Id',
+  `selection_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Selection Id',
+  `group_type` smallint(5) unsigned DEFAULT 0 COMMENT 'Group Type',
+  `is_required` smallint(5) unsigned DEFAULT 0 COMMENT 'Is Required',
   `price` decimal(12,4) DEFAULT NULL COMMENT 'Price',
   `tier_price` decimal(12,4) DEFAULT NULL COMMENT 'Tier Price',
   `group_price` decimal(12,4) DEFAULT NULL COMMENT 'Group price',
@@ -2133,7 +2129,7 @@ CREATE TABLE `catalog_product_index_price_bundle_tmp` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity Id',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group Id',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website Id',
-  `tax_class_id` smallint(5) unsigned DEFAULT '0' COMMENT 'Tax Class Id',
+  `tax_class_id` smallint(5) unsigned DEFAULT 0 COMMENT 'Tax Class Id',
   `price_type` smallint(5) unsigned NOT NULL COMMENT 'Price Type',
   `special_price` decimal(12,4) DEFAULT NULL COMMENT 'Special Price',
   `tier_percent` decimal(12,4) DEFAULT NULL COMMENT 'Tier Percent',
@@ -2282,8 +2278,8 @@ CREATE TABLE `catalog_product_index_price_downlod_idx` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity ID',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group ID',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website ID',
-  `min_price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Minimum price',
-  `max_price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Maximum price',
+  `min_price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Minimum price',
+  `max_price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Maximum price',
   PRIMARY KEY (`entity_id`,`customer_group_id`,`website_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Indexer Table for price of downloadable products';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -2308,8 +2304,8 @@ CREATE TABLE `catalog_product_index_price_downlod_tmp` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity ID',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group ID',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website ID',
-  `min_price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Minimum price',
-  `max_price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Maximum price',
+  `min_price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Minimum price',
+  `max_price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Maximum price',
   PRIMARY KEY (`entity_id`,`customer_group_id`,`website_id`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8 COMMENT='Temporary Indexer Table for price of downloadable products';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -2334,7 +2330,7 @@ CREATE TABLE `catalog_product_index_price_final_idx` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity ID',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group ID',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website ID',
-  `tax_class_id` smallint(5) unsigned DEFAULT '0' COMMENT 'Tax Class ID',
+  `tax_class_id` smallint(5) unsigned DEFAULT 0 COMMENT 'Tax Class ID',
   `orig_price` decimal(12,4) DEFAULT NULL COMMENT 'Original Price',
   `price` decimal(12,4) DEFAULT NULL COMMENT 'Price',
   `min_price` decimal(12,4) DEFAULT NULL COMMENT 'Min Price',
@@ -2367,7 +2363,7 @@ CREATE TABLE `catalog_product_index_price_final_tmp` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity ID',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group ID',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website ID',
-  `tax_class_id` smallint(5) unsigned DEFAULT '0' COMMENT 'Tax Class ID',
+  `tax_class_id` smallint(5) unsigned DEFAULT 0 COMMENT 'Tax Class ID',
   `orig_price` decimal(12,4) DEFAULT NULL COMMENT 'Original Price',
   `price` decimal(12,4) DEFAULT NULL COMMENT 'Price',
   `min_price` decimal(12,4) DEFAULT NULL COMMENT 'Min Price',
@@ -2400,7 +2396,7 @@ CREATE TABLE `catalog_product_index_price_idx` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity ID',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group ID',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website ID',
-  `tax_class_id` smallint(5) unsigned DEFAULT '0' COMMENT 'Tax Class ID',
+  `tax_class_id` smallint(5) unsigned DEFAULT 0 COMMENT 'Tax Class ID',
   `price` decimal(12,4) DEFAULT NULL COMMENT 'Price',
   `final_price` decimal(12,4) DEFAULT NULL COMMENT 'Final Price',
   `min_price` decimal(12,4) DEFAULT NULL COMMENT 'Min Price',
@@ -2435,7 +2431,7 @@ CREATE TABLE `catalog_product_index_price_opt_agr_idx` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity ID',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group ID',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website ID',
-  `option_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Option ID',
+  `option_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Option ID',
   `min_price` decimal(12,4) DEFAULT NULL COMMENT 'Min Price',
   `max_price` decimal(12,4) DEFAULT NULL COMMENT 'Max Price',
   `tier_price` decimal(12,4) DEFAULT NULL COMMENT 'Tier Price',
@@ -2464,7 +2460,7 @@ CREATE TABLE `catalog_product_index_price_opt_agr_tmp` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity ID',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group ID',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website ID',
-  `option_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Option ID',
+  `option_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Option ID',
   `min_price` decimal(12,4) DEFAULT NULL COMMENT 'Min Price',
   `max_price` decimal(12,4) DEFAULT NULL COMMENT 'Max Price',
   `tier_price` decimal(12,4) DEFAULT NULL COMMENT 'Tier Price',
@@ -2549,7 +2545,7 @@ CREATE TABLE `catalog_product_index_price_tmp` (
   `entity_id` int(10) unsigned NOT NULL COMMENT 'Entity ID',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group ID',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website ID',
-  `tax_class_id` smallint(5) unsigned DEFAULT '0' COMMENT 'Tax Class ID',
+  `tax_class_id` smallint(5) unsigned DEFAULT 0 COMMENT 'Tax Class ID',
   `price` decimal(12,4) DEFAULT NULL COMMENT 'Price',
   `final_price` decimal(12,4) DEFAULT NULL COMMENT 'Final Price',
   `min_price` decimal(12,4) DEFAULT NULL COMMENT 'Min Price',
@@ -2569,7 +2565,7 @@ CREATE TABLE `catalog_product_index_price_tmp` (
 
 LOCK TABLES `catalog_product_index_price_tmp` WRITE;
 /*!40000 ALTER TABLE `catalog_product_index_price_tmp` DISABLE KEYS */;
-INSERT INTO `catalog_product_index_price_tmp` VALUES (1,0,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(1,1,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(1,2,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(1,3,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL);
+INSERT INTO `catalog_product_index_price_tmp` VALUES (2,0,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(2,1,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(2,2,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL),(2,3,1,0,10.0000,10.0000,10.0000,10.0000,NULL,NULL);
 /*!40000 ALTER TABLE `catalog_product_index_price_tmp` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2613,7 +2609,7 @@ DROP TABLE IF EXISTS `catalog_product_index_website`;
 CREATE TABLE `catalog_product_index_website` (
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website ID',
   `website_date` date DEFAULT NULL COMMENT 'Website Date',
-  `rate` float DEFAULT '1' COMMENT 'Rate',
+  `rate` float DEFAULT 1 COMMENT 'Rate',
   PRIMARY KEY (`website_id`),
   KEY `IDX_CATALOG_PRODUCT_INDEX_WEBSITE_WEBSITE_DATE` (`website_date`),
   CONSTRAINT `FK_CAT_PRD_IDX_WS_WS_ID_CORE_WS_WS_ID` FOREIGN KEY (`website_id`) REFERENCES `core_website` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -2626,7 +2622,7 @@ CREATE TABLE `catalog_product_index_website` (
 
 LOCK TABLES `catalog_product_index_website` WRITE;
 /*!40000 ALTER TABLE `catalog_product_index_website` DISABLE KEYS */;
-INSERT INTO `catalog_product_index_website` VALUES (1,'2018-10-04',1);
+INSERT INTO `catalog_product_index_website` VALUES (1,'2019-08-21',1);
 /*!40000 ALTER TABLE `catalog_product_index_website` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2639,9 +2635,9 @@ DROP TABLE IF EXISTS `catalog_product_link`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_link` (
   `link_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Link ID',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
-  `linked_product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Linked Product ID',
-  `link_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Link Type ID',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
+  `linked_product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Linked Product ID',
+  `link_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Link Type ID',
   PRIMARY KEY (`link_id`),
   UNIQUE KEY `UNQ_CAT_PRD_LNK_LNK_TYPE_ID_PRD_ID_LNKED_PRD_ID` (`link_type_id`,`product_id`,`linked_product_id`),
   KEY `IDX_CATALOG_PRODUCT_LINK_PRODUCT_ID` (`product_id`),
@@ -2671,7 +2667,7 @@ DROP TABLE IF EXISTS `catalog_product_link_attribute`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_link_attribute` (
   `product_link_attribute_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Product Link Attribute ID',
-  `link_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Link Type ID',
+  `link_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Link Type ID',
   `product_link_attribute_code` varchar(32) DEFAULT NULL COMMENT 'Product Link Attribute Code',
   `data_type` varchar(32) DEFAULT NULL COMMENT 'Data Type',
   PRIMARY KEY (`product_link_attribute_id`),
@@ -2701,7 +2697,7 @@ CREATE TABLE `catalog_product_link_attribute_decimal` (
   `value_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
   `product_link_attribute_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Product Link Attribute ID',
   `link_id` int(10) unsigned NOT NULL COMMENT 'Link ID',
-  `value` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Value',
+  `value` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CAT_PRD_LNK_ATTR_DEC_PRD_LNK_ATTR_ID_LNK_ID` (`product_link_attribute_id`,`link_id`),
   KEY `IDX_CAT_PRD_LNK_ATTR_DEC_PRD_LNK_ATTR_ID` (`product_link_attribute_id`),
@@ -2731,7 +2727,7 @@ CREATE TABLE `catalog_product_link_attribute_int` (
   `value_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
   `product_link_attribute_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Product Link Attribute ID',
   `link_id` int(10) unsigned NOT NULL COMMENT 'Link ID',
-  `value` int(11) NOT NULL DEFAULT '0' COMMENT 'Value',
+  `value` int(11) NOT NULL DEFAULT 0 COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CAT_PRD_LNK_ATTR_INT_PRD_LNK_ATTR_ID_LNK_ID` (`product_link_attribute_id`,`link_id`),
   KEY `IDX_CATALOG_PRODUCT_LINK_ATTRIBUTE_INT_PRODUCT_LINK_ATTRIBUTE_ID` (`product_link_attribute_id`),
@@ -2759,7 +2755,7 @@ DROP TABLE IF EXISTS `catalog_product_link_attribute_varchar`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_link_attribute_varchar` (
   `value_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `product_link_attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Product Link Attribute ID',
+  `product_link_attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Product Link Attribute ID',
   `link_id` int(10) unsigned NOT NULL COMMENT 'Link ID',
   `value` varchar(255) DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
@@ -2813,15 +2809,15 @@ DROP TABLE IF EXISTS `catalog_product_option`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_option` (
   `option_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Option ID',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
   `type` varchar(50) DEFAULT NULL COMMENT 'Type',
-  `is_require` smallint(6) NOT NULL DEFAULT '1' COMMENT 'Is Required',
+  `is_require` smallint(6) NOT NULL DEFAULT 1 COMMENT 'Is Required',
   `sku` varchar(64) DEFAULT NULL COMMENT 'SKU',
   `max_characters` int(10) unsigned DEFAULT NULL COMMENT 'Max Characters',
   `file_extension` varchar(50) DEFAULT NULL COMMENT 'File Extension',
   `image_size_x` smallint(5) unsigned DEFAULT NULL COMMENT 'Image Size X',
   `image_size_y` smallint(5) unsigned DEFAULT NULL COMMENT 'Image Size Y',
-  `sort_order` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Sort Order',
+  `sort_order` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Sort Order',
   PRIMARY KEY (`option_id`),
   KEY `IDX_CATALOG_PRODUCT_OPTION_PRODUCT_ID` (`product_id`),
   CONSTRAINT `FK_CAT_PRD_OPT_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -2846,9 +2842,9 @@ DROP TABLE IF EXISTS `catalog_product_option_price`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_option_price` (
   `option_price_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Option Price ID',
-  `option_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Option ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Price',
+  `option_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Option ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Price',
   `price_type` varchar(7) NOT NULL DEFAULT 'fixed' COMMENT 'Price Type',
   PRIMARY KEY (`option_price_id`),
   UNIQUE KEY `UNQ_CATALOG_PRODUCT_OPTION_PRICE_OPTION_ID_STORE_ID` (`option_id`,`store_id`),
@@ -2877,8 +2873,8 @@ DROP TABLE IF EXISTS `catalog_product_option_title`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_option_title` (
   `option_title_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Option Title ID',
-  `option_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Option ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
+  `option_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Option ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
   `title` varchar(255) DEFAULT NULL COMMENT 'Title',
   PRIMARY KEY (`option_title_id`),
   UNIQUE KEY `UNQ_CATALOG_PRODUCT_OPTION_TITLE_OPTION_ID_STORE_ID` (`option_id`,`store_id`),
@@ -2907,9 +2903,9 @@ DROP TABLE IF EXISTS `catalog_product_option_type_price`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_option_type_price` (
   `option_type_price_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Option Type Price ID',
-  `option_type_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Option Type ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Price',
+  `option_type_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Option Type ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Price',
   `price_type` varchar(7) NOT NULL DEFAULT 'fixed' COMMENT 'Price Type',
   PRIMARY KEY (`option_type_price_id`),
   UNIQUE KEY `UNQ_CATALOG_PRODUCT_OPTION_TYPE_PRICE_OPTION_TYPE_ID_STORE_ID` (`option_type_id`,`store_id`),
@@ -2938,8 +2934,8 @@ DROP TABLE IF EXISTS `catalog_product_option_type_title`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_option_type_title` (
   `option_type_title_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Option Type Title ID',
-  `option_type_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Option Type ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
+  `option_type_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Option Type ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
   `title` varchar(255) DEFAULT NULL COMMENT 'Title',
   PRIMARY KEY (`option_type_title_id`),
   UNIQUE KEY `UNQ_CATALOG_PRODUCT_OPTION_TYPE_TITLE_OPTION_TYPE_ID_STORE_ID` (`option_type_id`,`store_id`),
@@ -2968,9 +2964,9 @@ DROP TABLE IF EXISTS `catalog_product_option_type_value`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_option_type_value` (
   `option_type_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Option Type ID',
-  `option_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Option ID',
+  `option_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Option ID',
   `sku` varchar(64) DEFAULT NULL COMMENT 'SKU',
-  `sort_order` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Sort Order',
+  `sort_order` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Sort Order',
   PRIMARY KEY (`option_type_id`),
   KEY `IDX_CATALOG_PRODUCT_OPTION_TYPE_VALUE_OPTION_ID` (`option_id`),
   CONSTRAINT `FK_CAT_PRD_OPT_TYPE_VAL_OPT_ID_CAT_PRD_OPT_OPT_ID` FOREIGN KEY (`option_id`) REFERENCES `catalog_product_option` (`option_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -3021,9 +3017,9 @@ DROP TABLE IF EXISTS `catalog_product_super_attribute`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_super_attribute` (
   `product_super_attribute_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Product Super Attribute ID',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute ID',
-  `position` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Position',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute ID',
+  `position` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Position',
   PRIMARY KEY (`product_super_attribute_id`),
   UNIQUE KEY `UNQ_CATALOG_PRODUCT_SUPER_ATTRIBUTE_PRODUCT_ID_ATTRIBUTE_ID` (`product_id`,`attribute_id`),
   KEY `IDX_CATALOG_PRODUCT_SUPER_ATTRIBUTE_PRODUCT_ID` (`product_id`),
@@ -3049,9 +3045,9 @@ DROP TABLE IF EXISTS `catalog_product_super_attribute_label`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_super_attribute_label` (
   `value_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `product_super_attribute_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product Super Attribute ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `use_default` smallint(5) unsigned DEFAULT '0' COMMENT 'Use Default Value',
+  `product_super_attribute_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product Super Attribute ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `use_default` smallint(5) unsigned DEFAULT 0 COMMENT 'Use Default Value',
   `value` varchar(255) DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CAT_PRD_SPR_ATTR_LBL_PRD_SPR_ATTR_ID_STORE_ID` (`product_super_attribute_id`,`store_id`),
@@ -3080,11 +3076,11 @@ DROP TABLE IF EXISTS `catalog_product_super_attribute_pricing`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_super_attribute_pricing` (
   `value_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Value ID',
-  `product_super_attribute_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product Super Attribute ID',
+  `product_super_attribute_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product Super Attribute ID',
   `value_index` varchar(255) DEFAULT NULL COMMENT 'Value Index',
-  `is_percent` smallint(5) unsigned DEFAULT '0' COMMENT 'Is Percent',
+  `is_percent` smallint(5) unsigned DEFAULT 0 COMMENT 'Is Percent',
   `pricing_value` decimal(12,4) DEFAULT NULL COMMENT 'Pricing Value',
-  `website_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Website ID',
+  `website_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Website ID',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CAT_PRD_SPR_ATTR_PRICING_PRD_SPR_ATTR_ID_VAL_IDX_WS_ID` (`product_super_attribute_id`,`value_index`,`website_id`),
   KEY `IDX_CAT_PRD_SPR_ATTR_PRICING_PRD_SPR_ATTR_ID` (`product_super_attribute_id`),
@@ -3112,8 +3108,8 @@ DROP TABLE IF EXISTS `catalog_product_super_link`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalog_product_super_link` (
   `link_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Link ID',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
-  `parent_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Parent ID',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
+  `parent_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Parent ID',
   PRIMARY KEY (`link_id`),
   UNIQUE KEY `UNQ_CATALOG_PRODUCT_SUPER_LINK_PRODUCT_ID_PARENT_ID` (`product_id`,`parent_id`),
   KEY `IDX_CATALOG_PRODUCT_SUPER_LINK_PARENT_ID` (`parent_id`),
@@ -3155,7 +3151,7 @@ CREATE TABLE `catalog_product_website` (
 
 LOCK TABLES `catalog_product_website` WRITE;
 /*!40000 ALTER TABLE `catalog_product_website` DISABLE KEYS */;
-INSERT INTO `catalog_product_website` VALUES (1,1);
+INSERT INTO `catalog_product_website` VALUES (1,1),(2,1);
 /*!40000 ALTER TABLE `catalog_product_website` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3192,37 +3188,37 @@ DROP TABLE IF EXISTS `cataloginventory_stock_item`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cataloginventory_stock_item` (
   `item_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Item Id',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product Id',
-  `stock_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Stock Id',
-  `qty` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Qty',
-  `min_qty` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Min Qty',
-  `use_config_min_qty` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Use Config Min Qty',
-  `is_qty_decimal` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Qty Decimal',
-  `backorders` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Backorders',
-  `use_config_backorders` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Use Config Backorders',
-  `min_sale_qty` decimal(12,4) NOT NULL DEFAULT '1.0000' COMMENT 'Min Sale Qty',
-  `use_config_min_sale_qty` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Use Config Min Sale Qty',
-  `max_sale_qty` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Max Sale Qty',
-  `use_config_max_sale_qty` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Use Config Max Sale Qty',
-  `is_in_stock` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is In Stock',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product Id',
+  `stock_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Stock Id',
+  `qty` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Qty',
+  `min_qty` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Min Qty',
+  `use_config_min_qty` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Use Config Min Qty',
+  `is_qty_decimal` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Qty Decimal',
+  `backorders` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Backorders',
+  `use_config_backorders` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Use Config Backorders',
+  `min_sale_qty` decimal(12,4) NOT NULL DEFAULT 1.0000 COMMENT 'Min Sale Qty',
+  `use_config_min_sale_qty` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Use Config Min Sale Qty',
+  `max_sale_qty` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Max Sale Qty',
+  `use_config_max_sale_qty` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Use Config Max Sale Qty',
+  `is_in_stock` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is In Stock',
   `low_stock_date` timestamp NULL DEFAULT NULL COMMENT 'Low Stock Date',
   `notify_stock_qty` decimal(12,4) DEFAULT NULL COMMENT 'Notify Stock Qty',
-  `use_config_notify_stock_qty` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Use Config Notify Stock Qty',
-  `manage_stock` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Manage Stock',
-  `use_config_manage_stock` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Use Config Manage Stock',
-  `stock_status_changed_auto` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Stock Status Changed Automatically',
-  `use_config_qty_increments` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Use Config Qty Increments',
-  `qty_increments` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Qty Increments',
-  `use_config_enable_qty_inc` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Use Config Enable Qty Increments',
-  `enable_qty_increments` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Enable Qty Increments',
-  `is_decimal_divided` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Divided into Multiple Boxes for Shipping',
+  `use_config_notify_stock_qty` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Use Config Notify Stock Qty',
+  `manage_stock` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Manage Stock',
+  `use_config_manage_stock` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Use Config Manage Stock',
+  `stock_status_changed_auto` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Stock Status Changed Automatically',
+  `use_config_qty_increments` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Use Config Qty Increments',
+  `qty_increments` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Qty Increments',
+  `use_config_enable_qty_inc` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Use Config Enable Qty Increments',
+  `enable_qty_increments` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Enable Qty Increments',
+  `is_decimal_divided` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Divided into Multiple Boxes for Shipping',
   PRIMARY KEY (`item_id`),
   UNIQUE KEY `UNQ_CATALOGINVENTORY_STOCK_ITEM_PRODUCT_ID_STOCK_ID` (`product_id`,`stock_id`),
   KEY `IDX_CATALOGINVENTORY_STOCK_ITEM_PRODUCT_ID` (`product_id`),
   KEY `IDX_CATALOGINVENTORY_STOCK_ITEM_STOCK_ID` (`stock_id`),
   CONSTRAINT `FK_CATINV_STOCK_ITEM_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CATINV_STOCK_ITEM_STOCK_ID_CATINV_STOCK_STOCK_ID` FOREIGN KEY (`stock_id`) REFERENCES `cataloginventory_stock` (`stock_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Cataloginventory Stock Item';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Cataloginventory Stock Item';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3231,7 +3227,7 @@ CREATE TABLE `cataloginventory_stock_item` (
 
 LOCK TABLES `cataloginventory_stock_item` WRITE;
 /*!40000 ALTER TABLE `cataloginventory_stock_item` DISABLE KEYS */;
-INSERT INTO `cataloginventory_stock_item` VALUES (1,1,1,1000.0000,0.0000,1,0,0,1,1.0000,1,0.0000,1,1,NULL,NULL,1,0,1,0,1,0.0000,1,0,0);
+INSERT INTO `cataloginventory_stock_item` VALUES (1,1,1,1000.0000,0.0000,1,0,0,1,1.0000,1,0.0000,1,1,NULL,NULL,1,0,1,0,1,0.0000,1,0,0),(2,2,1,1000.0000,0.0000,1,0,0,1,1.0000,1,0.0000,1,1,NULL,NULL,1,0,1,0,1,0.0000,1,0,0);
 /*!40000 ALTER TABLE `cataloginventory_stock_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3246,7 +3242,7 @@ CREATE TABLE `cataloginventory_stock_status` (
   `product_id` int(10) unsigned NOT NULL COMMENT 'Product Id',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website Id',
   `stock_id` smallint(5) unsigned NOT NULL COMMENT 'Stock Id',
-  `qty` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Qty',
+  `qty` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Qty',
   `stock_status` smallint(5) unsigned NOT NULL COMMENT 'Stock Status',
   PRIMARY KEY (`product_id`,`website_id`,`stock_id`),
   KEY `IDX_CATALOGINVENTORY_STOCK_STATUS_STOCK_ID` (`stock_id`),
@@ -3263,7 +3259,7 @@ CREATE TABLE `cataloginventory_stock_status` (
 
 LOCK TABLES `cataloginventory_stock_status` WRITE;
 /*!40000 ALTER TABLE `cataloginventory_stock_status` DISABLE KEYS */;
-INSERT INTO `cataloginventory_stock_status` VALUES (1,1,1,1000.0000,1);
+INSERT INTO `cataloginventory_stock_status` VALUES (1,1,1,1000.0000,1),(2,1,1,1000.0000,1);
 /*!40000 ALTER TABLE `cataloginventory_stock_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3278,7 +3274,7 @@ CREATE TABLE `cataloginventory_stock_status_idx` (
   `product_id` int(10) unsigned NOT NULL COMMENT 'Product Id',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website Id',
   `stock_id` smallint(5) unsigned NOT NULL COMMENT 'Stock Id',
-  `qty` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Qty',
+  `qty` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Qty',
   `stock_status` smallint(5) unsigned NOT NULL COMMENT 'Stock Status',
   PRIMARY KEY (`product_id`,`website_id`,`stock_id`),
   KEY `IDX_CATALOGINVENTORY_STOCK_STATUS_IDX_STOCK_ID` (`stock_id`),
@@ -3307,7 +3303,7 @@ CREATE TABLE `cataloginventory_stock_status_tmp` (
   `product_id` int(10) unsigned NOT NULL COMMENT 'Product Id',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website Id',
   `stock_id` smallint(5) unsigned NOT NULL COMMENT 'Stock Id',
-  `qty` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Qty',
+  `qty` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Qty',
   `stock_status` smallint(5) unsigned NOT NULL COMMENT 'Stock Status',
   PRIMARY KEY (`product_id`,`website_id`,`stock_id`),
   KEY `IDX_CATALOGINVENTORY_STOCK_STATUS_TMP_STOCK_ID` (`stock_id`),
@@ -3334,19 +3330,19 @@ DROP TABLE IF EXISTS `catalogrule`;
 CREATE TABLE `catalogrule` (
   `rule_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Rule Id',
   `name` varchar(255) DEFAULT NULL COMMENT 'Name',
-  `description` text COMMENT 'Description',
+  `description` text DEFAULT NULL COMMENT 'Description',
   `from_date` date DEFAULT NULL COMMENT 'From Date',
   `to_date` date DEFAULT NULL COMMENT 'To Date',
-  `is_active` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Is Active',
-  `conditions_serialized` mediumtext COMMENT 'Conditions Serialized',
-  `actions_serialized` mediumtext COMMENT 'Actions Serialized',
-  `stop_rules_processing` smallint(6) NOT NULL DEFAULT '1' COMMENT 'Stop Rules Processing',
-  `sort_order` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Sort Order',
+  `is_active` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Is Active',
+  `conditions_serialized` mediumtext DEFAULT NULL COMMENT 'Conditions Serialized',
+  `actions_serialized` mediumtext DEFAULT NULL COMMENT 'Actions Serialized',
+  `stop_rules_processing` smallint(6) NOT NULL DEFAULT 1 COMMENT 'Stop Rules Processing',
+  `sort_order` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Sort Order',
   `simple_action` varchar(32) DEFAULT NULL COMMENT 'Simple Action',
-  `discount_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Discount Amount',
-  `sub_is_enable` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Rule Enable For Subitems',
+  `discount_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Discount Amount',
+  `sub_is_enable` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Rule Enable For Subitems',
   `sub_simple_action` varchar(32) DEFAULT NULL COMMENT 'Simple Action For Subitems',
-  `sub_discount_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Discount Amount For Subitems',
+  `sub_discount_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Discount Amount For Subitems',
   PRIMARY KEY (`rule_id`),
   KEY `IDX_CATALOGRULE_IS_ACTIVE_SORT_ORDER_TO_DATE_FROM_DATE` (`is_active`,`sort_order`,`to_date`,`from_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='CatalogRule';
@@ -3418,9 +3414,9 @@ DROP TABLE IF EXISTS `catalogrule_group_website`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalogrule_group_website` (
-  `rule_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Rule Id',
-  `customer_group_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Customer Group Id',
-  `website_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Website Id',
+  `rule_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Rule Id',
+  `customer_group_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Customer Group Id',
+  `website_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Website Id',
   PRIMARY KEY (`rule_id`,`customer_group_id`,`website_id`),
   KEY `IDX_CATALOGRULE_GROUP_WEBSITE_RULE_ID` (`rule_id`),
   KEY `IDX_CATALOGRULE_GROUP_WEBSITE_CUSTOMER_GROUP_ID` (`customer_group_id`),
@@ -3449,18 +3445,18 @@ DROP TABLE IF EXISTS `catalogrule_product`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalogrule_product` (
   `rule_product_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Rule Product Id',
-  `rule_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Rule Id',
-  `from_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'From Time',
-  `to_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'To time',
-  `customer_group_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Customer Group Id',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product Id',
+  `rule_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Rule Id',
+  `from_time` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'From Time',
+  `to_time` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'To time',
+  `customer_group_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Customer Group Id',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product Id',
   `action_operator` varchar(10) DEFAULT 'to_fixed' COMMENT 'Action Operator',
-  `action_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Action Amount',
-  `action_stop` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Action Stop',
-  `sort_order` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Sort Order',
+  `action_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Action Amount',
+  `action_stop` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Action Stop',
+  `sort_order` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Sort Order',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website Id',
   `sub_simple_action` varchar(32) DEFAULT NULL COMMENT 'Simple Action For Subitems',
-  `sub_discount_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Discount Amount For Subitems',
+  `sub_discount_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Discount Amount For Subitems',
   PRIMARY KEY (`rule_product_id`),
   UNIQUE KEY `EAA51B56FF092A0DCB795D1CEF812B7B` (`rule_id`,`from_time`,`to_time`,`website_id`,`customer_group_id`,`product_id`,`sort_order`),
   KEY `IDX_CATALOGRULE_PRODUCT_RULE_ID` (`rule_id`),
@@ -3495,9 +3491,9 @@ DROP TABLE IF EXISTS `catalogrule_product_price`;
 CREATE TABLE `catalogrule_product_price` (
   `rule_product_price_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Rule Product PriceId',
   `rule_date` date NOT NULL COMMENT 'Rule Date',
-  `customer_group_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Customer Group Id',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product Id',
-  `rule_price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Rule Price',
+  `customer_group_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Customer Group Id',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product Id',
+  `rule_price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Rule Price',
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website Id',
   `latest_start_date` date DEFAULT NULL COMMENT 'Latest StartDate',
   `earliest_end_date` date DEFAULT NULL COMMENT 'Earliest EndDate',
@@ -3559,11 +3555,11 @@ CREATE TABLE `catalogsearch_fulltext` (
   `fulltext_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity ID',
   `product_id` int(10) unsigned NOT NULL COMMENT 'Product ID',
   `store_id` smallint(5) unsigned NOT NULL COMMENT 'Store ID',
-  `data_index` longtext COMMENT 'Data index',
+  `data_index` longtext DEFAULT NULL COMMENT 'Data index',
   PRIMARY KEY (`fulltext_id`),
   UNIQUE KEY `UNQ_CATALOGSEARCH_FULLTEXT_PRODUCT_ID_STORE_ID` (`product_id`,`store_id`),
   FULLTEXT KEY `FTI_CATALOGSEARCH_FULLTEXT_DATA_INDEX` (`data_index`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Catalog search result table';
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Catalog search result table';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3572,7 +3568,7 @@ CREATE TABLE `catalogsearch_fulltext` (
 
 LOCK TABLES `catalogsearch_fulltext` WRITE;
 /*!40000 ALTER TABLE `catalogsearch_fulltext` DISABLE KEYS */;
-INSERT INTO `catalogsearch_fulltext` VALUES (2,1,1,'vindi_product_01|None|Vindi Product|Vindi Product|Vindi Product|10|1');
+INSERT INTO `catalogsearch_fulltext` VALUES (2,1,1,'vindi_product_01|None|Vindi Product|Vindi Product|Vindi Product|10|1'),(3,2,1,'vindi_product_02|None|Vindi Subscription|Vindi Subscription|Vindi Subscription|10|1');
 /*!40000 ALTER TABLE `catalogsearch_fulltext` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3586,21 +3582,21 @@ DROP TABLE IF EXISTS `catalogsearch_query`;
 CREATE TABLE `catalogsearch_query` (
   `query_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Query ID',
   `query_text` varchar(255) DEFAULT NULL COMMENT 'Query text',
-  `num_results` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Num results',
-  `popularity` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Popularity',
+  `num_results` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Num results',
+  `popularity` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Popularity',
   `redirect` varchar(255) DEFAULT NULL COMMENT 'Redirect',
   `synonym_for` varchar(255) DEFAULT NULL COMMENT 'Synonym for',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
-  `display_in_terms` smallint(6) NOT NULL DEFAULT '1' COMMENT 'Display in terms',
-  `is_active` smallint(6) DEFAULT '1' COMMENT 'Active status',
-  `is_processed` smallint(6) DEFAULT '0' COMMENT 'Processed status',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
+  `display_in_terms` smallint(6) NOT NULL DEFAULT 1 COMMENT 'Display in terms',
+  `is_active` smallint(6) DEFAULT 1 COMMENT 'Active status',
+  `is_processed` smallint(6) DEFAULT 0 COMMENT 'Processed status',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Updated at',
   PRIMARY KEY (`query_id`),
   KEY `IDX_CATALOGSEARCH_QUERY_QUERY_TEXT_STORE_ID_POPULARITY` (`query_text`,`store_id`,`popularity`),
   KEY `IDX_CATALOGSEARCH_QUERY_STORE_ID` (`store_id`),
   KEY `IDX_CATALOGSEARCH_QUERY_SYNONYM_FOR` (`synonym_for`),
   CONSTRAINT `FK_CATALOGSEARCH_QUERY_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Catalog search query table';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Catalog search query table';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3609,6 +3605,7 @@ CREATE TABLE `catalogsearch_query` (
 
 LOCK TABLES `catalogsearch_query` WRITE;
 /*!40000 ALTER TABLE `catalogsearch_query` DISABLE KEYS */;
+INSERT INTO `catalogsearch_query` VALUES (1,'vindi',1,1,NULL,NULL,1,1,1,0,'2019-08-21 20:32:08');
 /*!40000 ALTER TABLE `catalogsearch_query` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3622,7 +3619,7 @@ DROP TABLE IF EXISTS `catalogsearch_result`;
 CREATE TABLE `catalogsearch_result` (
   `query_id` int(10) unsigned NOT NULL COMMENT 'Query ID',
   `product_id` int(10) unsigned NOT NULL COMMENT 'Product ID',
-  `relevance` decimal(20,4) NOT NULL DEFAULT '0.0000' COMMENT 'Relevance',
+  `relevance` decimal(20,4) NOT NULL DEFAULT 0.0000 COMMENT 'Relevance',
   PRIMARY KEY (`query_id`,`product_id`),
   KEY `IDX_CATALOGSEARCH_RESULT_QUERY_ID` (`query_id`),
   KEY `IDX_CATALOGSEARCH_RESULT_PRODUCT_ID` (`product_id`),
@@ -3650,11 +3647,11 @@ DROP TABLE IF EXISTS `checkout_agreement`;
 CREATE TABLE `checkout_agreement` (
   `agreement_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Agreement Id',
   `name` varchar(255) DEFAULT NULL COMMENT 'Name',
-  `content` text COMMENT 'Content',
+  `content` text DEFAULT NULL COMMENT 'Content',
   `content_height` varchar(25) DEFAULT NULL COMMENT 'Content Height',
-  `checkbox_text` text COMMENT 'Checkbox Text',
-  `is_active` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Is Active',
-  `is_html` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Is Html',
+  `checkbox_text` text DEFAULT NULL COMMENT 'Checkbox Text',
+  `is_active` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Is Active',
+  `is_html` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Is Html',
   PRIMARY KEY (`agreement_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Checkout Agreement';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -3705,10 +3702,10 @@ CREATE TABLE `cms_block` (
   `block_id` smallint(6) NOT NULL AUTO_INCREMENT COMMENT 'Block ID',
   `title` varchar(255) NOT NULL COMMENT 'Block Title',
   `identifier` varchar(255) NOT NULL COMMENT 'Block String Identifier',
-  `content` mediumtext COMMENT 'Block Content',
+  `content` mediumtext DEFAULT NULL COMMENT 'Block Content',
   `creation_time` timestamp NULL DEFAULT NULL COMMENT 'Block Creation Time',
   `update_time` timestamp NULL DEFAULT NULL COMMENT 'Block Modification Time',
-  `is_active` smallint(6) NOT NULL DEFAULT '1' COMMENT 'Is Block Active',
+  `is_active` smallint(6) NOT NULL DEFAULT 1 COMMENT 'Is Block Active',
   PRIMARY KEY (`block_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='CMS Block Table';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -3761,19 +3758,19 @@ CREATE TABLE `cms_page` (
   `page_id` smallint(6) NOT NULL AUTO_INCREMENT COMMENT 'Page ID',
   `title` varchar(255) DEFAULT NULL COMMENT 'Page Title',
   `root_template` varchar(255) DEFAULT NULL COMMENT 'Page Template',
-  `meta_keywords` text COMMENT 'Page Meta Keywords',
-  `meta_description` text COMMENT 'Page Meta Description',
+  `meta_keywords` text DEFAULT NULL COMMENT 'Page Meta Keywords',
+  `meta_description` text DEFAULT NULL COMMENT 'Page Meta Description',
   `identifier` varchar(100) DEFAULT NULL COMMENT 'Page String Identifier',
   `content_heading` varchar(255) DEFAULT NULL COMMENT 'Page Content Heading',
-  `content` mediumtext COMMENT 'Page Content',
+  `content` mediumtext DEFAULT NULL COMMENT 'Page Content',
   `creation_time` timestamp NULL DEFAULT NULL COMMENT 'Page Creation Time',
   `update_time` timestamp NULL DEFAULT NULL COMMENT 'Page Modification Time',
-  `is_active` smallint(6) NOT NULL DEFAULT '1' COMMENT 'Is Page Active',
-  `sort_order` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Page Sort Order',
-  `layout_update_xml` text COMMENT 'Page Layout Update Content',
+  `is_active` smallint(6) NOT NULL DEFAULT 1 COMMENT 'Is Page Active',
+  `sort_order` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Page Sort Order',
+  `layout_update_xml` text DEFAULT NULL COMMENT 'Page Layout Update Content',
   `custom_theme` varchar(100) DEFAULT NULL COMMENT 'Page Custom Theme',
   `custom_root_template` varchar(255) DEFAULT NULL COMMENT 'Page Custom Template',
-  `custom_layout_update_xml` text COMMENT 'Page Custom Layout Update Content',
+  `custom_layout_update_xml` text DEFAULT NULL COMMENT 'Page Custom Layout Update Content',
   `custom_theme_from` date DEFAULT NULL COMMENT 'Page Custom Theme Active From Date',
   `custom_theme_to` date DEFAULT NULL COMMENT 'Page Custom Theme Active To Date',
   PRIMARY KEY (`page_id`),
@@ -3814,7 +3811,7 @@ CREATE TABLE `cms_page_store` (
 
 LOCK TABLES `cms_page_store` WRITE;
 /*!40000 ALTER TABLE `cms_page_store` DISABLE KEYS */;
-INSERT INTO `cms_page_store` VALUES (1,0),(3,0),(4,0),(5,0),(6,0),(2,1);
+INSERT INTO `cms_page_store` VALUES (1,0),(2,1),(3,0),(4,0),(5,0),(6,0);
 /*!40000 ALTER TABLE `cms_page_store` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3827,7 +3824,7 @@ DROP TABLE IF EXISTS `core_cache`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `core_cache` (
   `id` varchar(200) NOT NULL COMMENT 'Cache Id',
-  `data` mediumblob COMMENT 'Cache Data',
+  `data` mediumblob DEFAULT NULL COMMENT 'Cache Data',
   `create_time` int(11) DEFAULT NULL COMMENT 'Cache Creation Time',
   `update_time` int(11) DEFAULT NULL COMMENT 'Time of Cache Updating',
   `expire_time` int(11) DEFAULT NULL COMMENT 'Cache Expiration Time',
@@ -3903,12 +3900,12 @@ DROP TABLE IF EXISTS `core_config_data`;
 CREATE TABLE `core_config_data` (
   `config_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Config Id',
   `scope` varchar(8) NOT NULL DEFAULT 'default' COMMENT 'Config Scope',
-  `scope_id` int(11) NOT NULL DEFAULT '0' COMMENT 'Config Scope Id',
+  `scope_id` int(11) NOT NULL DEFAULT 0 COMMENT 'Config Scope Id',
   `path` varchar(255) NOT NULL DEFAULT 'general' COMMENT 'Config Path',
-  `value` text COMMENT 'Config Value',
+  `value` text DEFAULT NULL COMMENT 'Config Value',
   PRIMARY KEY (`config_id`),
   UNIQUE KEY `UNQ_CORE_CONFIG_DATA_SCOPE_SCOPE_ID_PATH` (`scope`,`scope_id`,`path`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8 COMMENT='Config Data';
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8 COMMENT='Config Data';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3917,7 +3914,7 @@ CREATE TABLE `core_config_data` (
 
 LOCK TABLES `core_config_data` WRITE;
 /*!40000 ALTER TABLE `core_config_data` DISABLE KEYS */;
-INSERT INTO `core_config_data` VALUES (1,'default',0,'general/region/display_all','1'),(2,'default',0,'general/region/state_required','AT,CA,CH,DE,EE,ES,FI,FR,LT,LV,RO,US'),(3,'default',0,'catalog/category/root_id','2'),(4,'default',0,'payment/paypal_express/skip_order_review_step','1'),(5,'default',0,'payment/payflow_link/mobile_optimized','1'),(6,'default',0,'payment/payflow_advanced/mobile_optimized','1'),(7,'default',0,'payment/hosted_pro/mobile_optimized','1'),(8,'default',0,'web/seo/use_rewrites','1'),(9,'default',0,'admin/dashboard/enable_charts','1'),(10,'default',0,'web/unsecure/base_url','http://vindi.magento/'),(11,'default',0,'web/secure/use_in_frontend','0'),(12,'default',0,'web/secure/base_url','http://vindi.magento/'),(13,'default',0,'web/secure/use_in_adminhtml','0'),(14,'default',0,'admin/emails/forgot_email_template','admin_emails_forgot_email_template'),(15,'default',0,'admin/emails/forgot_email_identity','general'),(16,'default',0,'admin/emails/password_reset_link_expiration_period','2'),(17,'default',0,'admin/startup/page','dashboard'),(18,'default',0,'admin/url/use_custom','0'),(19,'default',0,'admin/url/use_custom_path','0'),(20,'default',0,'admin/security/use_form_key','1'),(21,'default',0,'admin/security/use_case_sensitive_login','0'),(22,'default',0,'admin/security/session_cookie_lifetime',NULL),(23,'default',0,'admin/security/domain_policy_backend','2'),(24,'default',0,'admin/security/validate_formkey_checkout','1'),(25,'default',0,'admin/security/domain_policy_frontend','2'),(26,'default',0,'admin/security/extensions_compatibility_mode','1'),(27,'default',0,'admin/security/crate_admin_user_notification','0'),(28,'default',0,'admin/security/forgot_password_flow_secure','1'),(29,'default',0,'admin/security/forgot_password_ip_times','5'),(30,'default',0,'admin/security/forgot_password_email_times','5'),(31,'default',0,'admin/captcha/enable','0'),(32,'default',0,'advanced/modules_disable_output/Cm_RedisSession','0'),(33,'default',0,'advanced/modules_disable_output/Mage_Admin','0'),(34,'default',0,'advanced/modules_disable_output/Mage_AdminNotification','1'),(35,'default',0,'advanced/modules_disable_output/Mage_Api','0'),(36,'default',0,'advanced/modules_disable_output/Mage_Api2','0'),(37,'default',0,'advanced/modules_disable_output/Mage_Authorizenet','0'),(38,'default',0,'advanced/modules_disable_output/Mage_Backup','0'),(39,'default',0,'advanced/modules_disable_output/Mage_Bundle','0'),(40,'default',0,'advanced/modules_disable_output/Mage_Captcha','0'),(41,'default',0,'advanced/modules_disable_output/Mage_Catalog','0'),(42,'default',0,'advanced/modules_disable_output/Mage_CatalogIndex','0'),(43,'default',0,'advanced/modules_disable_output/Mage_CatalogInventory','0'),(44,'default',0,'advanced/modules_disable_output/Mage_CatalogRule','0'),(45,'default',0,'advanced/modules_disable_output/Mage_CatalogSearch','0'),(46,'default',0,'advanced/modules_disable_output/Mage_Centinel','0'),(47,'default',0,'advanced/modules_disable_output/Mage_Checkout','0'),(48,'default',0,'advanced/modules_disable_output/Mage_Cms','0'),(49,'default',0,'advanced/modules_disable_output/Mage_Compiler','0'),(50,'default',0,'advanced/modules_disable_output/Mage_ConfigurableSwatches','0'),(51,'default',0,'advanced/modules_disable_output/Mage_Connect','0'),(52,'default',0,'advanced/modules_disable_output/Mage_Contacts','0'),(53,'default',0,'advanced/modules_disable_output/Mage_Core','0'),(54,'default',0,'advanced/modules_disable_output/Mage_Cron','0'),(55,'default',0,'advanced/modules_disable_output/Mage_CurrencySymbol','0'),(56,'default',0,'advanced/modules_disable_output/Mage_Customer','0'),(57,'default',0,'advanced/modules_disable_output/Mage_Dataflow','0'),(58,'default',0,'advanced/modules_disable_output/Mage_Directory','0'),(59,'default',0,'advanced/modules_disable_output/Mage_Downloadable','0'),(60,'default',0,'advanced/modules_disable_output/Mage_Eav','0'),(61,'default',0,'advanced/modules_disable_output/Mage_GiftMessage','0'),(62,'default',0,'advanced/modules_disable_output/Mage_GoogleAnalytics','0'),(63,'default',0,'advanced/modules_disable_output/Mage_GoogleCheckout','0'),(64,'default',0,'advanced/modules_disable_output/Mage_ImportExport','0'),(65,'default',0,'advanced/modules_disable_output/Mage_Index','0'),(66,'default',0,'advanced/modules_disable_output/Mage_Install','0'),(67,'default',0,'advanced/modules_disable_output/Mage_Log','0'),(68,'default',0,'advanced/modules_disable_output/Mage_Media','0'),(69,'default',0,'advanced/modules_disable_output/Mage_Newsletter','0'),(70,'default',0,'advanced/modules_disable_output/Mage_Oauth','0'),(71,'default',0,'advanced/modules_disable_output/Mage_Page','0'),(72,'default',0,'advanced/modules_disable_output/Mage_PageCache','0'),(73,'default',0,'advanced/modules_disable_output/Mage_Paygate','0'),(74,'default',0,'advanced/modules_disable_output/Mage_Payment','0'),(75,'default',0,'advanced/modules_disable_output/Mage_Paypal','0'),(76,'default',0,'advanced/modules_disable_output/Mage_PaypalUk','0'),(77,'default',0,'advanced/modules_disable_output/Mage_Persistent','0'),(78,'default',0,'advanced/modules_disable_output/Mage_Poll','0'),(79,'default',0,'advanced/modules_disable_output/Mage_ProductAlert','0'),(80,'default',0,'advanced/modules_disable_output/Mage_Rating','0'),(81,'default',0,'advanced/modules_disable_output/Mage_Reports','0'),(82,'default',0,'advanced/modules_disable_output/Mage_Review','0'),(83,'default',0,'advanced/modules_disable_output/Mage_Rss','0'),(84,'default',0,'advanced/modules_disable_output/Mage_Rule','0'),(85,'default',0,'advanced/modules_disable_output/Mage_Sales','0'),(86,'default',0,'advanced/modules_disable_output/Mage_SalesRule','0'),(87,'default',0,'advanced/modules_disable_output/Mage_Sendfriend','0'),(88,'default',0,'advanced/modules_disable_output/Mage_Shipping','0'),(89,'default',0,'advanced/modules_disable_output/Mage_Sitemap','0'),(90,'default',0,'advanced/modules_disable_output/Mage_Tag','0'),(91,'default',0,'advanced/modules_disable_output/Mage_Tax','0'),(92,'default',0,'advanced/modules_disable_output/Mage_Uploader','0'),(93,'default',0,'advanced/modules_disable_output/Mage_Usa','0'),(94,'default',0,'advanced/modules_disable_output/Mage_Weee','0'),(95,'default',0,'advanced/modules_disable_output/Mage_Widget','0'),(96,'default',0,'advanced/modules_disable_output/Mage_Wishlist','0'),(97,'default',0,'advanced/modules_disable_output/Mage_XmlConnect','0'),(98,'default',0,'advanced/modules_disable_output/Phoenix_Moneybookers','0');
+INSERT INTO `core_config_data` VALUES (1,'default',0,'general/region/display_all','1'),(2,'default',0,'general/region/state_required','AT,CA,CH,DE,EE,ES,FI,FR,LT,LV,RO,US'),(3,'default',0,'catalog/category/root_id','2'),(4,'default',0,'payment/paypal_express/skip_order_review_step','1'),(5,'default',0,'payment/payflow_link/mobile_optimized','1'),(6,'default',0,'payment/payflow_advanced/mobile_optimized','1'),(7,'default',0,'payment/hosted_pro/mobile_optimized','1'),(8,'default',0,'web/seo/use_rewrites','1'),(9,'default',0,'admin/dashboard/enable_charts','1'),(10,'default',0,'web/unsecure/base_url','http://vindi.magento/'),(11,'default',0,'web/secure/use_in_frontend','0'),(12,'default',0,'web/secure/base_url','http://vindi.magento/'),(13,'default',0,'web/secure/use_in_adminhtml','0'),(14,'default',0,'admin/emails/forgot_email_template','admin_emails_forgot_email_template'),(15,'default',0,'admin/emails/forgot_email_identity','general'),(16,'default',0,'admin/emails/password_reset_link_expiration_period','2'),(17,'default',0,'admin/startup/page','dashboard'),(18,'default',0,'admin/url/use_custom','0'),(19,'default',0,'admin/url/use_custom_path','0'),(20,'default',0,'admin/security/use_form_key','1'),(21,'default',0,'admin/security/use_case_sensitive_login','0'),(22,'default',0,'admin/security/session_cookie_lifetime',NULL),(23,'default',0,'admin/security/domain_policy_backend','2'),(24,'default',0,'admin/security/validate_formkey_checkout','1'),(25,'default',0,'admin/security/domain_policy_frontend','2'),(26,'default',0,'admin/security/extensions_compatibility_mode','1'),(27,'default',0,'admin/security/crate_admin_user_notification','0'),(28,'default',0,'admin/security/forgot_password_flow_secure','1'),(29,'default',0,'admin/security/forgot_password_ip_times','5'),(30,'default',0,'admin/security/forgot_password_email_times','5'),(31,'default',0,'admin/captcha/enable','0'),(32,'default',0,'advanced/modules_disable_output/Cm_RedisSession','0'),(33,'default',0,'advanced/modules_disable_output/Mage_Admin','0'),(34,'default',0,'advanced/modules_disable_output/Mage_AdminNotification','1'),(35,'default',0,'advanced/modules_disable_output/Mage_Api','0'),(36,'default',0,'advanced/modules_disable_output/Mage_Api2','0'),(37,'default',0,'advanced/modules_disable_output/Mage_Authorizenet','0'),(38,'default',0,'advanced/modules_disable_output/Mage_Backup','1'),(39,'default',0,'advanced/modules_disable_output/Mage_Bundle','0'),(40,'default',0,'advanced/modules_disable_output/Mage_Captcha','0'),(41,'default',0,'advanced/modules_disable_output/Mage_Catalog','0'),(42,'default',0,'advanced/modules_disable_output/Mage_CatalogIndex','0'),(43,'default',0,'advanced/modules_disable_output/Mage_CatalogInventory','0'),(44,'default',0,'advanced/modules_disable_output/Mage_CatalogRule','0'),(45,'default',0,'advanced/modules_disable_output/Mage_CatalogSearch','0'),(46,'default',0,'advanced/modules_disable_output/Mage_Centinel','0'),(47,'default',0,'advanced/modules_disable_output/Mage_Checkout','0'),(48,'default',0,'advanced/modules_disable_output/Mage_Cms','0'),(49,'default',0,'advanced/modules_disable_output/Mage_Compiler','0'),(50,'default',0,'advanced/modules_disable_output/Mage_ConfigurableSwatches','0'),(51,'default',0,'advanced/modules_disable_output/Mage_Connect','0'),(52,'default',0,'advanced/modules_disable_output/Mage_Contacts','0'),(53,'default',0,'advanced/modules_disable_output/Mage_Core','0'),(54,'default',0,'advanced/modules_disable_output/Mage_Cron','0'),(55,'default',0,'advanced/modules_disable_output/Mage_CurrencySymbol','0'),(56,'default',0,'advanced/modules_disable_output/Mage_Customer','0'),(57,'default',0,'advanced/modules_disable_output/Mage_Dataflow','0'),(58,'default',0,'advanced/modules_disable_output/Mage_Directory','0'),(59,'default',0,'advanced/modules_disable_output/Mage_Downloadable','0'),(60,'default',0,'advanced/modules_disable_output/Mage_Eav','0'),(61,'default',0,'advanced/modules_disable_output/Mage_GiftMessage','0'),(62,'default',0,'advanced/modules_disable_output/Mage_GoogleAnalytics','0'),(63,'default',0,'advanced/modules_disable_output/Mage_GoogleCheckout','0'),(64,'default',0,'advanced/modules_disable_output/Mage_ImportExport','0'),(65,'default',0,'advanced/modules_disable_output/Mage_Index','0'),(66,'default',0,'advanced/modules_disable_output/Mage_Install','0'),(67,'default',0,'advanced/modules_disable_output/Mage_Log','0'),(68,'default',0,'advanced/modules_disable_output/Mage_Media','0'),(69,'default',0,'advanced/modules_disable_output/Mage_Newsletter','0'),(70,'default',0,'advanced/modules_disable_output/Mage_Oauth','0'),(71,'default',0,'advanced/modules_disable_output/Mage_Page','0'),(72,'default',0,'advanced/modules_disable_output/Mage_PageCache','0'),(73,'default',0,'advanced/modules_disable_output/Mage_Paygate','0'),(74,'default',0,'advanced/modules_disable_output/Mage_Payment','0'),(75,'default',0,'advanced/modules_disable_output/Mage_Paypal','0'),(76,'default',0,'advanced/modules_disable_output/Mage_PaypalUk','0'),(77,'default',0,'advanced/modules_disable_output/Mage_Persistent','0'),(78,'default',0,'advanced/modules_disable_output/Mage_Poll','0'),(79,'default',0,'advanced/modules_disable_output/Mage_ProductAlert','0'),(80,'default',0,'advanced/modules_disable_output/Mage_Rating','0'),(81,'default',0,'advanced/modules_disable_output/Mage_Reports','0'),(82,'default',0,'advanced/modules_disable_output/Mage_Review','0'),(83,'default',0,'advanced/modules_disable_output/Mage_Rss','0'),(84,'default',0,'advanced/modules_disable_output/Mage_Rule','0'),(85,'default',0,'advanced/modules_disable_output/Mage_Sales','0'),(86,'default',0,'advanced/modules_disable_output/Mage_SalesRule','0'),(87,'default',0,'advanced/modules_disable_output/Mage_Sendfriend','0'),(88,'default',0,'advanced/modules_disable_output/Mage_Shipping','0'),(89,'default',0,'advanced/modules_disable_output/Mage_Sitemap','0'),(90,'default',0,'advanced/modules_disable_output/Mage_Tag','0'),(91,'default',0,'advanced/modules_disable_output/Mage_Tax','0'),(92,'default',0,'advanced/modules_disable_output/Mage_Uploader','0'),(93,'default',0,'advanced/modules_disable_output/Mage_Usa','0'),(94,'default',0,'advanced/modules_disable_output/Mage_Weee','0'),(95,'default',0,'advanced/modules_disable_output/Mage_Widget','0'),(96,'default',0,'advanced/modules_disable_output/Mage_Wishlist','0'),(97,'default',0,'advanced/modules_disable_output/Mage_XmlConnect','0'),(98,'default',0,'advanced/modules_disable_output/Phoenix_Moneybookers','0'),(100,'default',0,'vindi_subscription/general/api_key','API_KEY'),(101,'default',0,'vindi_subscription/general/send_nfe_information','0'),(102,'default',0,'vindi_subscription/general/default_shipping_method',NULL),(103,'default',0,'vindi_subscription/general/bankslip_link_in_order_comment','0'),(104,'default',0,'vindi_subscription/general/verify_method','0'),(105,'default',0,'vindi_subscription/general/sandbox_mode','https://sandbox-app.vindi.com.br/api/v1/');
 /*!40000 ALTER TABLE `core_config_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3964,7 +3961,7 @@ CREATE TABLE `core_email_queue_recipients` (
   `message_id` int(10) unsigned NOT NULL COMMENT 'Message ID',
   `recipient_email` varchar(128) NOT NULL COMMENT 'Recipient Email',
   `recipient_name` varchar(255) NOT NULL COMMENT 'Recipient Name',
-  `email_type` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Email Type',
+  `email_type` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Email Type',
   PRIMARY KEY (`recipient_id`),
   UNIQUE KEY `19BDB9C5FE4BD685FCF992A71E976CD0` (`message_id`,`recipient_email`,`email_type`),
   KEY `IDX_CORE_EMAIL_QUEUE_RECIPIENTS_RECIPIENT_EMAIL` (`recipient_email`),
@@ -3993,7 +3990,7 @@ CREATE TABLE `core_email_template` (
   `template_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Template Id',
   `template_code` varchar(150) NOT NULL COMMENT 'Template Name',
   `template_text` text NOT NULL COMMENT 'Template Content',
-  `template_styles` text COMMENT 'Templste Styles',
+  `template_styles` text DEFAULT NULL COMMENT 'Templste Styles',
   `template_type` int(10) unsigned DEFAULT NULL COMMENT 'Template Type',
   `template_subject` varchar(200) NOT NULL COMMENT 'Template Subject',
   `template_sender_name` varchar(200) DEFAULT NULL COMMENT 'Template Sender Name',
@@ -4001,7 +3998,7 @@ CREATE TABLE `core_email_template` (
   `added_at` timestamp NULL DEFAULT NULL COMMENT 'Date of Template Creation',
   `modified_at` timestamp NULL DEFAULT NULL COMMENT 'Date of Template Modification',
   `orig_template_code` varchar(200) DEFAULT NULL COMMENT 'Original Template Code',
-  `orig_template_variables` text COMMENT 'Original Template Variables',
+  `orig_template_variables` text DEFAULT NULL COMMENT 'Original Template Variables',
   PRIMARY KEY (`template_id`),
   UNIQUE KEY `UNQ_CORE_EMAIL_TEMPLATE_TEMPLATE_CODE` (`template_code`),
   KEY `IDX_CORE_EMAIL_TEMPLATE_ADDED_AT` (`added_at`),
@@ -4028,9 +4025,9 @@ DROP TABLE IF EXISTS `core_flag`;
 CREATE TABLE `core_flag` (
   `flag_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Flag Id',
   `flag_code` varchar(255) NOT NULL COMMENT 'Flag Code',
-  `state` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Flag State',
-  `flag_data` text COMMENT 'Flag Data',
-  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Date of Last Flag Update',
+  `state` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Flag State',
+  `flag_data` text DEFAULT NULL COMMENT 'Flag Data',
+  `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Date of Last Flag Update',
   PRIMARY KEY (`flag_id`),
   KEY `IDX_CORE_FLAG_LAST_UPDATE` (`last_update`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Flag';
@@ -4055,11 +4052,11 @@ DROP TABLE IF EXISTS `core_layout_link`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `core_layout_link` (
   `layout_link_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Link Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
   `area` varchar(64) DEFAULT NULL COMMENT 'Area',
   `package` varchar(64) DEFAULT NULL COMMENT 'Package',
   `theme` varchar(64) DEFAULT NULL COMMENT 'Theme',
-  `layout_update_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Layout Update Id',
+  `layout_update_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Layout Update Id',
   PRIMARY KEY (`layout_link_id`),
   UNIQUE KEY `UNQ_CORE_LAYOUT_LINK_STORE_ID_PACKAGE_THEME_LAYOUT_UPDATE_ID` (`store_id`,`package`,`theme`,`layout_update_id`),
   KEY `IDX_CORE_LAYOUT_LINK_LAYOUT_UPDATE_ID` (`layout_update_id`),
@@ -4087,8 +4084,8 @@ DROP TABLE IF EXISTS `core_layout_update`;
 CREATE TABLE `core_layout_update` (
   `layout_update_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Layout Update Id',
   `handle` varchar(255) DEFAULT NULL COMMENT 'Handle',
-  `xml` text COMMENT 'Xml',
-  `sort_order` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Sort Order',
+  `xml` text DEFAULT NULL COMMENT 'Xml',
+  `sort_order` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Sort Order',
   PRIMARY KEY (`layout_update_id`),
   KEY `IDX_CORE_LAYOUT_UPDATE_HANDLE` (`handle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Layout Updates';
@@ -4124,7 +4121,7 @@ CREATE TABLE `core_resource` (
 
 LOCK TABLES `core_resource` WRITE;
 /*!40000 ALTER TABLE `core_resource` DISABLE KEYS */;
-INSERT INTO `core_resource` VALUES ('adminnotification_setup','1.6.0.0','1.6.0.0'),('admin_setup','1.6.1.2','1.6.1.2'),('api2_setup','1.0.0.0','1.0.0.0'),('api_setup','1.6.0.1','1.6.0.1'),('backup_setup','1.6.0.0','1.6.0.0'),('bundle_setup','1.6.0.0.1','1.6.0.0.1'),('captcha_setup','1.7.0.0.0','1.7.0.0.0'),('catalogindex_setup','1.6.0.0','1.6.0.0'),('cataloginventory_setup','1.6.0.0.2','1.6.0.0.2'),('catalogrule_setup','1.6.0.3','1.6.0.3'),('catalogsearch_setup','1.8.2.0','1.8.2.0'),('catalog_setup','1.6.0.0.19.1.5','1.6.0.0.19.1.5'),('checkout_setup','1.6.0.0','1.6.0.0'),('cms_setup','1.6.0.0.2','1.6.0.0.2'),('compiler_setup','1.6.0.0','1.6.0.0'),('contacts_setup','1.6.0.0','1.6.0.0'),('core_setup','1.6.0.7','1.6.0.7'),('cron_setup','1.6.0.0','1.6.0.0'),('customer_setup','1.6.2.0.7','1.6.2.0.7'),('dataflow_setup','1.6.0.0','1.6.0.0'),('directory_setup','1.6.0.3','1.6.0.3'),('downloadable_setup','1.6.0.0.3','1.6.0.0.3'),('eav_setup','1.6.0.1','1.6.0.1'),('giftmessage_setup','1.6.0.0','1.6.0.0'),('googleanalytics_setup','1.6.0.0','1.6.0.0'),('importexport_setup','1.6.0.2','1.6.0.2'),('index_setup','1.6.0.0','1.6.0.0'),('log_setup','1.6.1.1','1.6.1.1'),('moneybookers_setup','1.6.0.0','1.6.0.0'),('newsletter_setup','1.6.0.2','1.6.0.2'),('oauth_setup','1.0.0.0','1.0.0.0'),('paygate_setup','1.6.0.0','1.6.0.0'),('payment_setup','1.6.0.0','1.6.0.0'),('paypaluk_setup','1.6.0.0','1.6.0.0'),('paypal_setup','1.6.0.6','1.6.0.6'),('persistent_setup','1.0.0.0','1.0.0.0'),('poll_setup','1.6.0.1','1.6.0.1'),('productalert_setup','1.6.0.0','1.6.0.0'),('rating_setup','1.6.0.1','1.6.0.1'),('reports_setup','1.6.0.0.1','1.6.0.0.1'),('review_setup','1.6.0.0','1.6.0.0'),('rss_setup','1.6.0.0','1.6.0.0'),('salesrule_setup','1.6.0.3','1.6.0.3'),('sales_setup','1.6.0.10','1.6.0.10'),('sendfriend_setup','1.6.0.1','1.6.0.1'),('shipping_setup','1.6.0.0','1.6.0.0'),('sitemap_setup','1.6.0.0','1.6.0.0'),('tag_setup','1.6.0.0','1.6.0.0'),('tax_setup','1.6.0.4','1.6.0.4'),('usa_setup','1.6.0.3','1.6.0.3'),('weee_setup','1.6.0.0','1.6.0.0'),('widget_setup','1.6.0.0','1.6.0.0'),('wishlist_setup','1.6.0.0','1.6.0.0');
+INSERT INTO `core_resource` VALUES ('adminnotification_setup','1.6.0.0','1.6.0.0'),('admin_setup','1.6.1.2','1.6.1.2'),('api2_setup','1.0.0.0','1.0.0.0'),('api_setup','1.6.0.1','1.6.0.1'),('backup_setup','1.6.0.0','1.6.0.0'),('bundle_setup','1.6.0.0.1','1.6.0.0.1'),('captcha_setup','1.7.0.0.0','1.7.0.0.0'),('catalogindex_setup','1.6.0.0','1.6.0.0'),('cataloginventory_setup','1.6.0.0.2','1.6.0.0.2'),('catalogrule_setup','1.6.0.3','1.6.0.3'),('catalogsearch_setup','1.8.2.0','1.8.2.0'),('catalog_setup','1.6.0.0.19.1.5','1.6.0.0.19.1.5'),('checkout_setup','1.6.0.0','1.6.0.0'),('cms_setup','1.6.0.0.2','1.6.0.0.2'),('compiler_setup','1.6.0.0','1.6.0.0'),('contacts_setup','1.6.0.0','1.6.0.0'),('core_setup','1.6.0.8','1.6.0.8'),('cron_setup','1.6.0.0','1.6.0.0'),('customer_setup','1.6.2.0.7','1.6.2.0.7'),('dataflow_setup','1.6.0.0','1.6.0.0'),('directory_setup','1.6.0.3','1.6.0.3'),('downloadable_setup','1.6.0.0.3','1.6.0.0.3'),('eav_setup','1.6.0.1','1.6.0.1'),('giftmessage_setup','1.6.0.0','1.6.0.0'),('googleanalytics_setup','1.6.0.0','1.6.0.0'),('importexport_setup','1.6.0.2','1.6.0.2'),('index_setup','1.6.0.0','1.6.0.0'),('log_setup','1.6.1.1','1.6.1.1'),('moneybookers_setup','1.6.0.0','1.6.0.0'),('newsletter_setup','1.6.0.2','1.6.0.2'),('oauth_setup','1.0.0.0','1.0.0.0'),('paygate_setup','1.6.0.0','1.6.0.0'),('payment_setup','1.6.0.1','1.6.0.1'),('paypaluk_setup','1.6.0.0','1.6.0.0'),('paypal_setup','1.6.0.6','1.6.0.6'),('persistent_setup','1.0.0.0','1.0.0.0'),('poll_setup','1.6.0.1','1.6.0.1'),('productalert_setup','1.6.0.0','1.6.0.0'),('rating_setup','1.6.0.1','1.6.0.1'),('reports_setup','1.6.0.0.1','1.6.0.0.1'),('review_setup','1.6.0.0','1.6.0.0'),('rss_setup','1.6.0.0','1.6.0.0'),('salesrule_setup','1.6.0.3','1.6.0.3'),('sales_setup','1.6.0.10','1.6.0.10'),('sendfriend_setup','1.6.0.1','1.6.0.1'),('shipping_setup','1.6.0.0','1.6.0.0'),('sitemap_setup','1.6.0.0','1.6.0.0'),('tag_setup','1.6.0.0','1.6.0.0'),('tax_setup','1.6.0.4','1.6.0.4'),('usa_setup','1.6.0.3','1.6.0.3'),('vindi_subscription_setup','1.8.6','1.8.6'),('weee_setup','1.6.0.0','1.6.0.0'),('widget_setup','1.6.0.0','1.6.0.0'),('wishlist_setup','1.6.0.0','1.6.0.0');
 /*!40000 ALTER TABLE `core_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4137,7 +4134,7 @@ DROP TABLE IF EXISTS `core_session`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `core_session` (
   `session_id` varchar(255) NOT NULL COMMENT 'Session Id',
-  `session_expires` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Date of Session Expiration',
+  `session_expires` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Date of Session Expiration',
   `session_data` mediumblob NOT NULL COMMENT 'Session Data',
   PRIMARY KEY (`session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Database Sessions Storage';
@@ -4162,11 +4159,11 @@ DROP TABLE IF EXISTS `core_store`;
 CREATE TABLE `core_store` (
   `store_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Store Id',
   `code` varchar(32) DEFAULT NULL COMMENT 'Code',
-  `website_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Website Id',
-  `group_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Group Id',
+  `website_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Website Id',
+  `group_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Group Id',
   `name` varchar(255) NOT NULL COMMENT 'Store Name',
-  `sort_order` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Sort Order',
-  `is_active` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Activity',
+  `sort_order` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Sort Order',
+  `is_active` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Activity',
   PRIMARY KEY (`store_id`),
   UNIQUE KEY `UNQ_CORE_STORE_CODE` (`code`),
   KEY `IDX_CORE_STORE_WEBSITE_ID` (`website_id`),
@@ -4196,10 +4193,10 @@ DROP TABLE IF EXISTS `core_store_group`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `core_store_group` (
   `group_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Group Id',
-  `website_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Website Id',
+  `website_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Website Id',
   `name` varchar(255) NOT NULL COMMENT 'Store Group Name',
-  `root_category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Root Category Id',
-  `default_store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Default Store Id',
+  `root_category_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Root Category Id',
+  `default_store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Default Store Id',
   PRIMARY KEY (`group_id`),
   KEY `IDX_CORE_STORE_GROUP_WEBSITE_ID` (`website_id`),
   KEY `IDX_CORE_STORE_GROUP_DEFAULT_STORE_ID` (`default_store_id`),
@@ -4227,10 +4224,10 @@ DROP TABLE IF EXISTS `core_translate`;
 CREATE TABLE `core_translate` (
   `key_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Key Id of Translation',
   `string` varchar(255) NOT NULL DEFAULT 'Translate String' COMMENT 'Translation String',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
   `translate` varchar(255) DEFAULT NULL COMMENT 'Translate',
   `locale` varchar(20) NOT NULL DEFAULT 'en_US' COMMENT 'Locale',
-  `crc_string` bigint(20) NOT NULL DEFAULT '1591228201' COMMENT 'Translation String CRC32 Hash',
+  `crc_string` bigint(20) NOT NULL DEFAULT 1591228201 COMMENT 'Translation String CRC32 Hash',
   PRIMARY KEY (`key_id`),
   UNIQUE KEY `UNQ_CORE_TRANSLATE_STORE_ID_LOCALE_CRC_STRING_STRING` (`store_id`,`locale`,`crc_string`,`string`),
   KEY `IDX_CORE_TRANSLATE_STORE_ID` (`store_id`),
@@ -4256,11 +4253,11 @@ DROP TABLE IF EXISTS `core_url_rewrite`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `core_url_rewrite` (
   `url_rewrite_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Rewrite Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
   `id_path` varchar(255) DEFAULT NULL COMMENT 'Id Path',
   `request_path` varchar(255) DEFAULT NULL COMMENT 'Request Path',
   `target_path` varchar(255) DEFAULT NULL COMMENT 'Target Path',
-  `is_system` smallint(5) unsigned DEFAULT '1' COMMENT 'Defines is Rewrite System',
+  `is_system` smallint(5) unsigned DEFAULT 1 COMMENT 'Defines is Rewrite System',
   `options` varchar(255) DEFAULT NULL COMMENT 'Options',
   `description` varchar(255) DEFAULT NULL COMMENT 'Deascription',
   `category_id` int(10) unsigned DEFAULT NULL COMMENT 'Category Id',
@@ -4276,7 +4273,7 @@ CREATE TABLE `core_url_rewrite` (
   CONSTRAINT `FK_CORE_URL_REWRITE_CTGR_ID_CAT_CTGR_ENTT_ENTT_ID` FOREIGN KEY (`category_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CORE_URL_REWRITE_PRODUCT_ID_CATALOG_CATEGORY_ENTITY_ENTITY_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CORE_URL_REWRITE_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Url Rewrites';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='Url Rewrites';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4285,7 +4282,7 @@ CREATE TABLE `core_url_rewrite` (
 
 LOCK TABLES `core_url_rewrite` WRITE;
 /*!40000 ALTER TABLE `core_url_rewrite` DISABLE KEYS */;
-INSERT INTO `core_url_rewrite` VALUES (1,1,'product/1','vindi-product.html','catalog/product/view/id/1',1,NULL,NULL,NULL,1);
+INSERT INTO `core_url_rewrite` VALUES (1,1,'product/1','vindi-product.html','catalog/product/view/id/1',1,NULL,NULL,NULL,1),(4,1,'product/2','vindi-subscription.html','catalog/product/view/id/2',1,NULL,NULL,NULL,2);
 /*!40000 ALTER TABLE `core_url_rewrite` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4323,10 +4320,10 @@ DROP TABLE IF EXISTS `core_variable_value`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `core_variable_value` (
   `value_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Variable Value Id',
-  `variable_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Variable Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
-  `plain_value` text COMMENT 'Plain Text Value',
-  `html_value` text COMMENT 'Html Value',
+  `variable_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Variable Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
+  `plain_value` text DEFAULT NULL COMMENT 'Plain Text Value',
+  `html_value` text DEFAULT NULL COMMENT 'Html Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CORE_VARIABLE_VALUE_VARIABLE_ID_STORE_ID` (`variable_id`,`store_id`),
   KEY `IDX_CORE_VARIABLE_VALUE_VARIABLE_ID` (`variable_id`),
@@ -4356,9 +4353,9 @@ CREATE TABLE `core_website` (
   `website_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Website Id',
   `code` varchar(32) DEFAULT NULL COMMENT 'Code',
   `name` varchar(64) DEFAULT NULL COMMENT 'Website Name',
-  `sort_order` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Sort Order',
-  `default_group_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Default Group Id',
-  `is_default` smallint(5) unsigned DEFAULT '0' COMMENT 'Defines Is Website Default',
+  `sort_order` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Sort Order',
+  `default_group_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Default Group Id',
+  `is_default` smallint(5) unsigned DEFAULT 0 COMMENT 'Defines Is Website Default',
   PRIMARY KEY (`website_id`),
   UNIQUE KEY `UNQ_CORE_WEBSITE_CODE` (`code`),
   KEY `IDX_CORE_WEBSITE_SORT_ORDER` (`sort_order`),
@@ -4389,13 +4386,13 @@ CREATE TABLE `coupon_aggregated` (
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
   `order_status` varchar(50) DEFAULT NULL COMMENT 'Order Status',
   `coupon_code` varchar(50) DEFAULT NULL COMMENT 'Coupon Code',
-  `coupon_uses` int(11) NOT NULL DEFAULT '0' COMMENT 'Coupon Uses',
-  `subtotal_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Subtotal Amount',
-  `discount_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Discount Amount',
-  `total_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Amount',
-  `subtotal_amount_actual` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Subtotal Amount Actual',
-  `discount_amount_actual` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Discount Amount Actual',
-  `total_amount_actual` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Amount Actual',
+  `coupon_uses` int(11) NOT NULL DEFAULT 0 COMMENT 'Coupon Uses',
+  `subtotal_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Subtotal Amount',
+  `discount_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Discount Amount',
+  `total_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Amount',
+  `subtotal_amount_actual` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Subtotal Amount Actual',
+  `discount_amount_actual` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Discount Amount Actual',
+  `total_amount_actual` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Amount Actual',
   `rule_name` varchar(255) DEFAULT NULL COMMENT 'Rule Name',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNQ_COUPON_AGGREGATED_PERIOD_STORE_ID_ORDER_STATUS_COUPON_CODE` (`period`,`store_id`,`order_status`,`coupon_code`),
@@ -4427,10 +4424,10 @@ CREATE TABLE `coupon_aggregated_order` (
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
   `order_status` varchar(50) DEFAULT NULL COMMENT 'Order Status',
   `coupon_code` varchar(50) DEFAULT NULL COMMENT 'Coupon Code',
-  `coupon_uses` int(11) NOT NULL DEFAULT '0' COMMENT 'Coupon Uses',
-  `subtotal_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Subtotal Amount',
-  `discount_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Discount Amount',
-  `total_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Amount',
+  `coupon_uses` int(11) NOT NULL DEFAULT 0 COMMENT 'Coupon Uses',
+  `subtotal_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Subtotal Amount',
+  `discount_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Discount Amount',
+  `total_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Amount',
   `rule_name` varchar(255) DEFAULT NULL COMMENT 'Rule Name',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNQ_COUPON_AGGRED_ORDER_PERIOD_STORE_ID_ORDER_STS_COUPON_CODE` (`period`,`store_id`,`order_status`,`coupon_code`),
@@ -4462,13 +4459,13 @@ CREATE TABLE `coupon_aggregated_updated` (
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
   `order_status` varchar(50) DEFAULT NULL COMMENT 'Order Status',
   `coupon_code` varchar(50) DEFAULT NULL COMMENT 'Coupon Code',
-  `coupon_uses` int(11) NOT NULL DEFAULT '0' COMMENT 'Coupon Uses',
-  `subtotal_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Subtotal Amount',
-  `discount_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Discount Amount',
-  `total_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Amount',
-  `subtotal_amount_actual` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Subtotal Amount Actual',
-  `discount_amount_actual` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Discount Amount Actual',
-  `total_amount_actual` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Amount Actual',
+  `coupon_uses` int(11) NOT NULL DEFAULT 0 COMMENT 'Coupon Uses',
+  `subtotal_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Subtotal Amount',
+  `discount_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Discount Amount',
+  `total_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Amount',
+  `subtotal_amount_actual` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Subtotal Amount Actual',
+  `discount_amount_actual` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Discount Amount Actual',
+  `total_amount_actual` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Amount Actual',
   `rule_name` varchar(255) DEFAULT NULL COMMENT 'Rule Name',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNQ_COUPON_AGGRED_UPDATED_PERIOD_STORE_ID_ORDER_STS_COUPON_CODE` (`period`,`store_id`,`order_status`,`coupon_code`),
@@ -4498,7 +4495,7 @@ CREATE TABLE `cron_schedule` (
   `schedule_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Schedule Id',
   `job_code` varchar(255) NOT NULL DEFAULT '0' COMMENT 'Job Code',
   `status` varchar(7) NOT NULL DEFAULT 'pending' COMMENT 'Status',
-  `messages` text COMMENT 'Messages',
+  `messages` text DEFAULT NULL COMMENT 'Messages',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Created At',
   `scheduled_at` timestamp NULL DEFAULT NULL COMMENT 'Scheduled At',
   `executed_at` timestamp NULL DEFAULT NULL COMMENT 'Executed At',
@@ -4527,13 +4524,13 @@ DROP TABLE IF EXISTS `customer_address_entity`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_address_entity` (
   `entity_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Set Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Set Id',
   `increment_id` varchar(50) DEFAULT NULL COMMENT 'Increment Id',
   `parent_id` int(10) unsigned DEFAULT NULL COMMENT 'Parent Id',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Created At',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Updated At',
-  `is_active` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Is Active',
+  `is_active` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Is Active',
   PRIMARY KEY (`entity_id`),
   KEY `IDX_CUSTOMER_ADDRESS_ENTITY_PARENT_ID` (`parent_id`),
   CONSTRAINT `FK_CUSTOMER_ADDRESS_ENTITY_PARENT_ID_CUSTOMER_ENTITY_ENTITY_ID` FOREIGN KEY (`parent_id`) REFERENCES `customer_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -4559,9 +4556,9 @@ DROP TABLE IF EXISTS `customer_address_entity_datetime`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_address_entity_datetime` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
   `value` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CUSTOMER_ADDRESS_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID` (`entity_id`,`attribute_id`),
@@ -4593,10 +4590,10 @@ DROP TABLE IF EXISTS `customer_address_entity_decimal`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_address_entity_decimal` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
-  `value` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Value',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
+  `value` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CUSTOMER_ADDRESS_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID` (`entity_id`,`attribute_id`),
   KEY `IDX_CUSTOMER_ADDRESS_ENTITY_DECIMAL_ENTITY_TYPE_ID` (`entity_type_id`),
@@ -4627,10 +4624,10 @@ DROP TABLE IF EXISTS `customer_address_entity_int`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_address_entity_int` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
-  `value` int(11) NOT NULL DEFAULT '0' COMMENT 'Value',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
+  `value` int(11) NOT NULL DEFAULT 0 COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CUSTOMER_ADDRESS_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID` (`entity_id`,`attribute_id`),
   KEY `IDX_CUSTOMER_ADDRESS_ENTITY_INT_ENTITY_TYPE_ID` (`entity_type_id`),
@@ -4662,9 +4659,9 @@ DROP TABLE IF EXISTS `customer_address_entity_text`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_address_entity_text` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
   `value` text NOT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CUSTOMER_ADDRESS_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID` (`entity_id`,`attribute_id`),
@@ -4696,9 +4693,9 @@ DROP TABLE IF EXISTS `customer_address_entity_varchar`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_address_entity_varchar` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
   `value` varchar(255) DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CUSTOMER_ADDRESS_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID` (`entity_id`,`attribute_id`),
@@ -4731,12 +4728,12 @@ DROP TABLE IF EXISTS `customer_eav_attribute`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_eav_attribute` (
   `attribute_id` smallint(5) unsigned NOT NULL COMMENT 'Attribute Id',
-  `is_visible` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Is Visible',
+  `is_visible` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Is Visible',
   `input_filter` varchar(255) DEFAULT NULL COMMENT 'Input Filter',
-  `multiline_count` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Multiline Count',
-  `validate_rules` text COMMENT 'Validate Rules',
-  `is_system` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is System',
-  `sort_order` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Sort Order',
+  `multiline_count` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Multiline Count',
+  `validate_rules` text DEFAULT NULL COMMENT 'Validate Rules',
+  `is_system` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is System',
+  `sort_order` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Sort Order',
   `data_model` varchar(255) DEFAULT NULL COMMENT 'Data Model',
   PRIMARY KEY (`attribute_id`),
   CONSTRAINT `FK_CSTR_EAV_ATTR_ATTR_ID_EAV_ATTR_ATTR_ID` FOREIGN KEY (`attribute_id`) REFERENCES `eav_attribute` (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -4749,7 +4746,7 @@ CREATE TABLE `customer_eav_attribute` (
 
 LOCK TABLES `customer_eav_attribute` WRITE;
 /*!40000 ALTER TABLE `customer_eav_attribute` DISABLE KEYS */;
-INSERT INTO `customer_eav_attribute` VALUES (1,1,NULL,0,NULL,1,10,NULL),(2,0,NULL,0,NULL,1,0,NULL),(3,1,NULL,0,NULL,1,20,NULL),(4,0,NULL,0,NULL,0,30,NULL),(5,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,40,NULL),(6,1,NULL,0,NULL,0,50,NULL),(7,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,60,NULL),(8,0,NULL,0,NULL,0,70,NULL),(9,1,NULL,0,'a:1:{s:16:\"input_validation\";s:5:\"email\";}',1,80,NULL),(10,1,NULL,0,NULL,1,25,NULL),(11,0,'date',0,'a:1:{s:16:\"input_validation\";s:4:\"date\";}',0,90,NULL),(12,0,NULL,0,NULL,1,0,NULL),(13,0,NULL,0,NULL,1,0,NULL),(14,0,NULL,0,NULL,1,0,NULL),(15,0,NULL,0,'a:1:{s:15:\"max_text_length\";i:255;}',0,100,NULL),(16,0,NULL,0,NULL,1,0,NULL),(17,0,'datetime',0,NULL,0,0,NULL),(18,0,NULL,0,'a:0:{}',0,110,NULL),(19,0,NULL,0,NULL,0,10,NULL),(20,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,20,NULL),(21,1,NULL,0,NULL,0,30,NULL),(22,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,40,NULL),(23,0,NULL,0,NULL,0,50,NULL),(24,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,60,NULL),(25,1,NULL,2,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,70,NULL),(26,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,80,NULL),(27,1,NULL,0,NULL,1,90,NULL),(28,1,NULL,0,NULL,1,100,NULL),(29,1,NULL,0,NULL,1,100,NULL),(30,1,NULL,0,'a:0:{}',1,110,'customer/attribute_data_postcode'),(31,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,120,NULL),(32,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,130,NULL),(33,0,NULL,0,NULL,1,0,NULL),(34,0,NULL,0,'a:1:{s:16:\"input_validation\";s:4:\"date\";}',1,0,NULL),(35,1,NULL,0,NULL,1,28,NULL),(36,1,NULL,0,NULL,1,140,NULL),(37,0,NULL,0,NULL,1,0,NULL),(38,0,NULL,0,NULL,1,0,NULL),(39,0,NULL,0,NULL,1,0,NULL),(40,0,NULL,0,NULL,1,0,NULL),(41,0,NULL,0,NULL,1,0,NULL),(42,0,NULL,0,NULL,1,0,NULL);
+INSERT INTO `customer_eav_attribute` VALUES (1,1,NULL,0,NULL,1,10,NULL),(2,0,NULL,0,NULL,1,0,NULL),(3,1,NULL,0,NULL,1,20,NULL),(4,0,NULL,0,NULL,0,30,NULL),(5,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,40,NULL),(6,1,NULL,0,NULL,0,50,NULL),(7,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,60,NULL),(8,0,NULL,0,NULL,0,70,NULL),(9,1,NULL,0,'a:1:{s:16:\"input_validation\";s:5:\"email\";}',1,80,NULL),(10,1,NULL,0,NULL,1,25,NULL),(11,0,'date',0,'a:1:{s:16:\"input_validation\";s:4:\"date\";}',0,90,NULL),(12,0,NULL,0,NULL,1,0,NULL),(13,0,NULL,0,NULL,1,0,NULL),(14,0,NULL,0,NULL,1,0,NULL),(15,0,NULL,0,'a:1:{s:15:\"max_text_length\";i:255;}',0,100,NULL),(16,0,NULL,0,NULL,1,0,NULL),(17,0,'datetime',0,NULL,0,0,NULL),(18,0,NULL,0,'a:0:{}',0,110,NULL),(19,0,NULL,0,NULL,0,10,NULL),(20,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,20,NULL),(21,1,NULL,0,NULL,0,30,NULL),(22,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,40,NULL),(23,0,NULL,0,NULL,0,50,NULL),(24,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,60,NULL),(25,1,NULL,2,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,70,NULL),(26,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,80,NULL),(27,1,NULL,0,NULL,1,90,NULL),(28,1,NULL,0,NULL,1,100,NULL),(29,1,NULL,0,NULL,1,100,NULL),(30,1,NULL,0,'a:0:{}',1,110,'customer/attribute_data_postcode'),(31,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,120,NULL),(32,1,NULL,0,'a:2:{s:15:\"max_text_length\";i:255;s:15:\"min_text_length\";i:1;}',1,130,NULL),(33,0,NULL,0,NULL,1,0,NULL),(34,0,NULL,0,'a:1:{s:16:\"input_validation\";s:4:\"date\";}',1,0,NULL),(35,1,NULL,0,NULL,1,28,NULL),(36,1,NULL,0,NULL,1,140,NULL),(37,0,NULL,0,NULL,1,0,NULL),(38,0,NULL,0,NULL,1,0,NULL),(39,0,NULL,0,NULL,1,0,NULL),(40,0,NULL,0,NULL,1,0,NULL),(41,0,NULL,0,NULL,1,0,NULL),(42,0,NULL,0,NULL,1,0,NULL),(135,1,NULL,1,NULL,0,0,NULL);
 /*!40000 ALTER TABLE `customer_eav_attribute` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4765,7 +4762,7 @@ CREATE TABLE `customer_eav_attribute_website` (
   `website_id` smallint(5) unsigned NOT NULL COMMENT 'Website Id',
   `is_visible` smallint(5) unsigned DEFAULT NULL COMMENT 'Is Visible',
   `is_required` smallint(5) unsigned DEFAULT NULL COMMENT 'Is Required',
-  `default_value` text COMMENT 'Default Value',
+  `default_value` text DEFAULT NULL COMMENT 'Default Value',
   `multiline_count` smallint(5) unsigned DEFAULT NULL COMMENT 'Multiline Count',
   PRIMARY KEY (`attribute_id`,`website_id`),
   KEY `IDX_CUSTOMER_EAV_ATTRIBUTE_WEBSITE_WEBSITE_ID` (`website_id`),
@@ -4792,17 +4789,17 @@ DROP TABLE IF EXISTS `customer_entity`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_entity` (
   `entity_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Set Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Set Id',
   `website_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Website Id',
   `email` varchar(255) DEFAULT NULL COMMENT 'Email',
-  `group_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Group Id',
+  `group_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Group Id',
   `increment_id` varchar(50) DEFAULT NULL COMMENT 'Increment Id',
-  `store_id` smallint(5) unsigned DEFAULT '0' COMMENT 'Store Id',
+  `store_id` smallint(5) unsigned DEFAULT 0 COMMENT 'Store Id',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Created At',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Updated At',
-  `is_active` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Is Active',
-  `disable_auto_group_change` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Disable automatic group change based on VAT ID',
+  `is_active` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Is Active',
+  `disable_auto_group_change` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Disable automatic group change based on VAT ID',
   PRIMARY KEY (`entity_id`),
   UNIQUE KEY `UNQ_CUSTOMER_ENTITY_EMAIL_WEBSITE_ID` (`email`,`website_id`),
   KEY `IDX_CUSTOMER_ENTITY_STORE_ID` (`store_id`),
@@ -4833,9 +4830,9 @@ DROP TABLE IF EXISTS `customer_entity_datetime`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_entity_datetime` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
   `value` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CUSTOMER_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID` (`entity_id`,`attribute_id`),
@@ -4867,10 +4864,10 @@ DROP TABLE IF EXISTS `customer_entity_decimal`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_entity_decimal` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
-  `value` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Value',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
+  `value` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CUSTOMER_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID` (`entity_id`,`attribute_id`),
   KEY `IDX_CUSTOMER_ENTITY_DECIMAL_ENTITY_TYPE_ID` (`entity_type_id`),
@@ -4901,10 +4898,10 @@ DROP TABLE IF EXISTS `customer_entity_int`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_entity_int` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
-  `value` int(11) NOT NULL DEFAULT '0' COMMENT 'Value',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
+  `value` int(11) NOT NULL DEFAULT 0 COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CUSTOMER_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID` (`entity_id`,`attribute_id`),
   KEY `IDX_CUSTOMER_ENTITY_INT_ENTITY_TYPE_ID` (`entity_type_id`),
@@ -4936,9 +4933,9 @@ DROP TABLE IF EXISTS `customer_entity_text`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_entity_text` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
   `value` text NOT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CUSTOMER_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID` (`entity_id`,`attribute_id`),
@@ -4969,9 +4966,9 @@ DROP TABLE IF EXISTS `customer_entity_varchar`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_entity_varchar` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
   `value` varchar(255) DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_CUSTOMER_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID` (`entity_id`,`attribute_id`),
@@ -5045,7 +5042,7 @@ CREATE TABLE `customer_form_attribute` (
 
 LOCK TABLES `customer_form_attribute` WRITE;
 /*!40000 ALTER TABLE `customer_form_attribute` DISABLE KEYS */;
-INSERT INTO `customer_form_attribute` VALUES ('adminhtml_customer',1),('adminhtml_customer',3),('adminhtml_customer',4),('checkout_register',4),('customer_account_create',4),('customer_account_edit',4),('adminhtml_customer',5),('checkout_register',5),('customer_account_create',5),('customer_account_edit',5),('adminhtml_customer',6),('checkout_register',6),('customer_account_create',6),('customer_account_edit',6),('adminhtml_customer',7),('checkout_register',7),('customer_account_create',7),('customer_account_edit',7),('adminhtml_customer',8),('checkout_register',8),('customer_account_create',8),('customer_account_edit',8),('adminhtml_checkout',9),('adminhtml_customer',9),('checkout_register',9),('customer_account_create',9),('customer_account_edit',9),('adminhtml_checkout',10),('adminhtml_customer',10),('adminhtml_checkout',11),('adminhtml_customer',11),('checkout_register',11),('customer_account_create',11),('customer_account_edit',11),('adminhtml_checkout',15),('adminhtml_customer',15),('checkout_register',15),('customer_account_create',15),('customer_account_edit',15),('adminhtml_customer',17),('checkout_register',17),('customer_account_create',17),('customer_account_edit',17),('adminhtml_checkout',18),('adminhtml_customer',18),('checkout_register',18),('customer_account_create',18),('customer_account_edit',18),('adminhtml_customer_address',19),('customer_address_edit',19),('customer_register_address',19),('adminhtml_customer_address',20),('customer_address_edit',20),('customer_register_address',20),('adminhtml_customer_address',21),('customer_address_edit',21),('customer_register_address',21),('adminhtml_customer_address',22),('customer_address_edit',22),('customer_register_address',22),('adminhtml_customer_address',23),('customer_address_edit',23),('customer_register_address',23),('adminhtml_customer_address',24),('customer_address_edit',24),('customer_register_address',24),('adminhtml_customer_address',25),('customer_address_edit',25),('customer_register_address',25),('adminhtml_customer_address',26),('customer_address_edit',26),('customer_register_address',26),('adminhtml_customer_address',27),('customer_address_edit',27),('customer_register_address',27),('adminhtml_customer_address',28),('customer_address_edit',28),('customer_register_address',28),('adminhtml_customer_address',29),('customer_address_edit',29),('customer_register_address',29),('adminhtml_customer_address',30),('customer_address_edit',30),('customer_register_address',30),('adminhtml_customer_address',31),('customer_address_edit',31),('customer_register_address',31),('adminhtml_customer_address',32),('customer_address_edit',32),('customer_register_address',32),('adminhtml_customer',35),('adminhtml_customer_address',36),('customer_address_edit',36),('customer_register_address',36);
+INSERT INTO `customer_form_attribute` VALUES ('adminhtml_checkout',9),('adminhtml_checkout',10),('adminhtml_checkout',11),('adminhtml_checkout',15),('adminhtml_checkout',18),('adminhtml_customer',1),('adminhtml_customer',3),('adminhtml_customer',4),('adminhtml_customer',5),('adminhtml_customer',6),('adminhtml_customer',7),('adminhtml_customer',8),('adminhtml_customer',9),('adminhtml_customer',10),('adminhtml_customer',11),('adminhtml_customer',15),('adminhtml_customer',17),('adminhtml_customer',18),('adminhtml_customer',35),('adminhtml_customer_address',19),('adminhtml_customer_address',20),('adminhtml_customer_address',21),('adminhtml_customer_address',22),('adminhtml_customer_address',23),('adminhtml_customer_address',24),('adminhtml_customer_address',25),('adminhtml_customer_address',26),('adminhtml_customer_address',27),('adminhtml_customer_address',28),('adminhtml_customer_address',29),('adminhtml_customer_address',30),('adminhtml_customer_address',31),('adminhtml_customer_address',32),('adminhtml_customer_address',36),('checkout_register',4),('checkout_register',5),('checkout_register',6),('checkout_register',7),('checkout_register',8),('checkout_register',9),('checkout_register',11),('checkout_register',15),('checkout_register',17),('checkout_register',18),('customer_account_create',4),('customer_account_create',5),('customer_account_create',6),('customer_account_create',7),('customer_account_create',8),('customer_account_create',9),('customer_account_create',11),('customer_account_create',15),('customer_account_create',17),('customer_account_create',18),('customer_account_edit',4),('customer_account_edit',5),('customer_account_edit',6),('customer_account_edit',7),('customer_account_edit',8),('customer_account_edit',9),('customer_account_edit',11),('customer_account_edit',15),('customer_account_edit',17),('customer_account_edit',18),('customer_address_edit',19),('customer_address_edit',20),('customer_address_edit',21),('customer_address_edit',22),('customer_address_edit',23),('customer_address_edit',24),('customer_address_edit',25),('customer_address_edit',26),('customer_address_edit',27),('customer_address_edit',28),('customer_address_edit',29),('customer_address_edit',30),('customer_address_edit',31),('customer_address_edit',32),('customer_address_edit',36),('customer_register_address',19),('customer_register_address',20),('customer_register_address',21),('customer_register_address',22),('customer_register_address',23),('customer_register_address',24),('customer_register_address',25),('customer_register_address',26),('customer_register_address',27),('customer_register_address',28),('customer_register_address',29),('customer_register_address',30),('customer_register_address',31),('customer_register_address',32),('customer_register_address',36);
 /*!40000 ALTER TABLE `customer_form_attribute` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5059,7 +5056,7 @@ DROP TABLE IF EXISTS `customer_group`;
 CREATE TABLE `customer_group` (
   `customer_group_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Customer Group Id',
   `customer_group_code` varchar(32) NOT NULL COMMENT 'Customer Group Code',
-  `tax_class_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Tax Class Id',
+  `tax_class_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Tax Class Id',
   PRIMARY KEY (`customer_group_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Customer Group';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -5083,10 +5080,10 @@ DROP TABLE IF EXISTS `dataflow_batch`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `dataflow_batch` (
   `batch_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Batch Id',
-  `profile_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Profile ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
+  `profile_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Profile ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
   `adapter` varchar(128) DEFAULT NULL COMMENT 'Adapter',
-  `params` text COMMENT 'Parameters',
+  `params` text DEFAULT NULL COMMENT 'Parameters',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Created At',
   PRIMARY KEY (`batch_id`),
   KEY `IDX_DATAFLOW_BATCH_PROFILE_ID` (`profile_id`),
@@ -5115,9 +5112,9 @@ DROP TABLE IF EXISTS `dataflow_batch_export`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `dataflow_batch_export` (
   `batch_export_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Batch Export Id',
-  `batch_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Batch Id',
-  `batch_data` longtext COMMENT 'Batch Data',
-  `status` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Status',
+  `batch_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Batch Id',
+  `batch_data` longtext DEFAULT NULL COMMENT 'Batch Data',
+  `status` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Status',
   PRIMARY KEY (`batch_export_id`),
   KEY `IDX_DATAFLOW_BATCH_EXPORT_BATCH_ID` (`batch_id`),
   CONSTRAINT `FK_DATAFLOW_BATCH_EXPORT_BATCH_ID_DATAFLOW_BATCH_BATCH_ID` FOREIGN KEY (`batch_id`) REFERENCES `dataflow_batch` (`batch_id`) ON DELETE CASCADE ON UPDATE NO ACTION
@@ -5142,9 +5139,9 @@ DROP TABLE IF EXISTS `dataflow_batch_import`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `dataflow_batch_import` (
   `batch_import_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Batch Import Id',
-  `batch_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Batch Id',
-  `batch_data` longtext COMMENT 'Batch Data',
-  `status` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Status',
+  `batch_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Batch Id',
+  `batch_data` longtext DEFAULT NULL COMMENT 'Batch Data',
+  `status` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Status',
   PRIMARY KEY (`batch_import_id`),
   KEY `IDX_DATAFLOW_BATCH_IMPORT_BATCH_ID` (`batch_id`),
   CONSTRAINT `FK_DATAFLOW_BATCH_IMPORT_BATCH_ID_DATAFLOW_BATCH_BATCH_ID` FOREIGN KEY (`batch_id`) REFERENCES `dataflow_batch` (`batch_id`) ON DELETE CASCADE ON UPDATE NO ACTION
@@ -5170,9 +5167,9 @@ DROP TABLE IF EXISTS `dataflow_import_data`;
 CREATE TABLE `dataflow_import_data` (
   `import_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Import Id',
   `session_id` int(11) DEFAULT NULL COMMENT 'Session Id',
-  `serial_number` int(11) NOT NULL DEFAULT '0' COMMENT 'Serial Number',
-  `value` text COMMENT 'Value',
-  `status` int(11) NOT NULL DEFAULT '0' COMMENT 'Status',
+  `serial_number` int(11) NOT NULL DEFAULT 0 COMMENT 'Serial Number',
+  `value` text DEFAULT NULL COMMENT 'Value',
+  `status` int(11) NOT NULL DEFAULT 0 COMMENT 'Status',
   PRIMARY KEY (`import_id`),
   KEY `IDX_DATAFLOW_IMPORT_DATA_SESSION_ID` (`session_id`),
   CONSTRAINT `FK_DATAFLOW_IMPORT_DATA_SESSION_ID_DATAFLOW_SESSION_SESSION_ID` FOREIGN KEY (`session_id`) REFERENCES `dataflow_session` (`session_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -5200,11 +5197,11 @@ CREATE TABLE `dataflow_profile` (
   `name` varchar(255) DEFAULT NULL COMMENT 'Name',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Created At',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Updated At',
-  `actions_xml` text COMMENT 'Actions Xml',
-  `gui_data` text COMMENT 'Gui Data',
+  `actions_xml` text DEFAULT NULL COMMENT 'Actions Xml',
+  `gui_data` text DEFAULT NULL COMMENT 'Gui Data',
   `direction` varchar(6) DEFAULT NULL COMMENT 'Direction',
   `entity_type` varchar(64) DEFAULT NULL COMMENT 'Entity Type',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
   `data_transfer` varchar(11) DEFAULT NULL COMMENT 'Data Transfer',
   PRIMARY KEY (`profile_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='Dataflow Profile';
@@ -5229,9 +5226,9 @@ DROP TABLE IF EXISTS `dataflow_profile_history`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `dataflow_profile_history` (
   `history_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'History Id',
-  `profile_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Profile Id',
+  `profile_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Profile Id',
   `action_code` varchar(64) DEFAULT NULL COMMENT 'Action Code',
-  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'User Id',
+  `user_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'User Id',
   `performed_at` timestamp NULL DEFAULT NULL COMMENT 'Performed At',
   PRIMARY KEY (`history_id`),
   KEY `IDX_DATAFLOW_PROFILE_HISTORY_PROFILE_ID` (`profile_id`),
@@ -5286,7 +5283,7 @@ DROP TABLE IF EXISTS `design_change`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `design_change` (
   `design_change_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Design Change Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
   `design` varchar(255) DEFAULT NULL COMMENT 'Design',
   `date_from` date DEFAULT NULL COMMENT 'First Date of Design Activity',
   `date_to` date DEFAULT NULL COMMENT 'Last Date of Design Activity',
@@ -5392,7 +5389,7 @@ DROP TABLE IF EXISTS `directory_country_region_name`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `directory_country_region_name` (
   `locale` varchar(8) NOT NULL DEFAULT '' COMMENT 'Locale',
-  `region_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Region Id',
+  `region_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Region Id',
   `name` varchar(255) DEFAULT NULL COMMENT 'Region Name',
   PRIMARY KEY (`locale`,`region_id`),
   KEY `IDX_DIRECTORY_COUNTRY_REGION_NAME_REGION_ID` (`region_id`),
@@ -5420,7 +5417,7 @@ DROP TABLE IF EXISTS `directory_currency_rate`;
 CREATE TABLE `directory_currency_rate` (
   `currency_from` varchar(3) NOT NULL DEFAULT '' COMMENT 'Currency Code Convert From',
   `currency_to` varchar(3) NOT NULL DEFAULT '' COMMENT 'Currency Code Convert To',
-  `rate` decimal(24,12) NOT NULL DEFAULT '0.000000000000' COMMENT 'Currency Conversion Rate',
+  `rate` decimal(24,12) NOT NULL DEFAULT 0.000000000000 COMMENT 'Currency Conversion Rate',
   PRIMARY KEY (`currency_from`,`currency_to`),
   KEY `IDX_DIRECTORY_CURRENCY_RATE_CURRENCY_TO` (`currency_to`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Directory Currency Rate';
@@ -5445,10 +5442,10 @@ DROP TABLE IF EXISTS `downloadable_link`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `downloadable_link` (
   `link_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Link ID',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
-  `sort_order` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Sort order',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
+  `sort_order` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Sort order',
   `number_of_downloads` int(11) DEFAULT NULL COMMENT 'Number of downloads',
-  `is_shareable` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Shareable flag',
+  `is_shareable` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Shareable flag',
   `link_url` varchar(255) DEFAULT NULL COMMENT 'Link Url',
   `link_file` varchar(255) DEFAULT NULL COMMENT 'Link File',
   `link_type` varchar(20) DEFAULT NULL COMMENT 'Link Type',
@@ -5480,9 +5477,9 @@ DROP TABLE IF EXISTS `downloadable_link_price`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `downloadable_link_price` (
   `price_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Price ID',
-  `link_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Link ID',
-  `website_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Website ID',
-  `price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Price',
+  `link_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Link ID',
+  `website_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Website ID',
+  `price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Price',
   PRIMARY KEY (`price_id`),
   KEY `IDX_DOWNLOADABLE_LINK_PRICE_LINK_ID` (`link_id`),
   KEY `IDX_DOWNLOADABLE_LINK_PRICE_WEBSITE_ID` (`website_id`),
@@ -5509,12 +5506,12 @@ DROP TABLE IF EXISTS `downloadable_link_purchased`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `downloadable_link_purchased` (
   `purchased_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Purchased ID',
-  `order_id` int(10) unsigned DEFAULT '0' COMMENT 'Order ID',
+  `order_id` int(10) unsigned DEFAULT 0 COMMENT 'Order ID',
   `order_increment_id` varchar(50) DEFAULT NULL COMMENT 'Order Increment ID',
-  `order_item_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Order Item ID',
+  `order_item_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Order Item ID',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Date of creation',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Date of modification',
-  `customer_id` int(10) unsigned DEFAULT '0' COMMENT 'Customer ID',
+  `customer_id` int(10) unsigned DEFAULT 0 COMMENT 'Customer ID',
   `product_name` varchar(255) DEFAULT NULL COMMENT 'Product name',
   `product_sku` varchar(255) DEFAULT NULL COMMENT 'Product sku',
   `link_section_title` varchar(255) DEFAULT NULL COMMENT 'Link_section_title',
@@ -5545,15 +5542,15 @@ DROP TABLE IF EXISTS `downloadable_link_purchased_item`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `downloadable_link_purchased_item` (
   `item_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Item ID',
-  `purchased_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Purchased ID',
-  `order_item_id` int(10) unsigned DEFAULT '0' COMMENT 'Order Item ID',
-  `product_id` int(10) unsigned DEFAULT '0' COMMENT 'Product ID',
+  `purchased_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Purchased ID',
+  `order_item_id` int(10) unsigned DEFAULT 0 COMMENT 'Order Item ID',
+  `product_id` int(10) unsigned DEFAULT 0 COMMENT 'Product ID',
   `link_hash` varchar(255) DEFAULT NULL COMMENT 'Link hash',
-  `number_of_downloads_bought` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Number of downloads bought',
-  `number_of_downloads_used` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Number of downloads used',
-  `link_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Link ID',
+  `number_of_downloads_bought` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Number of downloads bought',
+  `number_of_downloads_used` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Number of downloads used',
+  `link_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Link ID',
   `link_title` varchar(255) DEFAULT NULL COMMENT 'Link Title',
-  `is_shareable` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Shareable Flag',
+  `is_shareable` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Shareable Flag',
   `link_url` varchar(255) DEFAULT NULL COMMENT 'Link Url',
   `link_file` varchar(255) DEFAULT NULL COMMENT 'Link File',
   `link_type` varchar(255) DEFAULT NULL COMMENT 'Link Type',
@@ -5587,8 +5584,8 @@ DROP TABLE IF EXISTS `downloadable_link_title`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `downloadable_link_title` (
   `title_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Title ID',
-  `link_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Link ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
+  `link_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Link ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
   `title` varchar(255) DEFAULT NULL COMMENT 'Title',
   PRIMARY KEY (`title_id`),
   UNIQUE KEY `UNQ_DOWNLOADABLE_LINK_TITLE_LINK_ID_STORE_ID` (`link_id`,`store_id`),
@@ -5617,11 +5614,11 @@ DROP TABLE IF EXISTS `downloadable_sample`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `downloadable_sample` (
   `sample_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Sample ID',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
   `sample_url` varchar(255) DEFAULT NULL COMMENT 'Sample URL',
   `sample_file` varchar(255) DEFAULT NULL COMMENT 'Sample file',
   `sample_type` varchar(20) DEFAULT NULL COMMENT 'Sample Type',
-  `sort_order` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Sort Order',
+  `sort_order` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Sort Order',
   PRIMARY KEY (`sample_id`),
   KEY `IDX_DOWNLOADABLE_SAMPLE_PRODUCT_ID` (`product_id`),
   CONSTRAINT `FK_DL_SAMPLE_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -5646,8 +5643,8 @@ DROP TABLE IF EXISTS `downloadable_sample_title`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `downloadable_sample_title` (
   `title_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Title ID',
-  `sample_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Sample ID',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store ID',
+  `sample_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Sample ID',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store ID',
   `title` varchar(255) DEFAULT NULL COMMENT 'Title',
   PRIMARY KEY (`title_id`),
   UNIQUE KEY `UNQ_DOWNLOADABLE_SAMPLE_TITLE_SAMPLE_ID_STORE_ID` (`sample_id`,`store_id`),
@@ -5676,7 +5673,7 @@ DROP TABLE IF EXISTS `eav_attribute`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eav_attribute` (
   `attribute_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Attribute Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
   `attribute_code` varchar(255) DEFAULT NULL COMMENT 'Attribute Code',
   `attribute_model` varchar(255) DEFAULT NULL COMMENT 'Attribute Model',
   `backend_model` varchar(255) DEFAULT NULL COMMENT 'Backend Model',
@@ -5687,16 +5684,16 @@ CREATE TABLE `eav_attribute` (
   `frontend_label` varchar(255) DEFAULT NULL COMMENT 'Frontend Label',
   `frontend_class` varchar(255) DEFAULT NULL COMMENT 'Frontend Class',
   `source_model` varchar(255) DEFAULT NULL COMMENT 'Source Model',
-  `is_required` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Defines Is Required',
-  `is_user_defined` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Defines Is User Defined',
-  `default_value` text COMMENT 'Default Value',
-  `is_unique` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Defines Is Unique',
+  `is_required` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Defines Is Required',
+  `is_user_defined` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Defines Is User Defined',
+  `default_value` text DEFAULT NULL COMMENT 'Default Value',
+  `is_unique` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Defines Is Unique',
   `note` varchar(255) DEFAULT NULL COMMENT 'Note',
   PRIMARY KEY (`attribute_id`),
   UNIQUE KEY `UNQ_EAV_ATTRIBUTE_ENTITY_TYPE_ID_ATTRIBUTE_CODE` (`entity_type_id`,`attribute_code`),
   KEY `IDX_EAV_ATTRIBUTE_ENTITY_TYPE_ID` (`entity_type_id`),
   CONSTRAINT `FK_EAV_ATTRIBUTE_ENTITY_TYPE_ID_EAV_ENTITY_TYPE_ENTITY_TYPE_ID` FOREIGN KEY (`entity_type_id`) REFERENCES `eav_entity_type` (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8 COMMENT='Eav Attribute';
+) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=utf8 COMMENT='Eav Attribute';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5705,7 +5702,7 @@ CREATE TABLE `eav_attribute` (
 
 LOCK TABLES `eav_attribute` WRITE;
 /*!40000 ALTER TABLE `eav_attribute` DISABLE KEYS */;
-INSERT INTO `eav_attribute` VALUES (1,1,'website_id',NULL,'customer/customer_attribute_backend_website','static',NULL,NULL,'select','Associate to Website',NULL,'customer/customer_attribute_source_website',1,0,NULL,0,NULL),(2,1,'store_id',NULL,'customer/customer_attribute_backend_store','static',NULL,NULL,'select','Create In',NULL,'customer/customer_attribute_source_store',1,0,NULL,0,NULL),(3,1,'created_in',NULL,NULL,'varchar',NULL,NULL,'text','Created From',NULL,NULL,0,0,NULL,0,NULL),(4,1,'prefix',NULL,NULL,'varchar',NULL,NULL,'text','Prefix',NULL,NULL,0,0,NULL,0,NULL),(5,1,'firstname',NULL,NULL,'varchar',NULL,NULL,'text','First Name',NULL,NULL,1,0,NULL,0,NULL),(6,1,'middlename',NULL,NULL,'varchar',NULL,NULL,'text','Middle Name/Initial',NULL,NULL,0,0,NULL,0,NULL),(7,1,'lastname',NULL,NULL,'varchar',NULL,NULL,'text','Last Name',NULL,NULL,1,0,NULL,0,NULL),(8,1,'suffix',NULL,NULL,'varchar',NULL,NULL,'text','Suffix',NULL,NULL,0,0,NULL,0,NULL),(9,1,'email',NULL,NULL,'static',NULL,NULL,'text','Email',NULL,NULL,1,0,NULL,0,NULL),(10,1,'group_id',NULL,NULL,'static',NULL,NULL,'select','Group',NULL,'customer/customer_attribute_source_group',1,0,NULL,0,NULL),(11,1,'dob',NULL,'eav/entity_attribute_backend_datetime','datetime',NULL,'eav/entity_attribute_frontend_datetime','date','Date Of Birth',NULL,NULL,0,0,NULL,0,NULL),(12,1,'password_hash',NULL,'customer/customer_attribute_backend_password','varchar',NULL,NULL,'hidden',NULL,NULL,NULL,0,0,NULL,0,NULL),(13,1,'default_billing',NULL,'customer/customer_attribute_backend_billing','int',NULL,NULL,'text','Default Billing Address',NULL,NULL,0,0,NULL,0,NULL),(14,1,'default_shipping',NULL,'customer/customer_attribute_backend_shipping','int',NULL,NULL,'text','Default Shipping Address',NULL,NULL,0,0,NULL,0,NULL),(15,1,'taxvat',NULL,NULL,'varchar',NULL,NULL,'text','Tax/VAT Number',NULL,NULL,0,0,NULL,0,NULL),(16,1,'confirmation',NULL,NULL,'varchar',NULL,NULL,'text','Is Confirmed',NULL,NULL,0,0,NULL,0,NULL),(17,1,'created_at',NULL,NULL,'static',NULL,NULL,'datetime','Created At',NULL,NULL,0,0,NULL,0,NULL),(18,1,'gender',NULL,NULL,'int',NULL,NULL,'select','Gender',NULL,'eav/entity_attribute_source_table',0,0,NULL,0,NULL),(19,2,'prefix',NULL,NULL,'varchar',NULL,NULL,'text','Prefix',NULL,NULL,0,0,NULL,0,NULL),(20,2,'firstname',NULL,NULL,'varchar',NULL,NULL,'text','First Name',NULL,NULL,1,0,NULL,0,NULL),(21,2,'middlename',NULL,NULL,'varchar',NULL,NULL,'text','Middle Name/Initial',NULL,NULL,0,0,NULL,0,NULL),(22,2,'lastname',NULL,NULL,'varchar',NULL,NULL,'text','Last Name',NULL,NULL,1,0,NULL,0,NULL),(23,2,'suffix',NULL,NULL,'varchar',NULL,NULL,'text','Suffix',NULL,NULL,0,0,NULL,0,NULL),(24,2,'company',NULL,NULL,'varchar',NULL,NULL,'text','Company',NULL,NULL,0,0,NULL,0,NULL),(25,2,'street',NULL,'customer/entity_address_attribute_backend_street','text',NULL,NULL,'multiline','Street Address',NULL,NULL,1,0,NULL,0,NULL),(26,2,'city',NULL,NULL,'varchar',NULL,NULL,'text','City',NULL,NULL,1,0,NULL,0,NULL),(27,2,'country_id',NULL,NULL,'varchar',NULL,NULL,'select','Country',NULL,'customer/entity_address_attribute_source_country',1,0,NULL,0,NULL),(28,2,'region',NULL,'customer/entity_address_attribute_backend_region','varchar',NULL,NULL,'text','State/Province',NULL,NULL,0,0,NULL,0,NULL),(29,2,'region_id',NULL,NULL,'int',NULL,NULL,'hidden','State/Province',NULL,'customer/entity_address_attribute_source_region',0,0,NULL,0,NULL),(30,2,'postcode',NULL,NULL,'varchar',NULL,NULL,'text','Zip/Postal Code',NULL,NULL,1,0,NULL,0,NULL),(31,2,'telephone',NULL,NULL,'varchar',NULL,NULL,'text','Telephone',NULL,NULL,1,0,NULL,0,NULL),(32,2,'fax',NULL,NULL,'varchar',NULL,NULL,'text','Fax',NULL,NULL,0,0,NULL,0,NULL),(33,1,'rp_token',NULL,NULL,'varchar',NULL,NULL,'hidden',NULL,NULL,NULL,0,0,NULL,0,NULL),(34,1,'rp_token_created_at',NULL,NULL,'datetime',NULL,NULL,'date',NULL,NULL,NULL,0,0,NULL,0,NULL),(35,1,'disable_auto_group_change',NULL,'customer/attribute_backend_data_boolean','static',NULL,NULL,'boolean','Disable Automatic Group Change Based on VAT ID',NULL,NULL,0,0,NULL,0,NULL),(36,2,'vat_id',NULL,NULL,'varchar',NULL,NULL,'text','VAT number',NULL,NULL,0,0,NULL,0,NULL),(37,2,'vat_is_valid',NULL,NULL,'int',NULL,NULL,'text','VAT number validity',NULL,NULL,0,0,NULL,0,NULL),(38,2,'vat_request_id',NULL,NULL,'varchar',NULL,NULL,'text','VAT number validation request ID',NULL,NULL,0,0,NULL,0,NULL),(39,2,'vat_request_date',NULL,NULL,'varchar',NULL,NULL,'text','VAT number validation request date',NULL,NULL,0,0,NULL,0,NULL),(40,2,'vat_request_success',NULL,NULL,'int',NULL,NULL,'text','VAT number validation request success',NULL,NULL,0,0,NULL,0,NULL),(41,1,'password_created_at',NULL,NULL,'int',NULL,NULL,'text','Password created at',NULL,NULL,0,0,NULL,0,NULL),(42,1,'rp_customer_id',NULL,NULL,'varchar',NULL,NULL,'hidden',NULL,NULL,NULL,0,0,NULL,0,NULL),(43,3,'name',NULL,NULL,'varchar',NULL,NULL,'text','Name',NULL,NULL,1,0,NULL,0,NULL),(44,3,'is_active',NULL,NULL,'int',NULL,NULL,'select','Is Active',NULL,'eav/entity_attribute_source_boolean',1,0,NULL,0,NULL),(45,3,'url_key',NULL,'catalog/category_attribute_backend_urlkey','varchar',NULL,NULL,'text','URL Key',NULL,NULL,0,0,NULL,0,NULL),(46,3,'description',NULL,NULL,'text',NULL,NULL,'textarea','Description',NULL,NULL,0,0,NULL,0,NULL),(47,3,'image',NULL,'catalog/category_attribute_backend_image','varchar',NULL,NULL,'image','Image',NULL,NULL,0,0,NULL,0,NULL),(48,3,'meta_title',NULL,NULL,'varchar',NULL,NULL,'text','Page Title',NULL,NULL,0,0,NULL,0,NULL),(49,3,'meta_keywords',NULL,NULL,'text',NULL,NULL,'textarea','Meta Keywords',NULL,NULL,0,0,NULL,0,NULL),(50,3,'meta_description',NULL,NULL,'text',NULL,NULL,'textarea','Meta Description',NULL,NULL,0,0,NULL,0,NULL),(51,3,'display_mode',NULL,NULL,'varchar',NULL,NULL,'select','Display Mode',NULL,'catalog/category_attribute_source_mode',0,0,NULL,0,NULL),(52,3,'landing_page',NULL,NULL,'int',NULL,NULL,'select','CMS Block',NULL,'catalog/category_attribute_source_page',0,0,NULL,0,NULL),(53,3,'is_anchor',NULL,NULL,'int',NULL,NULL,'select','Is Anchor',NULL,'eav/entity_attribute_source_boolean',0,0,NULL,0,NULL),(54,3,'path',NULL,NULL,'static',NULL,NULL,'text','Path',NULL,NULL,0,0,NULL,0,NULL),(55,3,'position',NULL,NULL,'static',NULL,NULL,'text','Position',NULL,NULL,0,0,NULL,0,NULL),(56,3,'all_children',NULL,NULL,'text',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(57,3,'path_in_store',NULL,NULL,'text',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(58,3,'children',NULL,NULL,'text',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(59,3,'url_path',NULL,NULL,'varchar',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(60,3,'custom_design',NULL,NULL,'varchar',NULL,NULL,'select','Custom Design',NULL,'core/design_source_design',0,0,NULL,0,NULL),(61,3,'custom_design_from',NULL,'eav/entity_attribute_backend_datetime','datetime',NULL,NULL,'date','Active From',NULL,NULL,0,0,NULL,0,NULL),(62,3,'custom_design_to',NULL,'eav/entity_attribute_backend_datetime','datetime',NULL,NULL,'date','Active To',NULL,NULL,0,0,NULL,0,NULL),(63,3,'page_layout',NULL,NULL,'varchar',NULL,NULL,'select','Page Layout',NULL,'catalog/category_attribute_source_layout',0,0,NULL,0,NULL),(64,3,'custom_layout_update',NULL,'catalog/attribute_backend_customlayoutupdate','text',NULL,NULL,'textarea','Custom Layout Update',NULL,NULL,0,0,NULL,0,NULL),(65,3,'level',NULL,NULL,'static',NULL,NULL,'text','Level',NULL,NULL,0,0,NULL,0,NULL),(66,3,'children_count',NULL,NULL,'static',NULL,NULL,'text','Children Count',NULL,NULL,0,0,NULL,0,NULL),(67,3,'available_sort_by',NULL,'catalog/category_attribute_backend_sortby','text',NULL,NULL,'multiselect','Available Product Listing Sort By',NULL,'catalog/category_attribute_source_sortby',1,0,NULL,0,NULL),(68,3,'default_sort_by',NULL,'catalog/category_attribute_backend_sortby','varchar',NULL,NULL,'select','Default Product Listing Sort By',NULL,'catalog/category_attribute_source_sortby',1,0,NULL,0,NULL),(69,3,'include_in_menu',NULL,NULL,'int',NULL,NULL,'select','Include in Navigation Menu',NULL,'eav/entity_attribute_source_boolean',1,0,'1',0,NULL),(70,3,'custom_use_parent_settings',NULL,NULL,'int',NULL,NULL,'select','Use Parent Category Settings',NULL,'eav/entity_attribute_source_boolean',0,0,NULL,0,NULL),(71,3,'custom_apply_to_products',NULL,NULL,'int',NULL,NULL,'select','Apply To Products',NULL,'eav/entity_attribute_source_boolean',0,0,NULL,0,NULL),(72,3,'filter_price_range',NULL,NULL,'decimal',NULL,NULL,'text','Layered Navigation Price Step',NULL,NULL,0,0,NULL,0,NULL),(73,4,'name',NULL,NULL,'varchar',NULL,NULL,'text','Name',NULL,NULL,1,0,NULL,0,NULL),(74,4,'description',NULL,NULL,'text',NULL,NULL,'textarea','Description',NULL,NULL,1,0,NULL,0,NULL),(75,4,'short_description',NULL,NULL,'text',NULL,NULL,'textarea','Short Description',NULL,NULL,1,0,NULL,0,NULL),(76,4,'sku',NULL,'catalog/product_attribute_backend_sku','static',NULL,NULL,'text','SKU',NULL,NULL,1,0,NULL,1,NULL),(77,4,'price',NULL,'catalog/product_attribute_backend_price','decimal',NULL,NULL,'price','Price',NULL,NULL,1,0,NULL,0,NULL),(78,4,'special_price',NULL,'catalog/product_attribute_backend_price','decimal',NULL,NULL,'price','Special Price','validate-special-price',NULL,0,0,NULL,0,NULL),(79,4,'special_from_date',NULL,'catalog/product_attribute_backend_startdate_specialprice','datetime',NULL,NULL,'date','Special Price From Date',NULL,NULL,0,0,NULL,0,NULL),(80,4,'special_to_date',NULL,'eav/entity_attribute_backend_datetime','datetime',NULL,NULL,'date','Special Price To Date',NULL,NULL,0,0,NULL,0,NULL),(81,4,'cost',NULL,'catalog/product_attribute_backend_price','decimal',NULL,NULL,'price','Cost',NULL,NULL,0,1,NULL,0,NULL),(82,4,'weight',NULL,NULL,'decimal',NULL,NULL,'weight','Weight',NULL,NULL,1,0,NULL,0,NULL),(83,4,'manufacturer',NULL,NULL,'int',NULL,NULL,'select','Manufacturer',NULL,NULL,0,1,NULL,0,NULL),(84,4,'meta_title',NULL,NULL,'varchar',NULL,NULL,'text','Meta Title',NULL,NULL,0,0,NULL,0,NULL),(85,4,'meta_keyword',NULL,NULL,'text',NULL,NULL,'textarea','Meta Keywords',NULL,NULL,0,0,NULL,0,NULL),(86,4,'meta_description',NULL,NULL,'varchar',NULL,NULL,'textarea','Meta Description',NULL,NULL,0,0,NULL,0,'Maximum 255 chars'),(87,4,'image',NULL,NULL,'varchar',NULL,'catalog/product_attribute_frontend_image','media_image','Base Image',NULL,NULL,0,0,NULL,0,NULL),(88,4,'small_image',NULL,NULL,'varchar',NULL,'catalog/product_attribute_frontend_image','media_image','Small Image',NULL,NULL,0,0,NULL,0,NULL),(89,4,'thumbnail',NULL,NULL,'varchar',NULL,'catalog/product_attribute_frontend_image','media_image','Thumbnail',NULL,NULL,0,0,NULL,0,NULL),(90,4,'media_gallery',NULL,'catalog/product_attribute_backend_media','varchar',NULL,NULL,'gallery','Media Gallery',NULL,NULL,0,0,NULL,0,NULL),(91,4,'old_id',NULL,NULL,'int',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(92,4,'group_price',NULL,'catalog/product_attribute_backend_groupprice','decimal',NULL,NULL,'text','Group Price',NULL,NULL,0,0,NULL,0,NULL),(93,4,'tier_price',NULL,'catalog/product_attribute_backend_tierprice','decimal',NULL,NULL,'text','Tier Price',NULL,NULL,0,0,NULL,0,NULL),(94,4,'color',NULL,NULL,'int',NULL,NULL,'select','Color',NULL,NULL,0,1,NULL,0,NULL),(95,4,'news_from_date',NULL,'catalog/product_attribute_backend_startdate','datetime',NULL,NULL,'date','Set Product as New from Date',NULL,NULL,0,0,NULL,0,NULL),(96,4,'news_to_date',NULL,'eav/entity_attribute_backend_datetime','datetime',NULL,NULL,'date','Set Product as New to Date',NULL,NULL,0,0,NULL,0,NULL),(97,4,'gallery',NULL,NULL,'varchar',NULL,NULL,'gallery','Image Gallery',NULL,NULL,0,0,NULL,0,NULL),(98,4,'status',NULL,NULL,'int',NULL,NULL,'select','Status',NULL,'catalog/product_status',1,0,NULL,0,NULL),(99,4,'url_key',NULL,'catalog/product_attribute_backend_urlkey','varchar',NULL,NULL,'text','URL Key',NULL,NULL,0,0,NULL,0,NULL),(100,4,'url_path',NULL,NULL,'varchar',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(101,4,'minimal_price',NULL,NULL,'decimal',NULL,NULL,'price','Minimal Price',NULL,NULL,0,0,NULL,0,NULL),(102,4,'is_recurring',NULL,NULL,'int',NULL,NULL,'select','Enable Recurring Profile',NULL,'eav/entity_attribute_source_boolean',0,0,NULL,0,'Products with recurring profile participate in catalog as nominal items.'),(103,4,'recurring_profile',NULL,'catalog/product_attribute_backend_recurring','text',NULL,NULL,'text','Recurring Payment Profile',NULL,NULL,0,0,NULL,0,NULL),(104,4,'visibility',NULL,NULL,'int',NULL,NULL,'select','Visibility',NULL,'catalog/product_visibility',1,0,'4',0,NULL),(105,4,'custom_design',NULL,NULL,'varchar',NULL,NULL,'select','Custom Design',NULL,'core/design_source_design',0,0,NULL,0,NULL),(106,4,'custom_design_from',NULL,'catalog/product_attribute_backend_startdate','datetime',NULL,NULL,'date','Active From',NULL,NULL,0,0,NULL,0,NULL),(107,4,'custom_design_to',NULL,'eav/entity_attribute_backend_datetime','datetime',NULL,NULL,'date','Active To',NULL,NULL,0,0,NULL,0,NULL),(108,4,'custom_layout_update',NULL,'catalog/attribute_backend_customlayoutupdate','text',NULL,NULL,'textarea','Custom Layout Update',NULL,NULL,0,0,NULL,0,NULL),(109,4,'page_layout',NULL,NULL,'varchar',NULL,NULL,'select','Page Layout',NULL,'catalog/product_attribute_source_layout',0,0,NULL,0,NULL),(110,4,'category_ids',NULL,NULL,'static',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(111,4,'options_container',NULL,NULL,'varchar',NULL,NULL,'select','Display Product Options In',NULL,'catalog/entity_product_attribute_design_options_container',0,0,'container1',0,NULL),(112,4,'required_options',NULL,NULL,'static',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(113,4,'has_options',NULL,NULL,'static',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(114,4,'image_label',NULL,NULL,'varchar',NULL,NULL,'text','Image Label',NULL,NULL,0,0,NULL,0,NULL),(115,4,'small_image_label',NULL,NULL,'varchar',NULL,NULL,'text','Small Image Label',NULL,NULL,0,0,NULL,0,NULL),(116,4,'thumbnail_label',NULL,NULL,'varchar',NULL,NULL,'text','Thumbnail Label',NULL,NULL,0,0,NULL,0,NULL),(117,4,'created_at',NULL,'eav/entity_attribute_backend_time_created','static',NULL,NULL,'text',NULL,NULL,NULL,1,0,NULL,0,NULL),(118,4,'updated_at',NULL,'eav/entity_attribute_backend_time_updated','static',NULL,NULL,'text',NULL,NULL,NULL,1,0,NULL,0,NULL),(119,4,'country_of_manufacture',NULL,NULL,'varchar',NULL,NULL,'select','Country of Manufacture',NULL,'catalog/product_attribute_source_countryofmanufacture',0,0,NULL,0,NULL),(120,4,'msrp_enabled',NULL,'catalog/product_attribute_backend_msrp','varchar',NULL,NULL,'select','Apply MAP',NULL,'catalog/product_attribute_source_msrp_type_enabled',0,0,'2',0,NULL),(121,4,'msrp_display_actual_price_type',NULL,'catalog/product_attribute_backend_boolean','varchar',NULL,NULL,'select','Display Actual Price',NULL,'catalog/product_attribute_source_msrp_type_price',0,0,'4',0,NULL),(122,4,'msrp',NULL,'catalog/product_attribute_backend_price','decimal',NULL,NULL,'price','Manufacturer\'s Suggested Retail Price',NULL,NULL,0,0,NULL,0,NULL),(123,4,'tax_class_id',NULL,NULL,'int',NULL,NULL,'select','Tax Class',NULL,'tax/class_source_product',1,0,NULL,0,NULL),(124,4,'gift_message_available',NULL,'catalog/product_attribute_backend_boolean','varchar',NULL,NULL,'select','Allow Gift Message',NULL,'eav/entity_attribute_source_boolean',0,0,NULL,0,NULL),(125,4,'price_type',NULL,NULL,'int',NULL,NULL,NULL,NULL,NULL,NULL,1,0,NULL,0,NULL),(126,4,'sku_type',NULL,NULL,'int',NULL,NULL,NULL,NULL,NULL,NULL,1,0,NULL,0,NULL),(127,4,'weight_type',NULL,NULL,'int',NULL,NULL,NULL,NULL,NULL,NULL,1,0,NULL,0,NULL),(128,4,'price_view',NULL,NULL,'int',NULL,NULL,'select','Price View',NULL,'bundle/product_attribute_source_price_view',1,0,NULL,0,NULL),(129,4,'shipment_type',NULL,NULL,'int',NULL,NULL,NULL,'Shipment',NULL,NULL,1,0,NULL,0,NULL),(130,4,'links_purchased_separately',NULL,NULL,'int',NULL,NULL,NULL,'Links can be purchased separately',NULL,NULL,1,0,NULL,0,NULL),(131,4,'samples_title',NULL,NULL,'varchar',NULL,NULL,NULL,'Samples title',NULL,NULL,1,0,NULL,0,NULL),(132,4,'links_title',NULL,NULL,'varchar',NULL,NULL,NULL,'Links title',NULL,NULL,1,0,NULL,0,NULL),(133,4,'links_exist',NULL,NULL,'int',NULL,NULL,NULL,NULL,NULL,NULL,0,0,'0',0,NULL);
+INSERT INTO `eav_attribute` VALUES (1,1,'website_id',NULL,'customer/customer_attribute_backend_website','static',NULL,NULL,'select','Associate to Website',NULL,'customer/customer_attribute_source_website',1,0,NULL,0,NULL),(2,1,'store_id',NULL,'customer/customer_attribute_backend_store','static',NULL,NULL,'select','Create In',NULL,'customer/customer_attribute_source_store',1,0,NULL,0,NULL),(3,1,'created_in',NULL,NULL,'varchar',NULL,NULL,'text','Created From',NULL,NULL,0,0,NULL,0,NULL),(4,1,'prefix',NULL,NULL,'varchar',NULL,NULL,'text','Prefix',NULL,NULL,0,0,NULL,0,NULL),(5,1,'firstname',NULL,NULL,'varchar',NULL,NULL,'text','First Name',NULL,NULL,1,0,NULL,0,NULL),(6,1,'middlename',NULL,NULL,'varchar',NULL,NULL,'text','Middle Name/Initial',NULL,NULL,0,0,NULL,0,NULL),(7,1,'lastname',NULL,NULL,'varchar',NULL,NULL,'text','Last Name',NULL,NULL,1,0,NULL,0,NULL),(8,1,'suffix',NULL,NULL,'varchar',NULL,NULL,'text','Suffix',NULL,NULL,0,0,NULL,0,NULL),(9,1,'email',NULL,NULL,'static',NULL,NULL,'text','Email',NULL,NULL,1,0,NULL,0,NULL),(10,1,'group_id',NULL,NULL,'static',NULL,NULL,'select','Group',NULL,'customer/customer_attribute_source_group',1,0,NULL,0,NULL),(11,1,'dob',NULL,'eav/entity_attribute_backend_datetime','datetime',NULL,'eav/entity_attribute_frontend_datetime','date','Date Of Birth',NULL,NULL,0,0,NULL,0,NULL),(12,1,'password_hash',NULL,'customer/customer_attribute_backend_password','varchar',NULL,NULL,'hidden',NULL,NULL,NULL,0,0,NULL,0,NULL),(13,1,'default_billing',NULL,'customer/customer_attribute_backend_billing','int',NULL,NULL,'text','Default Billing Address',NULL,NULL,0,0,NULL,0,NULL),(14,1,'default_shipping',NULL,'customer/customer_attribute_backend_shipping','int',NULL,NULL,'text','Default Shipping Address',NULL,NULL,0,0,NULL,0,NULL),(15,1,'taxvat',NULL,NULL,'varchar',NULL,NULL,'text','Tax/VAT Number',NULL,NULL,0,0,NULL,0,NULL),(16,1,'confirmation',NULL,NULL,'varchar',NULL,NULL,'text','Is Confirmed',NULL,NULL,0,0,NULL,0,NULL),(17,1,'created_at',NULL,NULL,'static',NULL,NULL,'datetime','Created At',NULL,NULL,0,0,NULL,0,NULL),(18,1,'gender',NULL,NULL,'int',NULL,NULL,'select','Gender',NULL,'eav/entity_attribute_source_table',0,0,NULL,0,NULL),(19,2,'prefix',NULL,NULL,'varchar',NULL,NULL,'text','Prefix',NULL,NULL,0,0,NULL,0,NULL),(20,2,'firstname',NULL,NULL,'varchar',NULL,NULL,'text','First Name',NULL,NULL,1,0,NULL,0,NULL),(21,2,'middlename',NULL,NULL,'varchar',NULL,NULL,'text','Middle Name/Initial',NULL,NULL,0,0,NULL,0,NULL),(22,2,'lastname',NULL,NULL,'varchar',NULL,NULL,'text','Last Name',NULL,NULL,1,0,NULL,0,NULL),(23,2,'suffix',NULL,NULL,'varchar',NULL,NULL,'text','Suffix',NULL,NULL,0,0,NULL,0,NULL),(24,2,'company',NULL,NULL,'varchar',NULL,NULL,'text','Company',NULL,NULL,0,0,NULL,0,NULL),(25,2,'street',NULL,'customer/entity_address_attribute_backend_street','text',NULL,NULL,'multiline','Street Address',NULL,NULL,1,0,NULL,0,NULL),(26,2,'city',NULL,NULL,'varchar',NULL,NULL,'text','City',NULL,NULL,1,0,NULL,0,NULL),(27,2,'country_id',NULL,NULL,'varchar',NULL,NULL,'select','Country',NULL,'customer/entity_address_attribute_source_country',1,0,NULL,0,NULL),(28,2,'region',NULL,'customer/entity_address_attribute_backend_region','varchar',NULL,NULL,'text','State/Province',NULL,NULL,0,0,NULL,0,NULL),(29,2,'region_id',NULL,NULL,'int',NULL,NULL,'hidden','State/Province',NULL,'customer/entity_address_attribute_source_region',0,0,NULL,0,NULL),(30,2,'postcode',NULL,NULL,'varchar',NULL,NULL,'text','Zip/Postal Code',NULL,NULL,1,0,NULL,0,NULL),(31,2,'telephone',NULL,NULL,'varchar',NULL,NULL,'text','Telephone',NULL,NULL,1,0,NULL,0,NULL),(32,2,'fax',NULL,NULL,'varchar',NULL,NULL,'text','Fax',NULL,NULL,0,0,NULL,0,NULL),(33,1,'rp_token',NULL,NULL,'varchar',NULL,NULL,'hidden',NULL,NULL,NULL,0,0,NULL,0,NULL),(34,1,'rp_token_created_at',NULL,NULL,'datetime',NULL,NULL,'date',NULL,NULL,NULL,0,0,NULL,0,NULL),(35,1,'disable_auto_group_change',NULL,'customer/attribute_backend_data_boolean','static',NULL,NULL,'boolean','Disable Automatic Group Change Based on VAT ID',NULL,NULL,0,0,NULL,0,NULL),(36,2,'vat_id',NULL,NULL,'varchar',NULL,NULL,'text','VAT number',NULL,NULL,0,0,NULL,0,NULL),(37,2,'vat_is_valid',NULL,NULL,'int',NULL,NULL,'text','VAT number validity',NULL,NULL,0,0,NULL,0,NULL),(38,2,'vat_request_id',NULL,NULL,'varchar',NULL,NULL,'text','VAT number validation request ID',NULL,NULL,0,0,NULL,0,NULL),(39,2,'vat_request_date',NULL,NULL,'varchar',NULL,NULL,'text','VAT number validation request date',NULL,NULL,0,0,NULL,0,NULL),(40,2,'vat_request_success',NULL,NULL,'int',NULL,NULL,'text','VAT number validation request success',NULL,NULL,0,0,NULL,0,NULL),(41,1,'password_created_at',NULL,NULL,'int',NULL,NULL,'text','Password created at',NULL,NULL,0,0,NULL,0,NULL),(42,1,'rp_customer_id',NULL,NULL,'varchar',NULL,NULL,'hidden',NULL,NULL,NULL,0,0,NULL,0,NULL),(43,3,'name',NULL,NULL,'varchar',NULL,NULL,'text','Name',NULL,NULL,1,0,NULL,0,NULL),(44,3,'is_active',NULL,NULL,'int',NULL,NULL,'select','Is Active',NULL,'eav/entity_attribute_source_boolean',1,0,NULL,0,NULL),(45,3,'url_key',NULL,'catalog/category_attribute_backend_urlkey','varchar',NULL,NULL,'text','URL Key',NULL,NULL,0,0,NULL,0,NULL),(46,3,'description',NULL,NULL,'text',NULL,NULL,'textarea','Description',NULL,NULL,0,0,NULL,0,NULL),(47,3,'image',NULL,'catalog/category_attribute_backend_image','varchar',NULL,NULL,'image','Image',NULL,NULL,0,0,NULL,0,NULL),(48,3,'meta_title',NULL,NULL,'varchar',NULL,NULL,'text','Page Title',NULL,NULL,0,0,NULL,0,NULL),(49,3,'meta_keywords',NULL,NULL,'text',NULL,NULL,'textarea','Meta Keywords',NULL,NULL,0,0,NULL,0,NULL),(50,3,'meta_description',NULL,NULL,'text',NULL,NULL,'textarea','Meta Description',NULL,NULL,0,0,NULL,0,NULL),(51,3,'display_mode',NULL,NULL,'varchar',NULL,NULL,'select','Display Mode',NULL,'catalog/category_attribute_source_mode',0,0,NULL,0,NULL),(52,3,'landing_page',NULL,NULL,'int',NULL,NULL,'select','CMS Block',NULL,'catalog/category_attribute_source_page',0,0,NULL,0,NULL),(53,3,'is_anchor',NULL,NULL,'int',NULL,NULL,'select','Is Anchor',NULL,'eav/entity_attribute_source_boolean',0,0,NULL,0,NULL),(54,3,'path',NULL,NULL,'static',NULL,NULL,'text','Path',NULL,NULL,0,0,NULL,0,NULL),(55,3,'position',NULL,NULL,'static',NULL,NULL,'text','Position',NULL,NULL,0,0,NULL,0,NULL),(56,3,'all_children',NULL,NULL,'text',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(57,3,'path_in_store',NULL,NULL,'text',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(58,3,'children',NULL,NULL,'text',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(59,3,'url_path',NULL,NULL,'varchar',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(60,3,'custom_design',NULL,NULL,'varchar',NULL,NULL,'select','Custom Design',NULL,'core/design_source_design',0,0,NULL,0,NULL),(61,3,'custom_design_from',NULL,'eav/entity_attribute_backend_datetime','datetime',NULL,NULL,'date','Active From',NULL,NULL,0,0,NULL,0,NULL),(62,3,'custom_design_to',NULL,'eav/entity_attribute_backend_datetime','datetime',NULL,NULL,'date','Active To',NULL,NULL,0,0,NULL,0,NULL),(63,3,'page_layout',NULL,NULL,'varchar',NULL,NULL,'select','Page Layout',NULL,'catalog/category_attribute_source_layout',0,0,NULL,0,NULL),(64,3,'custom_layout_update',NULL,'catalog/attribute_backend_customlayoutupdate','text',NULL,NULL,'textarea','Custom Layout Update',NULL,NULL,0,0,NULL,0,NULL),(65,3,'level',NULL,NULL,'static',NULL,NULL,'text','Level',NULL,NULL,0,0,NULL,0,NULL),(66,3,'children_count',NULL,NULL,'static',NULL,NULL,'text','Children Count',NULL,NULL,0,0,NULL,0,NULL),(67,3,'available_sort_by',NULL,'catalog/category_attribute_backend_sortby','text',NULL,NULL,'multiselect','Available Product Listing Sort By',NULL,'catalog/category_attribute_source_sortby',1,0,NULL,0,NULL),(68,3,'default_sort_by',NULL,'catalog/category_attribute_backend_sortby','varchar',NULL,NULL,'select','Default Product Listing Sort By',NULL,'catalog/category_attribute_source_sortby',1,0,NULL,0,NULL),(69,3,'include_in_menu',NULL,NULL,'int',NULL,NULL,'select','Include in Navigation Menu',NULL,'eav/entity_attribute_source_boolean',1,0,'1',0,NULL),(70,3,'custom_use_parent_settings',NULL,NULL,'int',NULL,NULL,'select','Use Parent Category Settings',NULL,'eav/entity_attribute_source_boolean',0,0,NULL,0,NULL),(71,3,'custom_apply_to_products',NULL,NULL,'int',NULL,NULL,'select','Apply To Products',NULL,'eav/entity_attribute_source_boolean',0,0,NULL,0,NULL),(72,3,'filter_price_range',NULL,NULL,'decimal',NULL,NULL,'text','Layered Navigation Price Step',NULL,NULL,0,0,NULL,0,NULL),(73,4,'name',NULL,NULL,'varchar',NULL,NULL,'text','Name',NULL,NULL,1,0,NULL,0,NULL),(74,4,'description',NULL,NULL,'text',NULL,NULL,'textarea','Description',NULL,NULL,1,0,NULL,0,NULL),(75,4,'short_description',NULL,NULL,'text',NULL,NULL,'textarea','Short Description',NULL,NULL,1,0,NULL,0,NULL),(76,4,'sku',NULL,'catalog/product_attribute_backend_sku','static',NULL,NULL,'text','SKU',NULL,NULL,1,0,NULL,1,NULL),(77,4,'price',NULL,'catalog/product_attribute_backend_price','decimal',NULL,NULL,'price','Price',NULL,NULL,1,0,NULL,0,NULL),(78,4,'special_price',NULL,'catalog/product_attribute_backend_price','decimal',NULL,NULL,'price','Special Price','validate-special-price',NULL,0,0,NULL,0,NULL),(79,4,'special_from_date',NULL,'catalog/product_attribute_backend_startdate_specialprice','datetime',NULL,NULL,'date','Special Price From Date',NULL,NULL,0,0,NULL,0,NULL),(80,4,'special_to_date',NULL,'eav/entity_attribute_backend_datetime','datetime',NULL,NULL,'date','Special Price To Date',NULL,NULL,0,0,NULL,0,NULL),(81,4,'cost',NULL,'catalog/product_attribute_backend_price','decimal',NULL,NULL,'price','Cost',NULL,NULL,0,1,NULL,0,NULL),(82,4,'weight',NULL,NULL,'decimal',NULL,NULL,'weight','Weight',NULL,NULL,1,0,NULL,0,NULL),(83,4,'manufacturer',NULL,NULL,'int',NULL,NULL,'select','Manufacturer',NULL,NULL,0,1,NULL,0,NULL),(84,4,'meta_title',NULL,NULL,'varchar',NULL,NULL,'text','Meta Title',NULL,NULL,0,0,NULL,0,NULL),(85,4,'meta_keyword',NULL,NULL,'text',NULL,NULL,'textarea','Meta Keywords',NULL,NULL,0,0,NULL,0,NULL),(86,4,'meta_description',NULL,NULL,'varchar',NULL,NULL,'textarea','Meta Description',NULL,NULL,0,0,NULL,0,'Maximum 255 chars'),(87,4,'image',NULL,NULL,'varchar',NULL,'catalog/product_attribute_frontend_image','media_image','Base Image',NULL,NULL,0,0,NULL,0,NULL),(88,4,'small_image',NULL,NULL,'varchar',NULL,'catalog/product_attribute_frontend_image','media_image','Small Image',NULL,NULL,0,0,NULL,0,NULL),(89,4,'thumbnail',NULL,NULL,'varchar',NULL,'catalog/product_attribute_frontend_image','media_image','Thumbnail',NULL,NULL,0,0,NULL,0,NULL),(90,4,'media_gallery',NULL,'catalog/product_attribute_backend_media','varchar',NULL,NULL,'gallery','Media Gallery',NULL,NULL,0,0,NULL,0,NULL),(91,4,'old_id',NULL,NULL,'int',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(92,4,'group_price',NULL,'catalog/product_attribute_backend_groupprice','decimal',NULL,NULL,'text','Group Price',NULL,NULL,0,0,NULL,0,NULL),(93,4,'tier_price',NULL,'catalog/product_attribute_backend_tierprice','decimal',NULL,NULL,'text','Tier Price',NULL,NULL,0,0,NULL,0,NULL),(94,4,'color',NULL,NULL,'int',NULL,NULL,'select','Color',NULL,NULL,0,1,NULL,0,NULL),(95,4,'news_from_date',NULL,'catalog/product_attribute_backend_startdate','datetime',NULL,NULL,'date','Set Product as New from Date',NULL,NULL,0,0,NULL,0,NULL),(96,4,'news_to_date',NULL,'eav/entity_attribute_backend_datetime','datetime',NULL,NULL,'date','Set Product as New to Date',NULL,NULL,0,0,NULL,0,NULL),(97,4,'gallery',NULL,NULL,'varchar',NULL,NULL,'gallery','Image Gallery',NULL,NULL,0,0,NULL,0,NULL),(98,4,'status',NULL,NULL,'int',NULL,NULL,'select','Status',NULL,'catalog/product_status',1,0,NULL,0,NULL),(99,4,'url_key',NULL,'catalog/product_attribute_backend_urlkey','varchar',NULL,NULL,'text','URL Key',NULL,NULL,0,0,NULL,0,NULL),(100,4,'url_path',NULL,NULL,'varchar',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(101,4,'minimal_price',NULL,NULL,'decimal',NULL,NULL,'price','Minimal Price',NULL,NULL,0,0,NULL,0,NULL),(102,4,'is_recurring',NULL,NULL,'int',NULL,NULL,'select','Enable Recurring Profile',NULL,'eav/entity_attribute_source_boolean',0,0,NULL,0,'Products with recurring profile participate in catalog as nominal items.'),(103,4,'recurring_profile',NULL,'catalog/product_attribute_backend_recurring','text',NULL,NULL,'text','Recurring Payment Profile',NULL,NULL,0,0,NULL,0,NULL),(104,4,'visibility',NULL,NULL,'int',NULL,NULL,'select','Visibility',NULL,'catalog/product_visibility',1,0,'4',0,NULL),(105,4,'custom_design',NULL,NULL,'varchar',NULL,NULL,'select','Custom Design',NULL,'core/design_source_design',0,0,NULL,0,NULL),(106,4,'custom_design_from',NULL,'catalog/product_attribute_backend_startdate','datetime',NULL,NULL,'date','Active From',NULL,NULL,0,0,NULL,0,NULL),(107,4,'custom_design_to',NULL,'eav/entity_attribute_backend_datetime','datetime',NULL,NULL,'date','Active To',NULL,NULL,0,0,NULL,0,NULL),(108,4,'custom_layout_update',NULL,'catalog/attribute_backend_customlayoutupdate','text',NULL,NULL,'textarea','Custom Layout Update',NULL,NULL,0,0,NULL,0,NULL),(109,4,'page_layout',NULL,NULL,'varchar',NULL,NULL,'select','Page Layout',NULL,'catalog/product_attribute_source_layout',0,0,NULL,0,NULL),(110,4,'category_ids',NULL,NULL,'static',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(111,4,'options_container',NULL,NULL,'varchar',NULL,NULL,'select','Display Product Options In',NULL,'catalog/entity_product_attribute_design_options_container',0,0,'container1',0,NULL),(112,4,'required_options',NULL,NULL,'static',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(113,4,'has_options',NULL,NULL,'static',NULL,NULL,'text',NULL,NULL,NULL,0,0,NULL,0,NULL),(114,4,'image_label',NULL,NULL,'varchar',NULL,NULL,'text','Image Label',NULL,NULL,0,0,NULL,0,NULL),(115,4,'small_image_label',NULL,NULL,'varchar',NULL,NULL,'text','Small Image Label',NULL,NULL,0,0,NULL,0,NULL),(116,4,'thumbnail_label',NULL,NULL,'varchar',NULL,NULL,'text','Thumbnail Label',NULL,NULL,0,0,NULL,0,NULL),(117,4,'created_at',NULL,'eav/entity_attribute_backend_time_created','static',NULL,NULL,'text',NULL,NULL,NULL,1,0,NULL,0,NULL),(118,4,'updated_at',NULL,'eav/entity_attribute_backend_time_updated','static',NULL,NULL,'text',NULL,NULL,NULL,1,0,NULL,0,NULL),(119,4,'country_of_manufacture',NULL,NULL,'varchar',NULL,NULL,'select','Country of Manufacture',NULL,'catalog/product_attribute_source_countryofmanufacture',0,0,NULL,0,NULL),(120,4,'msrp_enabled',NULL,'catalog/product_attribute_backend_msrp','varchar',NULL,NULL,'select','Apply MAP',NULL,'catalog/product_attribute_source_msrp_type_enabled',0,0,'2',0,NULL),(121,4,'msrp_display_actual_price_type',NULL,'catalog/product_attribute_backend_boolean','varchar',NULL,NULL,'select','Display Actual Price',NULL,'catalog/product_attribute_source_msrp_type_price',0,0,'4',0,NULL),(122,4,'msrp',NULL,'catalog/product_attribute_backend_price','decimal',NULL,NULL,'price','Manufacturer\'s Suggested Retail Price',NULL,NULL,0,0,NULL,0,NULL),(123,4,'tax_class_id',NULL,NULL,'int',NULL,NULL,'select','Tax Class',NULL,'tax/class_source_product',1,0,NULL,0,NULL),(124,4,'gift_message_available',NULL,'catalog/product_attribute_backend_boolean','varchar',NULL,NULL,'select','Allow Gift Message',NULL,'eav/entity_attribute_source_boolean',0,0,NULL,0,NULL),(125,4,'price_type',NULL,NULL,'int',NULL,NULL,NULL,NULL,NULL,NULL,1,0,NULL,0,NULL),(126,4,'sku_type',NULL,NULL,'int',NULL,NULL,NULL,NULL,NULL,NULL,1,0,NULL,0,NULL),(127,4,'weight_type',NULL,NULL,'int',NULL,NULL,NULL,NULL,NULL,NULL,1,0,NULL,0,NULL),(128,4,'price_view',NULL,NULL,'int',NULL,NULL,'select','Price View',NULL,'bundle/product_attribute_source_price_view',1,0,NULL,0,NULL),(129,4,'shipment_type',NULL,NULL,'int',NULL,NULL,NULL,'Shipment',NULL,NULL,1,0,NULL,0,NULL),(130,4,'links_purchased_separately',NULL,NULL,'int',NULL,NULL,NULL,'Links can be purchased separately',NULL,NULL,1,0,NULL,0,NULL),(131,4,'samples_title',NULL,NULL,'varchar',NULL,NULL,NULL,'Samples title',NULL,NULL,1,0,NULL,0,NULL),(132,4,'links_title',NULL,NULL,'varchar',NULL,NULL,NULL,'Links title',NULL,NULL,1,0,NULL,0,NULL),(133,4,'links_exist',NULL,NULL,'int',NULL,NULL,NULL,NULL,NULL,NULL,0,0,'0',0,NULL),(134,4,'vindi_subscription_plan',NULL,NULL,'int',NULL,NULL,'select','Plano da Vindi',NULL,'vindi_subscription/product_attribute_plan',1,0,NULL,0,NULL),(135,1,'vindi_user_code',NULL,NULL,'varchar',NULL,NULL,'text','Código do Cliente na Vindi',NULL,NULL,1,0,NULL,0,NULL),(136,4,'vindi_product_id',NULL,NULL,'int',NULL,NULL,'text','ID Vindi do produto',NULL,NULL,1,0,NULL,0,NULL);
 /*!40000 ALTER TABLE `eav_attribute` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5718,15 +5715,15 @@ DROP TABLE IF EXISTS `eav_attribute_group`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eav_attribute_group` (
   `attribute_group_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Attribute Group Id',
-  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Set Id',
+  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Set Id',
   `attribute_group_name` varchar(255) DEFAULT NULL COMMENT 'Attribute Group Name',
-  `sort_order` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Sort Order',
-  `default_id` smallint(5) unsigned DEFAULT '0' COMMENT 'Default Id',
+  `sort_order` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Sort Order',
+  `default_id` smallint(5) unsigned DEFAULT 0 COMMENT 'Default Id',
   PRIMARY KEY (`attribute_group_id`),
   UNIQUE KEY `UNQ_EAV_ATTRIBUTE_GROUP_ATTRIBUTE_SET_ID_ATTRIBUTE_GROUP_NAME` (`attribute_set_id`,`attribute_group_name`),
   KEY `IDX_EAV_ATTRIBUTE_GROUP_ATTRIBUTE_SET_ID_SORT_ORDER` (`attribute_set_id`,`sort_order`),
   CONSTRAINT `FK_EAV_ATTR_GROUP_ATTR_SET_ID_EAV_ATTR_SET_ATTR_SET_ID` FOREIGN KEY (`attribute_set_id`) REFERENCES `eav_attribute_set` (`attribute_set_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='Eav Attribute Group';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='Eav Attribute Group';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5735,7 +5732,7 @@ CREATE TABLE `eav_attribute_group` (
 
 LOCK TABLES `eav_attribute_group` WRITE;
 /*!40000 ALTER TABLE `eav_attribute_group` DISABLE KEYS */;
-INSERT INTO `eav_attribute_group` VALUES (1,1,'General',1,1),(2,2,'General',1,1),(3,3,'General',10,1),(4,3,'General Information',2,0),(5,3,'Display Settings',20,0),(6,3,'Custom Design',30,0),(7,4,'General',1,1),(8,4,'Prices',2,0),(9,4,'Meta Information',3,0),(10,4,'Images',4,0),(11,4,'Recurring Profile',5,0),(12,4,'Design',6,0),(13,5,'General',1,1),(14,6,'General',1,1),(15,7,'General',1,1),(16,8,'General',1,1),(17,4,'Gift Options',7,0);
+INSERT INTO `eav_attribute_group` VALUES (1,1,'General',1,1),(2,2,'General',1,1),(3,3,'General',10,1),(4,3,'General Information',2,0),(5,3,'Display Settings',20,0),(6,3,'Custom Design',30,0),(7,4,'General',1,1),(8,4,'Prices',2,0),(9,4,'Meta Information',3,0),(10,4,'Images',4,0),(11,4,'Recurring Profile',5,0),(12,4,'Design',6,0),(13,5,'General',1,1),(14,6,'General',1,1),(15,7,'General',1,1),(16,8,'General',1,1),(17,4,'Gift Options',7,0),(18,4,'Vindi',8,0);
 /*!40000 ALTER TABLE `eav_attribute_group` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5748,8 +5745,8 @@ DROP TABLE IF EXISTS `eav_attribute_label`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eav_attribute_label` (
   `attribute_label_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Attribute Label Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
   `value` varchar(255) DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`attribute_label_id`),
   KEY `IDX_EAV_ATTRIBUTE_LABEL_ATTRIBUTE_ID` (`attribute_id`),
@@ -5778,8 +5775,8 @@ DROP TABLE IF EXISTS `eav_attribute_option`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eav_attribute_option` (
   `option_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Option Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `sort_order` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Sort Order',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `sort_order` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Sort Order',
   PRIMARY KEY (`option_id`),
   KEY `IDX_EAV_ATTRIBUTE_OPTION_ATTRIBUTE_ID` (`attribute_id`),
   CONSTRAINT `FK_EAV_ATTRIBUTE_OPTION_ATTRIBUTE_ID_EAV_ATTRIBUTE_ATTRIBUTE_ID` FOREIGN KEY (`attribute_id`) REFERENCES `eav_attribute` (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -5805,8 +5802,8 @@ DROP TABLE IF EXISTS `eav_attribute_option_value`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eav_attribute_option_value` (
   `value_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `option_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Option Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
+  `option_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Option Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
   `value` varchar(255) DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`value_id`),
   KEY `IDX_EAV_ATTRIBUTE_OPTION_VALUE_OPTION_ID` (`option_id`),
@@ -5835,9 +5832,9 @@ DROP TABLE IF EXISTS `eav_attribute_set`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eav_attribute_set` (
   `attribute_set_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Attribute Set Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
   `attribute_set_name` varchar(255) DEFAULT NULL COMMENT 'Attribute Set Name',
-  `sort_order` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Sort Order',
+  `sort_order` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Sort Order',
   PRIMARY KEY (`attribute_set_id`),
   UNIQUE KEY `UNQ_EAV_ATTRIBUTE_SET_ENTITY_TYPE_ID_ATTRIBUTE_SET_NAME` (`entity_type_id`,`attribute_set_name`),
   KEY `IDX_EAV_ATTRIBUTE_SET_ENTITY_TYPE_ID_SORT_ORDER` (`entity_type_id`,`sort_order`),
@@ -5864,14 +5861,14 @@ DROP TABLE IF EXISTS `eav_entity`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eav_entity` (
   `entity_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Set Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Set Id',
   `increment_id` varchar(50) DEFAULT NULL COMMENT 'Increment Id',
-  `parent_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Parent Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
+  `parent_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Parent Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Created At',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Updated At',
-  `is_active` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Defines Is Entity Active',
+  `is_active` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Defines Is Entity Active',
   PRIMARY KEY (`entity_id`),
   KEY `IDX_EAV_ENTITY_ENTITY_TYPE_ID` (`entity_type_id`),
   KEY `IDX_EAV_ENTITY_STORE_ID` (`store_id`),
@@ -5898,11 +5895,11 @@ DROP TABLE IF EXISTS `eav_entity_attribute`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eav_entity_attribute` (
   `entity_attribute_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity Attribute Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Set Id',
-  `attribute_group_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Group Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `sort_order` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Sort Order',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Set Id',
+  `attribute_group_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Group Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `sort_order` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Sort Order',
   PRIMARY KEY (`entity_attribute_id`),
   UNIQUE KEY `UNQ_EAV_ENTITY_ATTRIBUTE_ATTRIBUTE_SET_ID_ATTRIBUTE_ID` (`attribute_set_id`,`attribute_id`),
   UNIQUE KEY `UNQ_EAV_ENTITY_ATTRIBUTE_ATTRIBUTE_GROUP_ID_ATTRIBUTE_ID` (`attribute_group_id`,`attribute_id`),
@@ -5910,7 +5907,7 @@ CREATE TABLE `eav_entity_attribute` (
   KEY `IDX_EAV_ENTITY_ATTRIBUTE_ATTRIBUTE_ID` (`attribute_id`),
   CONSTRAINT `FK_EAV_ENTITY_ATTRIBUTE_ATTRIBUTE_ID_EAV_ATTRIBUTE_ATTRIBUTE_ID` FOREIGN KEY (`attribute_id`) REFERENCES `eav_attribute` (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_EAV_ENTT_ATTR_ATTR_GROUP_ID_EAV_ATTR_GROUP_ATTR_GROUP_ID` FOREIGN KEY (`attribute_group_id`) REFERENCES `eav_attribute_group` (`attribute_group_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8 COMMENT='Eav Entity Attributes';
+) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=utf8 COMMENT='Eav Entity Attributes';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5919,7 +5916,7 @@ CREATE TABLE `eav_entity_attribute` (
 
 LOCK TABLES `eav_entity_attribute` WRITE;
 /*!40000 ALTER TABLE `eav_entity_attribute` DISABLE KEYS */;
-INSERT INTO `eav_entity_attribute` VALUES (1,1,1,1,1,10),(2,1,1,1,2,0),(3,1,1,1,3,20),(4,1,1,1,4,30),(5,1,1,1,5,40),(6,1,1,1,6,50),(7,1,1,1,7,60),(8,1,1,1,8,70),(9,1,1,1,9,80),(10,1,1,1,10,25),(11,1,1,1,11,90),(12,1,1,1,12,0),(13,1,1,1,13,0),(14,1,1,1,14,0),(15,1,1,1,15,100),(16,1,1,1,16,0),(17,1,1,1,17,86),(18,1,1,1,18,110),(19,2,2,2,19,10),(20,2,2,2,20,20),(21,2,2,2,21,30),(22,2,2,2,22,40),(23,2,2,2,23,50),(24,2,2,2,24,60),(25,2,2,2,25,70),(26,2,2,2,26,80),(27,2,2,2,27,90),(28,2,2,2,28,100),(29,2,2,2,29,100),(30,2,2,2,30,110),(31,2,2,2,31,120),(32,2,2,2,32,130),(33,1,1,1,33,111),(34,1,1,1,34,112),(35,1,1,1,35,28),(36,2,2,2,36,140),(37,2,2,2,37,132),(38,2,2,2,38,133),(39,2,2,2,39,134),(40,2,2,2,40,135),(41,1,1,1,41,113),(42,1,1,1,42,114),(43,3,3,4,43,1),(44,3,3,4,44,2),(45,3,3,4,45,3),(46,3,3,4,46,4),(47,3,3,4,47,5),(48,3,3,4,48,6),(49,3,3,4,49,7),(50,3,3,4,50,8),(51,3,3,5,51,10),(52,3,3,5,52,20),(53,3,3,5,53,30),(54,3,3,4,54,12),(55,3,3,4,55,13),(56,3,3,4,56,14),(57,3,3,4,57,15),(58,3,3,4,58,16),(59,3,3,4,59,17),(60,3,3,6,60,10),(61,3,3,6,61,30),(62,3,3,6,62,40),(63,3,3,6,63,50),(64,3,3,6,64,60),(65,3,3,4,65,24),(66,3,3,4,66,25),(67,3,3,5,67,40),(68,3,3,5,68,50),(69,3,3,4,69,10),(70,3,3,6,70,5),(71,3,3,6,71,6),(72,3,3,5,72,51),(73,4,4,7,73,1),(74,4,4,7,74,2),(75,4,4,7,75,3),(76,4,4,7,76,4),(77,4,4,8,77,1),(78,4,4,8,78,3),(79,4,4,8,79,4),(80,4,4,8,80,5),(81,4,4,8,81,6),(82,4,4,7,82,5),(83,4,4,9,84,1),(84,4,4,9,85,2),(85,4,4,9,86,3),(86,4,4,10,87,1),(87,4,4,10,88,2),(88,4,4,10,89,3),(89,4,4,10,90,4),(90,4,4,7,91,6),(91,4,4,8,92,2),(92,4,4,8,93,7),(93,4,4,7,95,7),(94,4,4,7,96,8),(95,4,4,10,97,5),(96,4,4,7,98,9),(97,4,4,7,99,10),(98,4,4,7,100,11),(99,4,4,8,101,8),(100,4,4,11,102,1),(101,4,4,11,103,2),(102,4,4,7,104,12),(103,4,4,12,105,1),(104,4,4,12,106,2),(105,4,4,12,107,3),(106,4,4,12,108,4),(107,4,4,12,109,5),(108,4,4,7,110,13),(109,4,4,12,111,6),(110,4,4,7,112,14),(111,4,4,7,113,15),(112,4,4,7,114,16),(113,4,4,7,115,17),(114,4,4,7,116,18),(115,4,4,7,117,19),(116,4,4,7,118,20),(117,4,4,7,119,21),(118,4,4,8,120,9),(119,4,4,8,121,10),(120,4,4,8,122,11),(121,4,4,8,123,12),(122,4,4,17,124,1),(123,4,4,7,125,22),(124,4,4,7,126,23),(125,4,4,7,127,24),(126,4,4,8,128,13),(127,4,4,7,129,25),(128,4,4,7,130,26),(129,4,4,7,131,27),(130,4,4,7,132,28),(131,4,4,7,133,29);
+INSERT INTO `eav_entity_attribute` VALUES (1,1,1,1,1,10),(2,1,1,1,2,0),(3,1,1,1,3,20),(4,1,1,1,4,30),(5,1,1,1,5,40),(6,1,1,1,6,50),(7,1,1,1,7,60),(8,1,1,1,8,70),(9,1,1,1,9,80),(10,1,1,1,10,25),(11,1,1,1,11,90),(12,1,1,1,12,0),(13,1,1,1,13,0),(14,1,1,1,14,0),(15,1,1,1,15,100),(16,1,1,1,16,0),(17,1,1,1,17,86),(18,1,1,1,18,110),(19,2,2,2,19,10),(20,2,2,2,20,20),(21,2,2,2,21,30),(22,2,2,2,22,40),(23,2,2,2,23,50),(24,2,2,2,24,60),(25,2,2,2,25,70),(26,2,2,2,26,80),(27,2,2,2,27,90),(28,2,2,2,28,100),(29,2,2,2,29,100),(30,2,2,2,30,110),(31,2,2,2,31,120),(32,2,2,2,32,130),(33,1,1,1,33,111),(34,1,1,1,34,112),(35,1,1,1,35,28),(36,2,2,2,36,140),(37,2,2,2,37,132),(38,2,2,2,38,133),(39,2,2,2,39,134),(40,2,2,2,40,135),(41,1,1,1,41,113),(42,1,1,1,42,114),(43,3,3,4,43,1),(44,3,3,4,44,2),(45,3,3,4,45,3),(46,3,3,4,46,4),(47,3,3,4,47,5),(48,3,3,4,48,6),(49,3,3,4,49,7),(50,3,3,4,50,8),(51,3,3,5,51,10),(52,3,3,5,52,20),(53,3,3,5,53,30),(54,3,3,4,54,12),(55,3,3,4,55,13),(56,3,3,4,56,14),(57,3,3,4,57,15),(58,3,3,4,58,16),(59,3,3,4,59,17),(60,3,3,6,60,10),(61,3,3,6,61,30),(62,3,3,6,62,40),(63,3,3,6,63,50),(64,3,3,6,64,60),(65,3,3,4,65,24),(66,3,3,4,66,25),(67,3,3,5,67,40),(68,3,3,5,68,50),(69,3,3,4,69,10),(70,3,3,6,70,5),(71,3,3,6,71,6),(72,3,3,5,72,51),(73,4,4,7,73,1),(74,4,4,7,74,2),(75,4,4,7,75,3),(76,4,4,7,76,4),(77,4,4,8,77,1),(78,4,4,8,78,3),(79,4,4,8,79,4),(80,4,4,8,80,5),(81,4,4,8,81,6),(82,4,4,7,82,5),(83,4,4,9,84,1),(84,4,4,9,85,2),(85,4,4,9,86,3),(86,4,4,10,87,1),(87,4,4,10,88,2),(88,4,4,10,89,3),(89,4,4,10,90,4),(90,4,4,7,91,6),(91,4,4,8,92,2),(92,4,4,8,93,7),(93,4,4,7,95,7),(94,4,4,7,96,8),(95,4,4,10,97,5),(96,4,4,7,98,9),(97,4,4,7,99,10),(98,4,4,7,100,11),(99,4,4,8,101,8),(100,4,4,11,102,1),(101,4,4,11,103,2),(102,4,4,7,104,12),(103,4,4,12,105,1),(104,4,4,12,106,2),(105,4,4,12,107,3),(106,4,4,12,108,4),(107,4,4,12,109,5),(108,4,4,7,110,13),(109,4,4,12,111,6),(110,4,4,7,112,14),(111,4,4,7,113,15),(112,4,4,7,114,16),(113,4,4,7,115,17),(114,4,4,7,116,18),(115,4,4,7,117,19),(116,4,4,7,118,20),(117,4,4,7,119,21),(118,4,4,8,120,9),(119,4,4,8,121,10),(120,4,4,8,122,11),(121,4,4,8,123,12),(122,4,4,17,124,1),(123,4,4,7,125,22),(124,4,4,7,126,23),(125,4,4,7,127,24),(126,4,4,8,128,13),(127,4,4,7,129,25),(128,4,4,7,130,26),(129,4,4,7,131,27),(130,4,4,7,132,28),(131,4,4,7,133,29),(132,4,4,18,134,30),(133,1,1,1,135,500),(134,4,4,18,136,30);
 /*!40000 ALTER TABLE `eav_entity_attribute` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5932,10 +5929,10 @@ DROP TABLE IF EXISTS `eav_entity_datetime`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eav_entity_datetime` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
   `value` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Attribute Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_EAV_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` (`entity_id`,`attribute_id`,`store_id`),
@@ -5969,11 +5966,11 @@ DROP TABLE IF EXISTS `eav_entity_decimal`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eav_entity_decimal` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
-  `value` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Attribute Value',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
+  `value` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Attribute Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_EAV_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` (`entity_id`,`attribute_id`,`store_id`),
   KEY `IDX_EAV_ENTITY_DECIMAL_ENTITY_TYPE_ID` (`entity_type_id`),
@@ -6006,11 +6003,11 @@ DROP TABLE IF EXISTS `eav_entity_int`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eav_entity_int` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
-  `value` int(11) NOT NULL DEFAULT '0' COMMENT 'Attribute Value',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
+  `value` int(11) NOT NULL DEFAULT 0 COMMENT 'Attribute Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_EAV_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` (`entity_id`,`attribute_id`,`store_id`),
   KEY `IDX_EAV_ENTITY_INT_ENTITY_TYPE_ID` (`entity_type_id`),
@@ -6043,8 +6040,8 @@ DROP TABLE IF EXISTS `eav_entity_store`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eav_entity_store` (
   `entity_store_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity Store Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
   `increment_prefix` varchar(20) DEFAULT NULL COMMENT 'Increment Prefix',
   `increment_last_id` varchar(50) DEFAULT NULL COMMENT 'Last Incremented Id',
   PRIMARY KEY (`entity_store_id`),
@@ -6073,10 +6070,10 @@ DROP TABLE IF EXISTS `eav_entity_text`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eav_entity_text` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
   `value` text NOT NULL COMMENT 'Attribute Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_EAV_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` (`entity_id`,`attribute_id`,`store_id`),
@@ -6114,12 +6111,12 @@ CREATE TABLE `eav_entity_type` (
   `entity_table` varchar(255) DEFAULT NULL COMMENT 'Entity Table',
   `value_table_prefix` varchar(255) DEFAULT NULL COMMENT 'Value Table Prefix',
   `entity_id_field` varchar(255) DEFAULT NULL COMMENT 'Entity Id Field',
-  `is_data_sharing` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Defines Is Data Sharing',
+  `is_data_sharing` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Defines Is Data Sharing',
   `data_sharing_key` varchar(100) DEFAULT 'default' COMMENT 'Data Sharing Key',
-  `default_attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Default Attribute Set Id',
+  `default_attribute_set_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Default Attribute Set Id',
   `increment_model` varchar(255) DEFAULT '' COMMENT 'Increment Model',
-  `increment_per_store` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Increment Per Store',
-  `increment_pad_length` smallint(5) unsigned NOT NULL DEFAULT '8' COMMENT 'Increment Pad Length',
+  `increment_per_store` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Increment Per Store',
+  `increment_pad_length` smallint(5) unsigned NOT NULL DEFAULT 8 COMMENT 'Increment Pad Length',
   `increment_pad_char` varchar(1) NOT NULL DEFAULT '0' COMMENT 'Increment Pad Char',
   `additional_attribute_table` varchar(255) DEFAULT '' COMMENT 'Additional Attribute Table',
   `entity_attribute_collection` varchar(255) DEFAULT NULL COMMENT 'Entity Attribute Collection',
@@ -6147,10 +6144,10 @@ DROP TABLE IF EXISTS `eav_entity_varchar`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eav_entity_varchar` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Type Id',
-  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Attribute Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
+  `entity_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Type Id',
+  `attribute_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Attribute Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
   `value` varchar(255) DEFAULT NULL COMMENT 'Attribute Value',
   PRIMARY KEY (`value_id`),
   UNIQUE KEY `UNQ_EAV_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` (`entity_id`,`attribute_id`,`store_id`),
@@ -6187,7 +6184,7 @@ CREATE TABLE `eav_form_element` (
   `type_id` smallint(5) unsigned NOT NULL COMMENT 'Type Id',
   `fieldset_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Fieldset Id',
   `attribute_id` smallint(5) unsigned NOT NULL COMMENT 'Attribute Id',
-  `sort_order` int(11) NOT NULL DEFAULT '0' COMMENT 'Sort Order',
+  `sort_order` int(11) NOT NULL DEFAULT 0 COMMENT 'Sort Order',
   PRIMARY KEY (`element_id`),
   UNIQUE KEY `UNQ_EAV_FORM_ELEMENT_TYPE_ID_ATTRIBUTE_ID` (`type_id`,`attribute_id`),
   KEY `IDX_EAV_FORM_ELEMENT_TYPE_ID` (`type_id`),
@@ -6220,7 +6217,7 @@ CREATE TABLE `eav_form_fieldset` (
   `fieldset_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Fieldset Id',
   `type_id` smallint(5) unsigned NOT NULL COMMENT 'Type Id',
   `code` varchar(64) NOT NULL COMMENT 'Code',
-  `sort_order` int(11) NOT NULL DEFAULT '0' COMMENT 'Sort Order',
+  `sort_order` int(11) NOT NULL DEFAULT 0 COMMENT 'Sort Order',
   PRIMARY KEY (`fieldset_id`),
   UNIQUE KEY `UNQ_EAV_FORM_FIELDSET_TYPE_ID_CODE` (`type_id`,`code`),
   KEY `IDX_EAV_FORM_FIELDSET_TYPE_ID` (`type_id`),
@@ -6278,7 +6275,7 @@ CREATE TABLE `eav_form_type` (
   `type_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Type Id',
   `code` varchar(64) NOT NULL COMMENT 'Code',
   `label` varchar(255) NOT NULL COMMENT 'Label',
-  `is_system` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is System',
+  `is_system` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is System',
   `theme` varchar(64) DEFAULT NULL COMMENT 'Theme',
   `store_id` smallint(5) unsigned NOT NULL COMMENT 'Store Id',
   PRIMARY KEY (`type_id`),
@@ -6321,7 +6318,7 @@ CREATE TABLE `eav_form_type_entity` (
 
 LOCK TABLES `eav_form_type_entity` WRITE;
 /*!40000 ALTER TABLE `eav_form_type_entity` DISABLE KEYS */;
-INSERT INTO `eav_form_type_entity` VALUES (1,1),(2,1),(5,1),(1,2),(2,2),(3,2),(4,2),(5,2);
+INSERT INTO `eav_form_type_entity` VALUES (1,1),(1,2),(2,1),(2,2),(3,2),(4,2),(5,1),(5,2);
 /*!40000 ALTER TABLE `eav_form_type_entity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6334,10 +6331,10 @@ DROP TABLE IF EXISTS `gift_message`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `gift_message` (
   `gift_message_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'GiftMessage Id',
-  `customer_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Customer id',
+  `customer_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Customer id',
   `sender` varchar(255) DEFAULT NULL COMMENT 'Sender',
   `recipient` varchar(255) DEFAULT NULL COMMENT 'Recipient',
-  `message` text COMMENT 'Message',
+  `message` text DEFAULT NULL COMMENT 'Message',
   PRIMARY KEY (`gift_message_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Gift Message';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -6362,7 +6359,7 @@ CREATE TABLE `importexport_importdata` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Id',
   `entity` varchar(50) NOT NULL COMMENT 'Entity',
   `behavior` varchar(10) NOT NULL DEFAULT 'append' COMMENT 'Behavior',
-  `data` longtext COMMENT 'Data',
+  `data` longtext DEFAULT NULL COMMENT 'Data',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Import Data Table';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -6389,11 +6386,11 @@ CREATE TABLE `index_event` (
   `entity` varchar(64) NOT NULL COMMENT 'Entity',
   `entity_pk` bigint(20) DEFAULT NULL COMMENT 'Entity Primary Key',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Creation Time',
-  `old_data` mediumtext COMMENT 'Old Data',
-  `new_data` mediumtext COMMENT 'New Data',
+  `old_data` mediumtext DEFAULT NULL COMMENT 'Old Data',
+  `new_data` mediumtext DEFAULT NULL COMMENT 'New Data',
   PRIMARY KEY (`event_id`),
   UNIQUE KEY `UNQ_INDEX_EVENT_TYPE_ENTITY_ENTITY_PK` (`type`,`entity`,`entity_pk`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='Index Event';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='Index Event';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -6402,7 +6399,7 @@ CREATE TABLE `index_event` (
 
 LOCK TABLES `index_event` WRITE;
 /*!40000 ALTER TABLE `index_event` DISABLE KEYS */;
-INSERT INTO `index_event` VALUES (1,'save','catalog_category',1,'2018-10-04 16:24:44',NULL,'a:5:{s:35:\"cataloginventory_stock_match_result\";b:0;s:34:\"catalog_product_price_match_result\";b:0;s:24:\"catalog_url_match_result\";b:1;s:37:\"catalog_category_product_match_result\";b:1;s:35:\"catalogsearch_fulltext_match_result\";b:1;}'),(2,'save','catalog_category',2,'2018-10-04 16:24:44',NULL,'a:5:{s:35:\"cataloginventory_stock_match_result\";b:0;s:34:\"catalog_product_price_match_result\";b:0;s:24:\"catalog_url_match_result\";b:1;s:37:\"catalog_category_product_match_result\";b:1;s:35:\"catalogsearch_fulltext_match_result\";b:1;}'),(3,'save','cataloginventory_stock_item',1,'2018-10-04 17:07:29',NULL,'a:5:{s:35:\"cataloginventory_stock_match_result\";b:1;s:34:\"catalog_product_price_match_result\";b:0;s:24:\"catalog_url_match_result\";b:0;s:37:\"catalog_category_product_match_result\";b:0;s:35:\"catalogsearch_fulltext_match_result\";b:0;}'),(4,'catalog_reindex_price','catalog_product',1,'2018-10-04 17:07:29',NULL,'a:5:{s:35:\"cataloginventory_stock_match_result\";b:0;s:34:\"catalog_product_price_match_result\";b:1;s:24:\"catalog_url_match_result\";b:0;s:37:\"catalog_category_product_match_result\";b:0;s:35:\"catalogsearch_fulltext_match_result\";b:0;}'),(5,'save','catalog_product',1,'2018-10-04 17:07:29',NULL,'a:5:{s:35:\"cataloginventory_stock_match_result\";b:1;s:34:\"catalog_product_price_match_result\";b:1;s:24:\"catalog_url_match_result\";b:1;s:37:\"catalog_category_product_match_result\";b:1;s:35:\"catalogsearch_fulltext_match_result\";b:1;}');
+INSERT INTO `index_event` VALUES (1,'save','catalog_category',1,'2018-10-04 16:24:44',NULL,'a:5:{s:35:\"cataloginventory_stock_match_result\";b:0;s:34:\"catalog_product_price_match_result\";b:0;s:24:\"catalog_url_match_result\";b:1;s:37:\"catalog_category_product_match_result\";b:1;s:35:\"catalogsearch_fulltext_match_result\";b:1;}'),(2,'save','catalog_category',2,'2018-10-04 16:24:44',NULL,'a:5:{s:35:\"cataloginventory_stock_match_result\";b:0;s:34:\"catalog_product_price_match_result\";b:0;s:24:\"catalog_url_match_result\";b:1;s:37:\"catalog_category_product_match_result\";b:1;s:35:\"catalogsearch_fulltext_match_result\";b:1;}'),(3,'save','cataloginventory_stock_item',1,'2018-10-04 17:07:29',NULL,'a:5:{s:35:\"cataloginventory_stock_match_result\";b:1;s:34:\"catalog_product_price_match_result\";b:0;s:24:\"catalog_url_match_result\";b:0;s:37:\"catalog_category_product_match_result\";b:0;s:35:\"catalogsearch_fulltext_match_result\";b:0;}'),(4,'catalog_reindex_price','catalog_product',1,'2018-10-04 17:07:29',NULL,'a:5:{s:35:\"cataloginventory_stock_match_result\";b:0;s:34:\"catalog_product_price_match_result\";b:1;s:24:\"catalog_url_match_result\";b:0;s:37:\"catalog_category_product_match_result\";b:0;s:35:\"catalogsearch_fulltext_match_result\";b:0;}'),(5,'save','catalog_product',1,'2018-10-04 17:07:29',NULL,'a:5:{s:35:\"cataloginventory_stock_match_result\";b:1;s:34:\"catalog_product_price_match_result\";b:1;s:24:\"catalog_url_match_result\";b:1;s:37:\"catalog_category_product_match_result\";b:1;s:35:\"catalogsearch_fulltext_match_result\";b:1;}'),(6,'save','cataloginventory_stock_item',2,'2019-08-21 20:31:31',NULL,'a:5:{s:35:\"cataloginventory_stock_match_result\";b:1;s:34:\"catalog_product_price_match_result\";b:0;s:24:\"catalog_url_match_result\";b:0;s:37:\"catalog_category_product_match_result\";b:0;s:35:\"catalogsearch_fulltext_match_result\";b:0;}'),(7,'catalog_reindex_price','catalog_product',2,'2019-08-21 20:31:31',NULL,'a:5:{s:35:\"cataloginventory_stock_match_result\";b:0;s:34:\"catalog_product_price_match_result\";b:1;s:24:\"catalog_url_match_result\";b:0;s:37:\"catalog_category_product_match_result\";b:0;s:35:\"catalogsearch_fulltext_match_result\";b:0;}'),(8,'save','catalog_product',2,'2019-08-21 20:31:32',NULL,'a:5:{s:35:\"cataloginventory_stock_match_result\";b:1;s:34:\"catalog_product_price_match_result\";b:1;s:24:\"catalog_url_match_result\";b:1;s:37:\"catalog_category_product_match_result\";b:1;s:35:\"catalogsearch_fulltext_match_result\";b:1;}');
 /*!40000 ALTER TABLE `index_event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6431,7 +6428,7 @@ CREATE TABLE `index_process` (
 
 LOCK TABLES `index_process` WRITE;
 /*!40000 ALTER TABLE `index_process` DISABLE KEYS */;
-INSERT INTO `index_process` VALUES (1,'catalog_product_attribute','pending','2018-10-04 17:15:49','2018-10-04 17:15:49','real_time'),(2,'catalog_product_price','pending','2018-10-04 17:15:49','2018-10-04 17:15:49','real_time'),(3,'catalog_url','pending','2018-10-04 17:15:49','2018-10-04 17:15:49','real_time'),(4,'catalog_product_flat','pending','2018-10-04 16:26:35','2018-10-04 16:26:35','real_time'),(5,'catalog_category_flat','pending','2018-10-04 16:26:35','2018-10-04 16:26:35','real_time'),(6,'catalog_category_product','pending','2018-10-04 17:15:49','2018-10-04 17:15:50','real_time'),(7,'catalogsearch_fulltext','pending','2018-10-04 17:15:50','2018-10-04 17:15:50','real_time'),(8,'cataloginventory_stock','pending','2018-10-04 17:15:49','2018-10-04 17:15:49','real_time'),(9,'tag_summary','pending','2018-10-04 17:15:50','2018-10-04 17:15:50','real_time');
+INSERT INTO `index_process` VALUES (1,'catalog_product_attribute','pending','2019-08-21 20:32:40','2019-08-21 20:32:40','real_time'),(2,'catalog_product_price','pending','2019-08-21 20:32:40','2019-08-21 20:32:40','real_time'),(3,'catalog_url','pending','2019-08-21 20:32:40','2019-08-21 20:32:40','real_time'),(4,'catalog_product_flat','pending','2018-10-04 16:26:35','2018-10-04 16:26:35','real_time'),(5,'catalog_category_flat','pending','2018-10-04 16:26:35','2018-10-04 16:26:35','real_time'),(6,'catalog_category_product','pending','2019-08-21 20:32:40','2019-08-21 20:32:40','real_time'),(7,'catalogsearch_fulltext','pending','2019-08-21 20:32:40','2019-08-21 20:32:40','real_time'),(8,'cataloginventory_stock','pending','2019-08-21 20:32:40','2019-08-21 20:32:40','real_time'),(9,'tag_summary','pending','2019-08-21 20:32:40','2019-08-21 20:32:40','real_time');
 /*!40000 ALTER TABLE `index_process` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6472,7 +6469,7 @@ DROP TABLE IF EXISTS `log_customer`;
 CREATE TABLE `log_customer` (
   `log_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Log ID',
   `visitor_id` bigint(20) unsigned DEFAULT NULL COMMENT 'Visitor ID',
-  `customer_id` int(11) NOT NULL DEFAULT '0' COMMENT 'Customer ID',
+  `customer_id` int(11) NOT NULL DEFAULT 0 COMMENT 'Customer ID',
   `login_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Login Time',
   `logout_at` timestamp NULL DEFAULT NULL COMMENT 'Logout Time',
   `store_id` smallint(5) unsigned NOT NULL COMMENT 'Store ID',
@@ -6498,7 +6495,7 @@ DROP TABLE IF EXISTS `log_quote`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `log_quote` (
-  `quote_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Quote ID',
+  `quote_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Quote ID',
   `visitor_id` bigint(20) unsigned DEFAULT NULL COMMENT 'Visitor ID',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Creation Time',
   `deleted_at` timestamp NULL DEFAULT NULL COMMENT 'Deletion Time',
@@ -6527,8 +6524,8 @@ CREATE TABLE `log_summary` (
   `summary_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Summary ID',
   `store_id` smallint(5) unsigned NOT NULL COMMENT 'Store ID',
   `type_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Type ID',
-  `visitor_count` int(11) NOT NULL DEFAULT '0' COMMENT 'Visitor Count',
-  `customer_count` int(11) NOT NULL DEFAULT '0' COMMENT 'Customer Count',
+  `visitor_count` int(11) NOT NULL DEFAULT 0 COMMENT 'Visitor Count',
+  `customer_count` int(11) NOT NULL DEFAULT 0 COMMENT 'Customer Count',
   `add_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Date',
   PRIMARY KEY (`summary_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Log Summary Table';
@@ -6553,7 +6550,7 @@ DROP TABLE IF EXISTS `log_summary_type`;
 CREATE TABLE `log_summary_type` (
   `type_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Type ID',
   `type_code` varchar(64) DEFAULT NULL COMMENT 'Type Code',
-  `period` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Period',
+  `period` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Period',
   `period_type` varchar(6) NOT NULL DEFAULT 'MINUTE' COMMENT 'Period Type',
   PRIMARY KEY (`type_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Log Summary Types Table';
@@ -6577,7 +6574,7 @@ DROP TABLE IF EXISTS `log_url`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `log_url` (
-  `url_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'URL ID',
+  `url_id` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT 'URL ID',
   `visitor_id` bigint(20) unsigned DEFAULT NULL COMMENT 'Visitor ID',
   `visit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Visit Time',
   KEY `IDX_LOG_URL_VISITOR_ID` (`visitor_id`),
@@ -6630,10 +6627,10 @@ CREATE TABLE `log_visitor` (
   `session_id` varchar(64) DEFAULT NULL COMMENT 'Session ID',
   `first_visit_at` timestamp NULL DEFAULT NULL COMMENT 'First Visit Time',
   `last_visit_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Last Visit Time',
-  `last_url_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'Last URL ID',
+  `last_url_id` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT 'Last URL ID',
   `store_id` smallint(5) unsigned NOT NULL COMMENT 'Store ID',
   PRIMARY KEY (`visitor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Log Visitors Table';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Log Visitors Table';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -6642,7 +6639,7 @@ CREATE TABLE `log_visitor` (
 
 LOCK TABLES `log_visitor` WRITE;
 /*!40000 ALTER TABLE `log_visitor` DISABLE KEYS */;
-INSERT INTO `log_visitor` VALUES (1,'a88dtca16nsfdsuqekjgaoc7u3','2018-10-04 16:25:43','2018-10-04 16:25:44',0,1),(2,'a88dtca16nsfdsuqekjgaoc7u3','2018-10-04 17:00:17','2018-10-04 17:13:01',0,1);
+INSERT INTO `log_visitor` VALUES (1,'a88dtca16nsfdsuqekjgaoc7u3','2018-10-04 16:25:43','2018-10-04 16:25:44',0,1),(2,'a88dtca16nsfdsuqekjgaoc7u3','2018-10-04 17:00:17','2018-10-04 17:13:01',0,1),(3,'9cc72748f10e404068e158a9a3cef4e2','2019-08-21 20:08:06','2019-08-21 20:32:49',0,1);
 /*!40000 ALTER TABLE `log_visitor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6654,7 +6651,7 @@ DROP TABLE IF EXISTS `log_visitor_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `log_visitor_info` (
-  `visitor_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'Visitor ID',
+  `visitor_id` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT 'Visitor ID',
   `http_referer` varchar(255) DEFAULT NULL COMMENT 'HTTP Referrer',
   `http_user_agent` varchar(255) DEFAULT NULL COMMENT 'HTTP User-Agent',
   `http_accept_charset` varchar(255) DEFAULT NULL COMMENT 'HTTP Accept-Charset',
@@ -6671,7 +6668,7 @@ CREATE TABLE `log_visitor_info` (
 
 LOCK TABLES `log_visitor_info` WRITE;
 /*!40000 ALTER TABLE `log_visitor_info` DISABLE KEYS */;
-INSERT INTO `log_visitor_info` VALUES (1,'http://vindi.magento/index.php/install/wizard/administrator/','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',NULL,'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',_binary '\0\0',_binary '\0\0'),(2,NULL,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',NULL,'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',_binary '\0\0',_binary '\0\0');
+INSERT INTO `log_visitor_info` VALUES (1,'http://vindi.magento/index.php/install/wizard/administrator/','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',NULL,'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7','\0\0','\0\0'),(2,NULL,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',NULL,'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7','\0\0','\0\0'),(3,NULL,'Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0',NULL,'pt-BR','?\0','?\0');
 /*!40000 ALTER TABLE `log_visitor_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6716,8 +6713,8 @@ DROP TABLE IF EXISTS `newsletter_problem`;
 CREATE TABLE `newsletter_problem` (
   `problem_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Problem Id',
   `subscriber_id` int(10) unsigned DEFAULT NULL COMMENT 'Subscriber Id',
-  `queue_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Queue Id',
-  `problem_error_code` int(10) unsigned DEFAULT '0' COMMENT 'Problem Error Code',
+  `queue_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Queue Id',
+  `problem_error_code` int(10) unsigned DEFAULT 0 COMMENT 'Problem Error Code',
   `problem_error_text` varchar(200) DEFAULT NULL COMMENT 'Problem Error Text',
   PRIMARY KEY (`problem_id`),
   KEY `IDX_NEWSLETTER_PROBLEM_SUBSCRIBER_ID` (`subscriber_id`),
@@ -6745,14 +6742,14 @@ DROP TABLE IF EXISTS `newsletter_queue`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `newsletter_queue` (
   `queue_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Queue Id',
-  `template_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Template Id',
+  `template_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Template Id',
   `newsletter_type` int(11) DEFAULT NULL COMMENT 'Newsletter Type',
-  `newsletter_text` text COMMENT 'Newsletter Text',
-  `newsletter_styles` text COMMENT 'Newsletter Styles',
+  `newsletter_text` text DEFAULT NULL COMMENT 'Newsletter Text',
+  `newsletter_styles` text DEFAULT NULL COMMENT 'Newsletter Styles',
   `newsletter_subject` varchar(200) DEFAULT NULL COMMENT 'Newsletter Subject',
   `newsletter_sender_name` varchar(200) DEFAULT NULL COMMENT 'Newsletter Sender Name',
   `newsletter_sender_email` varchar(200) DEFAULT NULL COMMENT 'Newsletter Sender Email',
-  `queue_status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Queue Status',
+  `queue_status` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Queue Status',
   `queue_start_at` timestamp NULL DEFAULT NULL COMMENT 'Queue Start At',
   `queue_finish_at` timestamp NULL DEFAULT NULL COMMENT 'Queue Finish At',
   PRIMARY KEY (`queue_id`),
@@ -6779,8 +6776,8 @@ DROP TABLE IF EXISTS `newsletter_queue_link`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `newsletter_queue_link` (
   `queue_link_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Queue Link Id',
-  `queue_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Queue Id',
-  `subscriber_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Subscriber Id',
+  `queue_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Queue Id',
+  `subscriber_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Subscriber Id',
   `letter_sent_at` timestamp NULL DEFAULT NULL COMMENT 'Letter Sent At',
   PRIMARY KEY (`queue_link_id`),
   KEY `IDX_NEWSLETTER_QUEUE_LINK_SUBSCRIBER_ID` (`subscriber_id`),
@@ -6808,8 +6805,8 @@ DROP TABLE IF EXISTS `newsletter_queue_store_link`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `newsletter_queue_store_link` (
-  `queue_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Queue Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
+  `queue_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Queue Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
   PRIMARY KEY (`queue_id`,`store_id`),
   KEY `IDX_NEWSLETTER_QUEUE_STORE_LINK_STORE_ID` (`store_id`),
   CONSTRAINT `FK_NEWSLETTER_QUEUE_STORE_LINK_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -6835,11 +6832,11 @@ DROP TABLE IF EXISTS `newsletter_subscriber`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `newsletter_subscriber` (
   `subscriber_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Subscriber Id',
-  `store_id` smallint(5) unsigned DEFAULT '0' COMMENT 'Store Id',
+  `store_id` smallint(5) unsigned DEFAULT 0 COMMENT 'Store Id',
   `change_status_at` timestamp NULL DEFAULT NULL COMMENT 'Change Status At',
-  `customer_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Customer Id',
+  `customer_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Customer Id',
   `subscriber_email` varchar(150) DEFAULT NULL COMMENT 'Subscriber Email',
-  `subscriber_status` int(11) NOT NULL DEFAULT '0' COMMENT 'Subscriber Status',
+  `subscriber_status` int(11) NOT NULL DEFAULT 0 COMMENT 'Subscriber Status',
   `subscriber_confirm_code` varchar(32) DEFAULT 'NULL' COMMENT 'Subscriber Confirm Code',
   PRIMARY KEY (`subscriber_id`),
   KEY `IDX_NEWSLETTER_SUBSCRIBER_CUSTOMER_ID` (`customer_id`),
@@ -6867,14 +6864,14 @@ DROP TABLE IF EXISTS `newsletter_template`;
 CREATE TABLE `newsletter_template` (
   `template_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Template Id',
   `template_code` varchar(150) DEFAULT NULL COMMENT 'Template Code',
-  `template_text` text COMMENT 'Template Text',
-  `template_text_preprocessed` text COMMENT 'Template Text Preprocessed',
-  `template_styles` text COMMENT 'Template Styles',
+  `template_text` text DEFAULT NULL COMMENT 'Template Text',
+  `template_text_preprocessed` text DEFAULT NULL COMMENT 'Template Text Preprocessed',
+  `template_styles` text DEFAULT NULL COMMENT 'Template Styles',
   `template_type` int(10) unsigned DEFAULT NULL COMMENT 'Template Type',
   `template_subject` varchar(200) DEFAULT NULL COMMENT 'Template Subject',
   `template_sender_name` varchar(200) DEFAULT NULL COMMENT 'Template Sender Name',
   `template_sender_email` varchar(200) DEFAULT NULL COMMENT 'Template Sender Email',
-  `template_actual` smallint(5) unsigned DEFAULT '1' COMMENT 'Template Actual',
+  `template_actual` smallint(5) unsigned DEFAULT 1 COMMENT 'Template Actual',
   `added_at` timestamp NULL DEFAULT NULL COMMENT 'Added At',
   `modified_at` timestamp NULL DEFAULT NULL COMMENT 'Modified At',
   PRIMARY KEY (`template_id`),
@@ -6903,7 +6900,7 @@ DROP TABLE IF EXISTS `oauth_consumer`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oauth_consumer` (
   `entity_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity Id',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Created At',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Created At',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Updated At',
   `name` varchar(255) NOT NULL COMMENT 'Name of consumer',
   `key` varchar(32) NOT NULL COMMENT 'Key code',
@@ -6967,9 +6964,9 @@ CREATE TABLE `oauth_token` (
   `secret` varchar(32) NOT NULL COMMENT 'Token Secret',
   `verifier` varchar(32) DEFAULT NULL COMMENT 'Token Verifier',
   `callback_url` varchar(255) NOT NULL COMMENT 'Token Callback URL',
-  `revoked` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Token revoked',
-  `authorized` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Token authorized',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Token creation timestamp',
+  `revoked` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Token revoked',
+  `authorized` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Token authorized',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Token creation timestamp',
   PRIMARY KEY (`entity_id`),
   UNIQUE KEY `UNQ_OAUTH_TOKEN_TOKEN` (`token`),
   KEY `IDX_OAUTH_TOKEN_CONSUMER_ID` (`consumer_id`),
@@ -6999,8 +6996,8 @@ DROP TABLE IF EXISTS `paypal_cert`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `paypal_cert` (
   `cert_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Cert Id',
-  `website_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Website Id',
-  `content` text COMMENT 'Content',
+  `website_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Website Id',
+  `content` text DEFAULT NULL COMMENT 'Content',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Updated At',
   PRIMARY KEY (`cert_id`),
   KEY `IDX_PAYPAL_CERT_WEBSITE_ID` (`website_id`),
@@ -7027,7 +7024,7 @@ DROP TABLE IF EXISTS `paypal_payment_transaction`;
 CREATE TABLE `paypal_payment_transaction` (
   `transaction_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity Id',
   `txn_id` varchar(100) DEFAULT NULL COMMENT 'Txn Id',
-  `additional_information` blob COMMENT 'Additional Information',
+  `additional_information` blob DEFAULT NULL COMMENT 'Additional Information',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Created At',
   PRIMARY KEY (`transaction_id`),
   UNIQUE KEY `UNQ_PAYPAL_PAYMENT_TRANSACTION_TXN_ID` (`txn_id`)
@@ -7088,10 +7085,10 @@ CREATE TABLE `paypal_settlement_report_row` (
   `transaction_initiation_date` timestamp NULL DEFAULT NULL COMMENT 'Transaction Initiation Date',
   `transaction_completion_date` timestamp NULL DEFAULT NULL COMMENT 'Transaction Completion Date',
   `transaction_debit_or_credit` varchar(2) NOT NULL DEFAULT 'CR' COMMENT 'Transaction Debit Or Credit',
-  `gross_transaction_amount` decimal(20,6) NOT NULL DEFAULT '0.000000' COMMENT 'Gross Transaction Amount',
+  `gross_transaction_amount` decimal(20,6) NOT NULL DEFAULT 0.000000 COMMENT 'Gross Transaction Amount',
   `gross_transaction_currency` varchar(3) DEFAULT '' COMMENT 'Gross Transaction Currency',
   `fee_debit_or_credit` varchar(2) DEFAULT NULL COMMENT 'Fee Debit Or Credit',
-  `fee_amount` decimal(20,6) NOT NULL DEFAULT '0.000000' COMMENT 'Fee Amount',
+  `fee_amount` decimal(20,6) NOT NULL DEFAULT 0.000000 COMMENT 'Fee Amount',
   `fee_currency` varchar(3) DEFAULT NULL COMMENT 'Fee Currency',
   `custom_field` varchar(255) DEFAULT NULL COMMENT 'Custom Field',
   `consumer_id` varchar(127) DEFAULT NULL COMMENT 'Consumer Id',
@@ -7122,7 +7119,7 @@ DROP TABLE IF EXISTS `permission_block`;
 CREATE TABLE `permission_block` (
   `block_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Block ID',
   `block_name` varchar(255) NOT NULL DEFAULT '' COMMENT 'Block Name',
-  `is_allowed` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Mark that block can be processed by filters',
+  `is_allowed` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Mark that block can be processed by filters',
   PRIMARY KEY (`block_id`),
   UNIQUE KEY `UNQ_PERMISSION_BLOCK_BLOCK_NAME` (`block_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='System blocks that can be processed via content filter';
@@ -7148,7 +7145,7 @@ DROP TABLE IF EXISTS `permission_variable`;
 CREATE TABLE `permission_variable` (
   `variable_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Variable ID',
   `variable_name` varchar(255) NOT NULL DEFAULT '' COMMENT 'Config Path',
-  `is_allowed` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Mark that config can be processed by filters',
+  `is_allowed` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Mark that config can be processed by filters',
   PRIMARY KEY (`variable_id`,`variable_name`),
   UNIQUE KEY `UNQ_PERMISSION_VARIABLE_VARIABLE_NAME` (`variable_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='System variables that can be processed via content filter';
@@ -7175,8 +7172,8 @@ CREATE TABLE `persistent_session` (
   `persistent_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Session id',
   `key` varchar(50) NOT NULL COMMENT 'Unique cookie key',
   `customer_id` int(10) unsigned DEFAULT NULL COMMENT 'Customer id',
-  `website_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Website ID',
-  `info` text COMMENT 'Session Data',
+  `website_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Website ID',
+  `info` text DEFAULT NULL COMMENT 'Session Data',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Updated At',
   PRIMARY KEY (`persistent_id`),
   UNIQUE KEY `IDX_PERSISTENT_SESSION_KEY` (`key`),
@@ -7207,12 +7204,12 @@ DROP TABLE IF EXISTS `poll`;
 CREATE TABLE `poll` (
   `poll_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Poll Id',
   `poll_title` varchar(255) DEFAULT NULL COMMENT 'Poll title',
-  `votes_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Votes Count',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store id',
+  `votes_count` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Votes Count',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store id',
   `date_posted` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Date posted',
   `date_closed` timestamp NULL DEFAULT NULL COMMENT 'Date closed',
-  `active` smallint(6) NOT NULL DEFAULT '1' COMMENT 'Is active',
-  `closed` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Is closed',
+  `active` smallint(6) NOT NULL DEFAULT 1 COMMENT 'Is active',
+  `closed` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Is closed',
   `answers_display` smallint(6) DEFAULT NULL COMMENT 'Answers display',
   PRIMARY KEY (`poll_id`),
   KEY `IDX_POLL_STORE_ID` (`store_id`),
@@ -7239,10 +7236,10 @@ DROP TABLE IF EXISTS `poll_answer`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `poll_answer` (
   `answer_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Answer Id',
-  `poll_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Poll Id',
+  `poll_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Poll Id',
   `answer_title` varchar(255) DEFAULT NULL COMMENT 'Answer title',
-  `votes_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Votes Count',
-  `answer_order` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Answers display',
+  `votes_count` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Votes Count',
+  `answer_order` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Answers display',
   PRIMARY KEY (`answer_id`),
   KEY `IDX_POLL_ANSWER_POLL_ID` (`poll_id`),
   CONSTRAINT `FK_POLL_ANSWER_POLL_ID_POLL_POLL_ID` FOREIGN KEY (`poll_id`) REFERENCES `poll` (`poll_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -7267,8 +7264,8 @@ DROP TABLE IF EXISTS `poll_store`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `poll_store` (
-  `poll_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Poll Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store id',
+  `poll_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Poll Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store id',
   PRIMARY KEY (`poll_id`,`store_id`),
   KEY `IDX_POLL_STORE_STORE_ID` (`store_id`),
   CONSTRAINT `FK_POLL_STORE_POLL_ID_POLL_POLL_ID` FOREIGN KEY (`poll_id`) REFERENCES `poll` (`poll_id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -7295,8 +7292,8 @@ DROP TABLE IF EXISTS `poll_vote`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `poll_vote` (
   `vote_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Vote Id',
-  `poll_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Poll Id',
-  `poll_answer_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Poll answer id',
+  `poll_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Poll Id',
+  `poll_answer_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Poll answer id',
   `ip_address` varbinary(16) DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL COMMENT 'Customer id',
   `vote_time` timestamp NULL DEFAULT NULL COMMENT 'Date closed',
@@ -7324,14 +7321,14 @@ DROP TABLE IF EXISTS `product_alert_price`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product_alert_price` (
   `alert_price_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Product alert price id',
-  `customer_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Customer id',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product id',
-  `price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Price amount',
-  `website_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Website id',
+  `customer_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Customer id',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product id',
+  `price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Price amount',
+  `website_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Website id',
   `add_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Product alert add date',
   `last_send_date` timestamp NULL DEFAULT NULL COMMENT 'Product alert last send date',
-  `send_count` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Product alert send count',
-  `status` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Product alert status',
+  `send_count` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Product alert send count',
+  `status` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Product alert status',
   PRIMARY KEY (`alert_price_id`),
   KEY `IDX_PRODUCT_ALERT_PRICE_CUSTOMER_ID` (`customer_id`),
   KEY `IDX_PRODUCT_ALERT_PRICE_PRODUCT_ID` (`product_id`),
@@ -7360,13 +7357,13 @@ DROP TABLE IF EXISTS `product_alert_stock`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product_alert_stock` (
   `alert_stock_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Product alert stock id',
-  `customer_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Customer id',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product id',
-  `website_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Website id',
+  `customer_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Customer id',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product id',
+  `website_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Website id',
   `add_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Product alert add date',
   `send_date` timestamp NULL DEFAULT NULL COMMENT 'Product alert send date',
-  `send_count` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Send Count',
-  `status` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Product alert status',
+  `send_count` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Send Count',
+  `status` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Product alert status',
   PRIMARY KEY (`alert_stock_id`),
   KEY `IDX_PRODUCT_ALERT_STOCK_CUSTOMER_ID` (`customer_id`),
   KEY `IDX_PRODUCT_ALERT_STOCK_PRODUCT_ID` (`product_id`),
@@ -7395,9 +7392,9 @@ DROP TABLE IF EXISTS `rating`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rating` (
   `rating_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Rating Id',
-  `entity_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
+  `entity_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
   `rating_code` varchar(64) NOT NULL COMMENT 'Rating Code',
-  `position` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Rating Position On Frontend',
+  `position` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Rating Position On Frontend',
   PRIMARY KEY (`rating_id`),
   UNIQUE KEY `UNQ_RATING_RATING_CODE` (`rating_code`),
   KEY `IDX_RATING_ENTITY_ID` (`entity_id`),
@@ -7449,10 +7446,10 @@ DROP TABLE IF EXISTS `rating_option`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rating_option` (
   `option_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Rating Option Id',
-  `rating_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Rating Id',
+  `rating_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Rating Id',
   `code` varchar(32) NOT NULL COMMENT 'Rating Option Code',
-  `value` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Rating Option Value',
-  `position` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Ration option position on frontend',
+  `value` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Rating Option Value',
+  `position` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Ration option position on frontend',
   PRIMARY KEY (`option_id`),
   KEY `IDX_RATING_OPTION_RATING_ID` (`rating_id`),
   CONSTRAINT `FK_RATING_OPTION_RATING_ID_RATING_RATING_ID` FOREIGN KEY (`rating_id`) REFERENCES `rating` (`rating_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -7478,15 +7475,15 @@ DROP TABLE IF EXISTS `rating_option_vote`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rating_option_vote` (
   `vote_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Vote id',
-  `option_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Vote option id',
+  `option_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Vote option id',
   `remote_ip` varchar(50) DEFAULT NULL,
   `remote_ip_long` varbinary(16) DEFAULT NULL,
-  `customer_id` int(10) unsigned DEFAULT '0' COMMENT 'Customer Id',
-  `entity_pk_value` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'Product id',
-  `rating_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Rating id',
+  `customer_id` int(10) unsigned DEFAULT 0 COMMENT 'Customer Id',
+  `entity_pk_value` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT 'Product id',
+  `rating_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Rating id',
   `review_id` bigint(20) unsigned DEFAULT NULL COMMENT 'Review id',
-  `percent` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Percent amount',
-  `value` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Vote option value',
+  `percent` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Percent amount',
+  `value` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Vote option value',
   PRIMARY KEY (`vote_id`),
   KEY `IDX_RATING_OPTION_VOTE_OPTION_ID` (`option_id`),
   KEY `FK_RATING_OPTION_VOTE_REVIEW_ID_REVIEW_REVIEW_ID` (`review_id`),
@@ -7513,13 +7510,13 @@ DROP TABLE IF EXISTS `rating_option_vote_aggregated`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rating_option_vote_aggregated` (
   `primary_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Vote aggregation id',
-  `rating_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Rating id',
-  `entity_pk_value` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'Product id',
-  `vote_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Vote dty',
-  `vote_value_sum` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'General vote sum',
-  `percent` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Vote percent',
-  `percent_approved` smallint(6) DEFAULT '0' COMMENT 'Vote percent approved by admin',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
+  `rating_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Rating id',
+  `entity_pk_value` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT 'Product id',
+  `vote_count` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Vote dty',
+  `vote_value_sum` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'General vote sum',
+  `percent` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Vote percent',
+  `percent_approved` smallint(6) DEFAULT 0 COMMENT 'Vote percent approved by admin',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
   PRIMARY KEY (`primary_id`),
   KEY `IDX_RATING_OPTION_VOTE_AGGREGATED_RATING_ID` (`rating_id`),
   KEY `IDX_RATING_OPTION_VOTE_AGGREGATED_STORE_ID` (`store_id`),
@@ -7545,8 +7542,8 @@ DROP TABLE IF EXISTS `rating_store`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rating_store` (
-  `rating_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Rating id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store id',
+  `rating_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Rating id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store id',
   PRIMARY KEY (`rating_id`,`store_id`),
   KEY `IDX_RATING_STORE_STORE_ID` (`store_id`),
   CONSTRAINT `FK_RATING_STORE_RATING_ID_RATING_RATING_ID` FOREIGN KEY (`rating_id`) REFERENCES `rating` (`rating_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
@@ -7571,8 +7568,8 @@ DROP TABLE IF EXISTS `rating_title`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rating_title` (
-  `rating_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Rating Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
+  `rating_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Rating Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
   `value` varchar(255) NOT NULL COMMENT 'Rating Label',
   PRIMARY KEY (`rating_id`,`store_id`),
   KEY `IDX_RATING_TITLE_STORE_ID` (`store_id`),
@@ -7635,10 +7632,10 @@ DROP TABLE IF EXISTS `report_event`;
 CREATE TABLE `report_event` (
   `event_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Event Id',
   `logged_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Logged At',
-  `event_type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Event Type Id',
-  `object_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Object Id',
-  `subject_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Subject Id',
-  `subtype` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Subtype',
+  `event_type_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Event Type Id',
+  `object_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Object Id',
+  `subject_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Subject Id',
+  `subtype` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Subtype',
   `store_id` smallint(5) unsigned NOT NULL COMMENT 'Store Id',
   PRIMARY KEY (`event_id`),
   KEY `IDX_REPORT_EVENT_EVENT_TYPE_ID` (`event_type_id`),
@@ -7671,7 +7668,7 @@ DROP TABLE IF EXISTS `report_event_types`;
 CREATE TABLE `report_event_types` (
   `event_type_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Event Type Id',
   `event_name` varchar(64) NOT NULL COMMENT 'Event Name',
-  `customer_login` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Customer Login',
+  `customer_login` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Customer Login',
   PRIMARY KEY (`event_type_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='Reports Event Type Table';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -7699,9 +7696,9 @@ CREATE TABLE `report_viewed_product_aggregated_daily` (
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
   `product_id` int(10) unsigned DEFAULT NULL COMMENT 'Product Id',
   `product_name` varchar(255) DEFAULT NULL COMMENT 'Product Name',
-  `product_price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Product Price',
-  `views_num` int(11) NOT NULL DEFAULT '0' COMMENT 'Number of Views',
-  `rating_pos` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Rating Pos',
+  `product_price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Product Price',
+  `views_num` int(11) NOT NULL DEFAULT 0 COMMENT 'Number of Views',
+  `rating_pos` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Rating Pos',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNQ_REPORT_VIEWED_PRD_AGGRED_DAILY_PERIOD_STORE_ID_PRD_ID` (`period`,`store_id`,`product_id`),
   KEY `IDX_REPORT_VIEWED_PRODUCT_AGGREGATED_DAILY_STORE_ID` (`store_id`),
@@ -7733,9 +7730,9 @@ CREATE TABLE `report_viewed_product_aggregated_monthly` (
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
   `product_id` int(10) unsigned DEFAULT NULL COMMENT 'Product Id',
   `product_name` varchar(255) DEFAULT NULL COMMENT 'Product Name',
-  `product_price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Product Price',
-  `views_num` int(11) NOT NULL DEFAULT '0' COMMENT 'Number of Views',
-  `rating_pos` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Rating Pos',
+  `product_price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Product Price',
+  `views_num` int(11) NOT NULL DEFAULT 0 COMMENT 'Number of Views',
+  `rating_pos` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Rating Pos',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNQ_REPORT_VIEWED_PRD_AGGRED_MONTHLY_PERIOD_STORE_ID_PRD_ID` (`period`,`store_id`,`product_id`),
   KEY `IDX_REPORT_VIEWED_PRODUCT_AGGREGATED_MONTHLY_STORE_ID` (`store_id`),
@@ -7767,9 +7764,9 @@ CREATE TABLE `report_viewed_product_aggregated_yearly` (
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
   `product_id` int(10) unsigned DEFAULT NULL COMMENT 'Product Id',
   `product_name` varchar(255) DEFAULT NULL COMMENT 'Product Name',
-  `product_price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Product Price',
-  `views_num` int(11) NOT NULL DEFAULT '0' COMMENT 'Number of Views',
-  `rating_pos` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Rating Pos',
+  `product_price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Product Price',
+  `views_num` int(11) NOT NULL DEFAULT 0 COMMENT 'Number of Views',
+  `rating_pos` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Rating Pos',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNQ_REPORT_VIEWED_PRD_AGGRED_YEARLY_PERIOD_STORE_ID_PRD_ID` (`period`,`store_id`,`product_id`),
   KEY `IDX_REPORT_VIEWED_PRODUCT_AGGREGATED_YEARLY_STORE_ID` (`store_id`),
@@ -7834,9 +7831,9 @@ DROP TABLE IF EXISTS `review`;
 CREATE TABLE `review` (
   `review_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Review id',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Review create date',
-  `entity_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity id',
-  `entity_pk_value` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product id',
-  `status_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Status code',
+  `entity_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity id',
+  `entity_pk_value` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product id',
+  `status_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Status code',
   PRIMARY KEY (`review_id`),
   KEY `IDX_REVIEW_ENTITY_ID` (`entity_id`),
   KEY `IDX_REVIEW_STATUS_ID` (`status_id`),
@@ -7864,8 +7861,8 @@ DROP TABLE IF EXISTS `review_detail`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `review_detail` (
   `detail_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Review detail id',
-  `review_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'Review id',
-  `store_id` smallint(5) unsigned DEFAULT '0' COMMENT 'Store id',
+  `review_id` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT 'Review id',
+  `store_id` smallint(5) unsigned DEFAULT 0 COMMENT 'Store id',
   `title` varchar(255) NOT NULL COMMENT 'Title',
   `detail` text NOT NULL COMMENT 'Detail description',
   `nickname` varchar(128) NOT NULL COMMENT 'User nickname',
@@ -7922,11 +7919,11 @@ DROP TABLE IF EXISTS `review_entity_summary`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `review_entity_summary` (
   `primary_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Summary review entity id',
-  `entity_pk_value` bigint(20) NOT NULL DEFAULT '0' COMMENT 'Product id',
-  `entity_type` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Entity type id',
-  `reviews_count` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Qty of reviews',
-  `rating_summary` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Summarized rating',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store id',
+  `entity_pk_value` bigint(20) NOT NULL DEFAULT 0 COMMENT 'Product id',
+  `entity_type` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Entity type id',
+  `reviews_count` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Qty of reviews',
+  `rating_summary` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Summarized rating',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store id',
   PRIMARY KEY (`primary_id`),
   KEY `IDX_REVIEW_ENTITY_SUMMARY_STORE_ID` (`store_id`),
   CONSTRAINT `FK_REVIEW_ENTITY_SUMMARY_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -8006,9 +8003,9 @@ CREATE TABLE `sales_bestsellers_aggregated_daily` (
   `product_id` int(10) unsigned DEFAULT NULL COMMENT 'Product Id',
   `product_type_id` varchar(32) NOT NULL DEFAULT 'simple' COMMENT 'Product Type Id',
   `product_name` varchar(255) DEFAULT NULL COMMENT 'Product Name',
-  `product_price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Product Price',
-  `qty_ordered` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Qty Ordered',
-  `rating_pos` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Rating Pos',
+  `product_price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Product Price',
+  `qty_ordered` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Qty Ordered',
+  `rating_pos` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Rating Pos',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNQ_SALES_BESTSELLERS_AGGRED_DAILY_PERIOD_STORE_ID_PRD_ID` (`period`,`store_id`,`product_id`),
   KEY `IDX_SALES_BESTSELLERS_AGGREGATED_DAILY_STORE_ID` (`store_id`),
@@ -8041,9 +8038,9 @@ CREATE TABLE `sales_bestsellers_aggregated_monthly` (
   `product_id` int(10) unsigned DEFAULT NULL COMMENT 'Product Id',
   `product_type_id` varchar(32) NOT NULL DEFAULT 'simple' COMMENT 'Product Type Id',
   `product_name` varchar(255) DEFAULT NULL COMMENT 'Product Name',
-  `product_price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Product Price',
-  `qty_ordered` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Qty Ordered',
-  `rating_pos` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Rating Pos',
+  `product_price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Product Price',
+  `qty_ordered` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Qty Ordered',
+  `rating_pos` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Rating Pos',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNQ_SALES_BESTSELLERS_AGGRED_MONTHLY_PERIOD_STORE_ID_PRD_ID` (`period`,`store_id`,`product_id`),
   KEY `IDX_SALES_BESTSELLERS_AGGREGATED_MONTHLY_STORE_ID` (`store_id`),
@@ -8076,9 +8073,9 @@ CREATE TABLE `sales_bestsellers_aggregated_yearly` (
   `product_id` int(10) unsigned DEFAULT NULL COMMENT 'Product Id',
   `product_type_id` varchar(32) NOT NULL DEFAULT 'simple' COMMENT 'Product Type Id',
   `product_name` varchar(255) DEFAULT NULL COMMENT 'Product Name',
-  `product_price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Product Price',
-  `qty_ordered` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Qty Ordered',
-  `rating_pos` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Rating Pos',
+  `product_price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Product Price',
+  `qty_ordered` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Qty Ordered',
+  `rating_pos` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Rating Pos',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNQ_SALES_BESTSELLERS_AGGRED_YEARLY_PERIOD_STORE_ID_PRD_ID` (`period`,`store_id`,`product_id`),
   KEY `IDX_SALES_BESTSELLERS_AGGREGATED_YEARLY_STORE_ID` (`store_id`),
@@ -8245,8 +8242,8 @@ CREATE TABLE `sales_flat_creditmemo_comment` (
   `entity_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity Id',
   `parent_id` int(10) unsigned NOT NULL COMMENT 'Parent Id',
   `is_customer_notified` int(11) DEFAULT NULL COMMENT 'Is Customer Notified',
-  `is_visible_on_front` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Visible On Front',
-  `comment` text COMMENT 'Comment',
+  `is_visible_on_front` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Visible On Front',
+  `comment` text DEFAULT NULL COMMENT 'Comment',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Created At',
   PRIMARY KEY (`entity_id`),
   KEY `IDX_SALES_FLAT_CREDITMEMO_COMMENT_CREATED_AT` (`created_at`),
@@ -8345,8 +8342,8 @@ CREATE TABLE `sales_flat_creditmemo_item` (
   `row_total_incl_tax` decimal(12,4) DEFAULT NULL COMMENT 'Row Total Incl Tax',
   `product_id` int(11) DEFAULT NULL COMMENT 'Product Id',
   `order_item_id` int(11) DEFAULT NULL COMMENT 'Order Item Id',
-  `additional_data` text COMMENT 'Additional Data',
-  `description` text COMMENT 'Description',
+  `additional_data` text DEFAULT NULL COMMENT 'Additional Data',
+  `description` text DEFAULT NULL COMMENT 'Description',
   `sku` varchar(255) DEFAULT NULL COMMENT 'Sku',
   `name` varchar(255) DEFAULT NULL COMMENT 'Name',
   `hidden_tax_amount` decimal(12,4) DEFAULT NULL COMMENT 'Hidden Tax Amount',
@@ -8355,7 +8352,7 @@ CREATE TABLE `sales_flat_creditmemo_item` (
   `weee_tax_row_disposition` decimal(12,4) DEFAULT NULL COMMENT 'Weee Tax Row Disposition',
   `base_weee_tax_disposition` decimal(12,4) DEFAULT NULL COMMENT 'Base Weee Tax Disposition',
   `base_weee_tax_row_disposition` decimal(12,4) DEFAULT NULL COMMENT 'Base Weee Tax Row Disposition',
-  `weee_tax_applied` text COMMENT 'Weee Tax Applied',
+  `weee_tax_applied` text DEFAULT NULL COMMENT 'Weee Tax Applied',
   `base_weee_tax_applied_amount` decimal(12,4) DEFAULT NULL COMMENT 'Base Weee Tax Applied Amount',
   `base_weee_tax_applied_row_amnt` decimal(12,4) DEFAULT NULL COMMENT 'Base Weee Tax Applied Row Amnt',
   `weee_tax_applied_amount` decimal(12,4) DEFAULT NULL COMMENT 'Weee Tax Applied Amount',
@@ -8459,8 +8456,8 @@ CREATE TABLE `sales_flat_invoice_comment` (
   `entity_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity Id',
   `parent_id` int(10) unsigned NOT NULL COMMENT 'Parent Id',
   `is_customer_notified` smallint(5) unsigned DEFAULT NULL COMMENT 'Is Customer Notified',
-  `is_visible_on_front` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Visible On Front',
-  `comment` text COMMENT 'Comment',
+  `is_visible_on_front` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Visible On Front',
+  `comment` text DEFAULT NULL COMMENT 'Comment',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Created At',
   PRIMARY KEY (`entity_id`),
   KEY `IDX_SALES_FLAT_INVOICE_COMMENT_CREATED_AT` (`created_at`),
@@ -8551,8 +8548,8 @@ CREATE TABLE `sales_flat_invoice_item` (
   `row_total_incl_tax` decimal(12,4) DEFAULT NULL COMMENT 'Row Total Incl Tax',
   `product_id` int(11) DEFAULT NULL COMMENT 'Product Id',
   `order_item_id` int(11) DEFAULT NULL COMMENT 'Order Item Id',
-  `additional_data` text COMMENT 'Additional Data',
-  `description` text COMMENT 'Description',
+  `additional_data` text DEFAULT NULL COMMENT 'Additional Data',
+  `description` text DEFAULT NULL COMMENT 'Description',
   `sku` varchar(255) DEFAULT NULL COMMENT 'Sku',
   `name` varchar(255) DEFAULT NULL COMMENT 'Name',
   `hidden_tax_amount` decimal(12,4) DEFAULT NULL COMMENT 'Hidden Tax Amount',
@@ -8561,7 +8558,7 @@ CREATE TABLE `sales_flat_invoice_item` (
   `base_weee_tax_applied_row_amnt` decimal(12,4) DEFAULT NULL COMMENT 'Base Weee Tax Applied Row Amnt',
   `weee_tax_applied_amount` decimal(12,4) DEFAULT NULL COMMENT 'Weee Tax Applied Amount',
   `weee_tax_applied_row_amount` decimal(12,4) DEFAULT NULL COMMENT 'Weee Tax Applied Row Amount',
-  `weee_tax_applied` text COMMENT 'Weee Tax Applied',
+  `weee_tax_applied` text DEFAULT NULL COMMENT 'Weee Tax Applied',
   `weee_tax_disposition` decimal(12,4) DEFAULT NULL COMMENT 'Weee Tax Disposition',
   `weee_tax_row_disposition` decimal(12,4) DEFAULT NULL COMMENT 'Weee Tax Row Disposition',
   `base_weee_tax_disposition` decimal(12,4) DEFAULT NULL COMMENT 'Base Weee Tax Disposition',
@@ -8708,10 +8705,10 @@ CREATE TABLE `sales_flat_order` (
   `store_currency_code` varchar(3) DEFAULT NULL COMMENT 'Store Currency Code',
   `store_name` varchar(255) DEFAULT NULL COMMENT 'Store Name',
   `x_forwarded_for` varchar(255) DEFAULT NULL COMMENT 'X Forwarded For',
-  `customer_note` text COMMENT 'Customer Note',
+  `customer_note` text DEFAULT NULL COMMENT 'Customer Note',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Created At',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Updated At',
-  `total_item_count` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Total Item Count',
+  `total_item_count` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Total Item Count',
   `customer_gender` int(11) DEFAULT NULL COMMENT 'Customer Gender',
   `hidden_tax_amount` decimal(12,4) DEFAULT NULL COMMENT 'Hidden Tax Amount',
   `base_hidden_tax_amount` decimal(12,4) DEFAULT NULL COMMENT 'Base Hidden Tax Amount',
@@ -8724,8 +8721,11 @@ CREATE TABLE `sales_flat_order` (
   `shipping_incl_tax` decimal(12,4) DEFAULT NULL COMMENT 'Shipping Incl Tax',
   `base_shipping_incl_tax` decimal(12,4) DEFAULT NULL COMMENT 'Base Shipping Incl Tax',
   `coupon_rule_name` varchar(255) DEFAULT NULL COMMENT 'Coupon Sales Rule Name',
-  `paypal_ipn_customer_notified` int(11) DEFAULT '0' COMMENT 'Paypal Ipn Customer Notified',
+  `paypal_ipn_customer_notified` int(11) DEFAULT 0 COMMENT 'Paypal Ipn Customer Notified',
   `gift_message_id` int(11) DEFAULT NULL COMMENT 'Gift Message Id',
+  `vindi_subscription_id` varchar(255) DEFAULT '' COMMENT 'Vindi Subscription Id',
+  `vindi_subscription_period` varchar(255) DEFAULT '' COMMENT 'Vindi Subscription Period',
+  `vindi_bill_id` varchar(255) DEFAULT '' COMMENT 'Vindi Bill Id',
   PRIMARY KEY (`entity_id`),
   UNIQUE KEY `UNQ_SALES_FLAT_ORDER_INCREMENT_ID` (`increment_id`),
   KEY `IDX_SALES_FLAT_ORDER_STATUS` (`status`),
@@ -8779,10 +8779,10 @@ CREATE TABLE `sales_flat_order_address` (
   `middlename` varchar(255) DEFAULT NULL COMMENT 'Middlename',
   `suffix` varchar(255) DEFAULT NULL COMMENT 'Suffix',
   `company` varchar(255) DEFAULT NULL COMMENT 'Company',
-  `vat_id` text COMMENT 'Vat Id',
+  `vat_id` text DEFAULT NULL COMMENT 'Vat Id',
   `vat_is_valid` smallint(6) DEFAULT NULL COMMENT 'Vat Is Valid',
-  `vat_request_id` text COMMENT 'Vat Request Id',
-  `vat_request_date` text COMMENT 'Vat Request Date',
+  `vat_request_id` text DEFAULT NULL COMMENT 'Vat Request Id',
+  `vat_request_date` text DEFAULT NULL COMMENT 'Vat Request Date',
   `vat_request_success` smallint(6) DEFAULT NULL COMMENT 'Vat Request Success',
   PRIMARY KEY (`entity_id`),
   KEY `IDX_SALES_FLAT_ORDER_ADDRESS_PARENT_ID` (`parent_id`),
@@ -8860,7 +8860,7 @@ DROP TABLE IF EXISTS `sales_flat_order_item`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sales_flat_order_item` (
   `item_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Item Id',
-  `order_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Order Id',
+  `order_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Order Id',
   `parent_item_id` int(10) unsigned DEFAULT NULL COMMENT 'Parent Item Id',
   `quote_item_id` int(10) unsigned DEFAULT NULL COMMENT 'Quote Item Id',
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
@@ -8868,45 +8868,45 @@ CREATE TABLE `sales_flat_order_item` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Updated At',
   `product_id` int(10) unsigned DEFAULT NULL COMMENT 'Product Id',
   `product_type` varchar(255) DEFAULT NULL COMMENT 'Product Type',
-  `product_options` text COMMENT 'Product Options',
-  `weight` decimal(12,4) DEFAULT '0.0000' COMMENT 'Weight',
+  `product_options` text DEFAULT NULL COMMENT 'Product Options',
+  `weight` decimal(12,4) DEFAULT 0.0000 COMMENT 'Weight',
   `is_virtual` smallint(5) unsigned DEFAULT NULL COMMENT 'Is Virtual',
   `sku` varchar(255) DEFAULT NULL COMMENT 'Sku',
   `name` varchar(255) DEFAULT NULL COMMENT 'Name',
-  `description` text COMMENT 'Description',
-  `applied_rule_ids` text COMMENT 'Applied Rule Ids',
-  `additional_data` text COMMENT 'Additional Data',
-  `free_shipping` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Free Shipping',
+  `description` text DEFAULT NULL COMMENT 'Description',
+  `applied_rule_ids` text DEFAULT NULL COMMENT 'Applied Rule Ids',
+  `additional_data` text DEFAULT NULL COMMENT 'Additional Data',
+  `free_shipping` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Free Shipping',
   `is_qty_decimal` smallint(5) unsigned DEFAULT NULL COMMENT 'Is Qty Decimal',
-  `no_discount` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'No Discount',
-  `qty_backordered` decimal(12,4) DEFAULT '0.0000' COMMENT 'Qty Backordered',
-  `qty_canceled` decimal(12,4) DEFAULT '0.0000' COMMENT 'Qty Canceled',
-  `qty_invoiced` decimal(12,4) DEFAULT '0.0000' COMMENT 'Qty Invoiced',
-  `qty_ordered` decimal(12,4) DEFAULT '0.0000' COMMENT 'Qty Ordered',
-  `qty_refunded` decimal(12,4) DEFAULT '0.0000' COMMENT 'Qty Refunded',
-  `qty_shipped` decimal(12,4) DEFAULT '0.0000' COMMENT 'Qty Shipped',
-  `base_cost` decimal(12,4) DEFAULT '0.0000' COMMENT 'Base Cost',
-  `price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Price',
-  `base_price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Base Price',
+  `no_discount` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'No Discount',
+  `qty_backordered` decimal(12,4) DEFAULT 0.0000 COMMENT 'Qty Backordered',
+  `qty_canceled` decimal(12,4) DEFAULT 0.0000 COMMENT 'Qty Canceled',
+  `qty_invoiced` decimal(12,4) DEFAULT 0.0000 COMMENT 'Qty Invoiced',
+  `qty_ordered` decimal(12,4) DEFAULT 0.0000 COMMENT 'Qty Ordered',
+  `qty_refunded` decimal(12,4) DEFAULT 0.0000 COMMENT 'Qty Refunded',
+  `qty_shipped` decimal(12,4) DEFAULT 0.0000 COMMENT 'Qty Shipped',
+  `base_cost` decimal(12,4) DEFAULT 0.0000 COMMENT 'Base Cost',
+  `price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Price',
+  `base_price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Base Price',
   `original_price` decimal(12,4) DEFAULT NULL COMMENT 'Original Price',
   `base_original_price` decimal(12,4) DEFAULT NULL COMMENT 'Base Original Price',
-  `tax_percent` decimal(12,4) DEFAULT '0.0000' COMMENT 'Tax Percent',
-  `tax_amount` decimal(12,4) DEFAULT '0.0000' COMMENT 'Tax Amount',
-  `base_tax_amount` decimal(12,4) DEFAULT '0.0000' COMMENT 'Base Tax Amount',
-  `tax_invoiced` decimal(12,4) DEFAULT '0.0000' COMMENT 'Tax Invoiced',
-  `base_tax_invoiced` decimal(12,4) DEFAULT '0.0000' COMMENT 'Base Tax Invoiced',
-  `discount_percent` decimal(12,4) DEFAULT '0.0000' COMMENT 'Discount Percent',
-  `discount_amount` decimal(12,4) DEFAULT '0.0000' COMMENT 'Discount Amount',
-  `base_discount_amount` decimal(12,4) DEFAULT '0.0000' COMMENT 'Base Discount Amount',
-  `discount_invoiced` decimal(12,4) DEFAULT '0.0000' COMMENT 'Discount Invoiced',
-  `base_discount_invoiced` decimal(12,4) DEFAULT '0.0000' COMMENT 'Base Discount Invoiced',
-  `amount_refunded` decimal(12,4) DEFAULT '0.0000' COMMENT 'Amount Refunded',
-  `base_amount_refunded` decimal(12,4) DEFAULT '0.0000' COMMENT 'Base Amount Refunded',
-  `row_total` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Row Total',
-  `base_row_total` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Base Row Total',
-  `row_invoiced` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Row Invoiced',
-  `base_row_invoiced` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Base Row Invoiced',
-  `row_weight` decimal(12,4) DEFAULT '0.0000' COMMENT 'Row Weight',
+  `tax_percent` decimal(12,4) DEFAULT 0.0000 COMMENT 'Tax Percent',
+  `tax_amount` decimal(12,4) DEFAULT 0.0000 COMMENT 'Tax Amount',
+  `base_tax_amount` decimal(12,4) DEFAULT 0.0000 COMMENT 'Base Tax Amount',
+  `tax_invoiced` decimal(12,4) DEFAULT 0.0000 COMMENT 'Tax Invoiced',
+  `base_tax_invoiced` decimal(12,4) DEFAULT 0.0000 COMMENT 'Base Tax Invoiced',
+  `discount_percent` decimal(12,4) DEFAULT 0.0000 COMMENT 'Discount Percent',
+  `discount_amount` decimal(12,4) DEFAULT 0.0000 COMMENT 'Discount Amount',
+  `base_discount_amount` decimal(12,4) DEFAULT 0.0000 COMMENT 'Base Discount Amount',
+  `discount_invoiced` decimal(12,4) DEFAULT 0.0000 COMMENT 'Discount Invoiced',
+  `base_discount_invoiced` decimal(12,4) DEFAULT 0.0000 COMMENT 'Base Discount Invoiced',
+  `amount_refunded` decimal(12,4) DEFAULT 0.0000 COMMENT 'Amount Refunded',
+  `base_amount_refunded` decimal(12,4) DEFAULT 0.0000 COMMENT 'Base Amount Refunded',
+  `row_total` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Row Total',
+  `base_row_total` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Base Row Total',
+  `row_invoiced` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Row Invoiced',
+  `base_row_invoiced` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Base Row Invoiced',
+  `row_weight` decimal(12,4) DEFAULT 0.0000 COMMENT 'Row Weight',
   `base_tax_before_discount` decimal(12,4) DEFAULT NULL COMMENT 'Base Tax Before Discount',
   `tax_before_discount` decimal(12,4) DEFAULT NULL COMMENT 'Tax Before Discount',
   `ext_order_item_id` varchar(255) DEFAULT NULL COMMENT 'Ext Order Item Id',
@@ -8922,7 +8922,7 @@ CREATE TABLE `sales_flat_order_item` (
   `base_hidden_tax_invoiced` decimal(12,4) DEFAULT NULL COMMENT 'Base Hidden Tax Invoiced',
   `hidden_tax_refunded` decimal(12,4) DEFAULT NULL COMMENT 'Hidden Tax Refunded',
   `base_hidden_tax_refunded` decimal(12,4) DEFAULT NULL COMMENT 'Base Hidden Tax Refunded',
-  `is_nominal` int(11) NOT NULL DEFAULT '0' COMMENT 'Is Nominal',
+  `is_nominal` int(11) NOT NULL DEFAULT 0 COMMENT 'Is Nominal',
   `tax_canceled` decimal(12,4) DEFAULT NULL COMMENT 'Tax Canceled',
   `hidden_tax_canceled` decimal(12,4) DEFAULT NULL COMMENT 'Hidden Tax Canceled',
   `tax_refunded` decimal(12,4) DEFAULT NULL COMMENT 'Tax Refunded',
@@ -8935,7 +8935,7 @@ CREATE TABLE `sales_flat_order_item` (
   `base_weee_tax_applied_row_amnt` decimal(12,4) DEFAULT NULL COMMENT 'Base Weee Tax Applied Row Amnt',
   `weee_tax_applied_amount` decimal(12,4) DEFAULT NULL COMMENT 'Weee Tax Applied Amount',
   `weee_tax_applied_row_amount` decimal(12,4) DEFAULT NULL COMMENT 'Weee Tax Applied Row Amount',
-  `weee_tax_applied` text COMMENT 'Weee Tax Applied',
+  `weee_tax_applied` text DEFAULT NULL COMMENT 'Weee Tax Applied',
   `weee_tax_disposition` decimal(12,4) DEFAULT NULL COMMENT 'Weee Tax Disposition',
   `weee_tax_row_disposition` decimal(12,4) DEFAULT NULL COMMENT 'Weee Tax Row Disposition',
   `base_weee_tax_disposition` decimal(12,4) DEFAULT NULL COMMENT 'Base Weee Tax Disposition',
@@ -8986,7 +8986,7 @@ CREATE TABLE `sales_flat_order_payment` (
   `amount_ordered` decimal(12,4) DEFAULT NULL COMMENT 'Amount Ordered',
   `base_amount_canceled` decimal(12,4) DEFAULT NULL COMMENT 'Base Amount Canceled',
   `quote_payment_id` int(11) DEFAULT NULL COMMENT 'Quote Payment Id',
-  `additional_data` text COMMENT 'Additional Data',
+  `additional_data` text DEFAULT NULL COMMENT 'Additional Data',
   `cc_exp_month` varchar(255) DEFAULT NULL COMMENT 'Cc Exp Month',
   `cc_ss_start_year` varchar(255) DEFAULT NULL COMMENT 'Cc Ss Start Year',
   `echeck_bank_name` varchar(255) DEFAULT NULL COMMENT 'Echeck Bank Name',
@@ -9019,7 +9019,7 @@ CREATE TABLE `sales_flat_order_payment` (
   `cc_trans_id` varchar(255) DEFAULT NULL COMMENT 'Cc Trans Id',
   `paybox_request_number` varchar(255) DEFAULT NULL COMMENT 'Paybox Request Number',
   `address_status` varchar(255) DEFAULT NULL COMMENT 'Address Status',
-  `additional_information` text COMMENT 'Additional Information',
+  `additional_information` text DEFAULT NULL COMMENT 'Additional Information',
   PRIMARY KEY (`entity_id`),
   KEY `IDX_SALES_FLAT_ORDER_PAYMENT_PARENT_ID` (`parent_id`),
   CONSTRAINT `FK_SALES_FLAT_ORDER_PAYMENT_PARENT_ID_SALES_FLAT_ORDER_ENTITY_ID` FOREIGN KEY (`parent_id`) REFERENCES `sales_flat_order` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -9046,8 +9046,8 @@ CREATE TABLE `sales_flat_order_status_history` (
   `entity_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity Id',
   `parent_id` int(10) unsigned NOT NULL COMMENT 'Parent Id',
   `is_customer_notified` int(11) DEFAULT NULL COMMENT 'Is Customer Notified',
-  `is_visible_on_front` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Visible On Front',
-  `comment` text COMMENT 'Comment',
+  `is_visible_on_front` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Visible On Front',
+  `comment` text DEFAULT NULL COMMENT 'Comment',
   `status` varchar(32) DEFAULT NULL COMMENT 'Status',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Created At',
   `entity_name` varchar(32) DEFAULT NULL COMMENT 'Shows what entity history is bind to.',
@@ -9076,27 +9076,27 @@ DROP TABLE IF EXISTS `sales_flat_quote`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sales_flat_quote` (
   `entity_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Created At',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Updated At',
   `converted_at` timestamp NULL DEFAULT NULL COMMENT 'Converted At',
-  `is_active` smallint(5) unsigned DEFAULT '1' COMMENT 'Is Active',
-  `is_virtual` smallint(5) unsigned DEFAULT '0' COMMENT 'Is Virtual',
-  `is_multi_shipping` smallint(5) unsigned DEFAULT '0' COMMENT 'Is Multi Shipping',
-  `items_count` int(10) unsigned DEFAULT '0' COMMENT 'Items Count',
-  `items_qty` decimal(12,4) DEFAULT '0.0000' COMMENT 'Items Qty',
-  `orig_order_id` int(10) unsigned DEFAULT '0' COMMENT 'Orig Order Id',
-  `store_to_base_rate` decimal(12,4) DEFAULT '0.0000' COMMENT 'Store To Base Rate',
-  `store_to_quote_rate` decimal(12,4) DEFAULT '0.0000' COMMENT 'Store To Quote Rate',
+  `is_active` smallint(5) unsigned DEFAULT 1 COMMENT 'Is Active',
+  `is_virtual` smallint(5) unsigned DEFAULT 0 COMMENT 'Is Virtual',
+  `is_multi_shipping` smallint(5) unsigned DEFAULT 0 COMMENT 'Is Multi Shipping',
+  `items_count` int(10) unsigned DEFAULT 0 COMMENT 'Items Count',
+  `items_qty` decimal(12,4) DEFAULT 0.0000 COMMENT 'Items Qty',
+  `orig_order_id` int(10) unsigned DEFAULT 0 COMMENT 'Orig Order Id',
+  `store_to_base_rate` decimal(12,4) DEFAULT 0.0000 COMMENT 'Store To Base Rate',
+  `store_to_quote_rate` decimal(12,4) DEFAULT 0.0000 COMMENT 'Store To Quote Rate',
   `base_currency_code` varchar(255) DEFAULT NULL COMMENT 'Base Currency Code',
   `store_currency_code` varchar(255) DEFAULT NULL COMMENT 'Store Currency Code',
   `quote_currency_code` varchar(255) DEFAULT NULL COMMENT 'Quote Currency Code',
-  `grand_total` decimal(12,4) DEFAULT '0.0000' COMMENT 'Grand Total',
-  `base_grand_total` decimal(12,4) DEFAULT '0.0000' COMMENT 'Base Grand Total',
+  `grand_total` decimal(12,4) DEFAULT 0.0000 COMMENT 'Grand Total',
+  `base_grand_total` decimal(12,4) DEFAULT 0.0000 COMMENT 'Base Grand Total',
   `checkout_method` varchar(255) DEFAULT NULL COMMENT 'Checkout Method',
-  `customer_id` int(10) unsigned DEFAULT '0' COMMENT 'Customer Id',
-  `customer_tax_class_id` int(10) unsigned DEFAULT '0' COMMENT 'Customer Tax Class Id',
-  `customer_group_id` int(10) unsigned DEFAULT '0' COMMENT 'Customer Group Id',
+  `customer_id` int(10) unsigned DEFAULT 0 COMMENT 'Customer Id',
+  `customer_tax_class_id` int(10) unsigned DEFAULT 0 COMMENT 'Customer Tax Class Id',
+  `customer_group_id` int(10) unsigned DEFAULT 0 COMMENT 'Customer Group Id',
   `customer_email` varchar(255) DEFAULT NULL COMMENT 'Customer Email',
   `customer_prefix` varchar(40) DEFAULT NULL COMMENT 'Customer Prefix',
   `customer_firstname` varchar(255) DEFAULT NULL COMMENT 'Customer Firstname',
@@ -9105,8 +9105,8 @@ CREATE TABLE `sales_flat_quote` (
   `customer_suffix` varchar(40) DEFAULT NULL COMMENT 'Customer Suffix',
   `customer_dob` datetime DEFAULT NULL COMMENT 'Customer Dob',
   `customer_note` varchar(255) DEFAULT NULL COMMENT 'Customer Note',
-  `customer_note_notify` smallint(5) unsigned DEFAULT '1' COMMENT 'Customer Note Notify',
-  `customer_is_guest` smallint(5) unsigned DEFAULT '0' COMMENT 'Customer Is Guest',
+  `customer_note_notify` smallint(5) unsigned DEFAULT 1 COMMENT 'Customer Note Notify',
+  `customer_is_guest` smallint(5) unsigned DEFAULT 0 COMMENT 'Customer Is Guest',
   `remote_ip` varchar(255) DEFAULT NULL COMMENT 'Remote Ip',
   `applied_rule_ids` varchar(255) DEFAULT NULL COMMENT 'Applied Rule Ids',
   `reserved_order_id` varchar(64) DEFAULT NULL COMMENT 'Reserved Order Id',
@@ -9122,10 +9122,10 @@ CREATE TABLE `sales_flat_quote` (
   `subtotal_with_discount` decimal(12,4) DEFAULT NULL COMMENT 'Subtotal With Discount',
   `base_subtotal_with_discount` decimal(12,4) DEFAULT NULL COMMENT 'Base Subtotal With Discount',
   `is_changed` int(10) unsigned DEFAULT NULL COMMENT 'Is Changed',
-  `trigger_recollect` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Trigger Recollect',
-  `ext_shipping_info` text COMMENT 'Ext Shipping Info',
+  `trigger_recollect` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Trigger Recollect',
+  `ext_shipping_info` text DEFAULT NULL COMMENT 'Ext Shipping Info',
   `gift_message_id` int(11) DEFAULT NULL COMMENT 'Gift Message Id',
-  `is_persistent` smallint(5) unsigned DEFAULT '0' COMMENT 'Is Quote Persistent',
+  `is_persistent` smallint(5) unsigned DEFAULT 0 COMMENT 'Is Quote Persistent',
   PRIMARY KEY (`entity_id`),
   KEY `IDX_SALES_FLAT_QUOTE_CUSTOMER_ID_STORE_ID_IS_ACTIVE` (`customer_id`,`store_id`,`is_active`),
   KEY `IDX_SALES_FLAT_QUOTE_STORE_ID` (`store_id`),
@@ -9152,11 +9152,11 @@ DROP TABLE IF EXISTS `sales_flat_quote_address`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sales_flat_quote_address` (
   `address_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Address Id',
-  `quote_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Quote Id',
+  `quote_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Quote Id',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Created At',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Updated At',
   `customer_id` int(10) unsigned DEFAULT NULL COMMENT 'Customer Id',
-  `save_in_address_book` smallint(6) DEFAULT '0' COMMENT 'Save In Address Book',
+  `save_in_address_book` smallint(6) DEFAULT 0 COMMENT 'Save In Address Book',
   `customer_address_id` int(10) unsigned DEFAULT NULL COMMENT 'Customer Address Id',
   `address_type` varchar(255) DEFAULT NULL COMMENT 'Address Type',
   `email` varchar(255) DEFAULT NULL COMMENT 'Email',
@@ -9174,28 +9174,28 @@ CREATE TABLE `sales_flat_quote_address` (
   `country_id` varchar(255) DEFAULT NULL COMMENT 'Country Id',
   `telephone` varchar(255) DEFAULT NULL COMMENT 'Telephone',
   `fax` varchar(255) DEFAULT NULL COMMENT 'Fax',
-  `same_as_billing` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Same As Billing',
-  `free_shipping` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Free Shipping',
-  `collect_shipping_rates` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Collect Shipping Rates',
+  `same_as_billing` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Same As Billing',
+  `free_shipping` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Free Shipping',
+  `collect_shipping_rates` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Collect Shipping Rates',
   `shipping_method` varchar(255) DEFAULT NULL COMMENT 'Shipping Method',
   `shipping_description` varchar(255) DEFAULT NULL COMMENT 'Shipping Description',
-  `weight` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Weight',
-  `subtotal` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Subtotal',
-  `base_subtotal` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Base Subtotal',
-  `subtotal_with_discount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Subtotal With Discount',
-  `base_subtotal_with_discount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Base Subtotal With Discount',
-  `tax_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Tax Amount',
-  `base_tax_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Base Tax Amount',
-  `shipping_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Shipping Amount',
-  `base_shipping_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Base Shipping Amount',
+  `weight` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Weight',
+  `subtotal` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Subtotal',
+  `base_subtotal` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Base Subtotal',
+  `subtotal_with_discount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Subtotal With Discount',
+  `base_subtotal_with_discount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Base Subtotal With Discount',
+  `tax_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Tax Amount',
+  `base_tax_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Base Tax Amount',
+  `shipping_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Shipping Amount',
+  `base_shipping_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Base Shipping Amount',
   `shipping_tax_amount` decimal(12,4) DEFAULT NULL COMMENT 'Shipping Tax Amount',
   `base_shipping_tax_amount` decimal(12,4) DEFAULT NULL COMMENT 'Base Shipping Tax Amount',
-  `discount_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Discount Amount',
-  `base_discount_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Base Discount Amount',
-  `grand_total` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Grand Total',
-  `base_grand_total` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Base Grand Total',
-  `customer_notes` text COMMENT 'Customer Notes',
-  `applied_taxes` text COMMENT 'Applied Taxes',
+  `discount_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Discount Amount',
+  `base_discount_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Base Discount Amount',
+  `grand_total` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Grand Total',
+  `base_grand_total` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Base Grand Total',
+  `customer_notes` text DEFAULT NULL COMMENT 'Customer Notes',
+  `applied_taxes` text DEFAULT NULL COMMENT 'Applied Taxes',
   `discount_description` varchar(255) DEFAULT NULL COMMENT 'Discount Description',
   `shipping_discount_amount` decimal(12,4) DEFAULT NULL COMMENT 'Shipping Discount Amount',
   `base_shipping_discount_amount` decimal(12,4) DEFAULT NULL COMMENT 'Base Shipping Discount Amount',
@@ -9207,10 +9207,10 @@ CREATE TABLE `sales_flat_quote_address` (
   `base_shipping_hidden_tax_amnt` decimal(12,4) DEFAULT NULL COMMENT 'Base Shipping Hidden Tax Amount',
   `shipping_incl_tax` decimal(12,4) DEFAULT NULL COMMENT 'Shipping Incl Tax',
   `base_shipping_incl_tax` decimal(12,4) DEFAULT NULL COMMENT 'Base Shipping Incl Tax',
-  `vat_id` text COMMENT 'Vat Id',
+  `vat_id` text DEFAULT NULL COMMENT 'Vat Id',
   `vat_is_valid` smallint(6) DEFAULT NULL COMMENT 'Vat Is Valid',
-  `vat_request_id` text COMMENT 'Vat Request Id',
-  `vat_request_date` text COMMENT 'Vat Request Date',
+  `vat_request_id` text DEFAULT NULL COMMENT 'Vat Request Id',
+  `vat_request_date` text DEFAULT NULL COMMENT 'Vat Request Date',
   `vat_request_success` smallint(6) DEFAULT NULL COMMENT 'Vat Request Success',
   `gift_message_id` int(11) DEFAULT NULL COMMENT 'Gift Message Id',
   PRIMARY KEY (`address_id`),
@@ -9239,29 +9239,29 @@ DROP TABLE IF EXISTS `sales_flat_quote_address_item`;
 CREATE TABLE `sales_flat_quote_address_item` (
   `address_item_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Address Item Id',
   `parent_item_id` int(10) unsigned DEFAULT NULL COMMENT 'Parent Item Id',
-  `quote_address_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Quote Address Id',
-  `quote_item_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Quote Item Id',
+  `quote_address_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Quote Address Id',
+  `quote_item_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Quote Item Id',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Created At',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Updated At',
-  `applied_rule_ids` text COMMENT 'Applied Rule Ids',
-  `additional_data` text COMMENT 'Additional Data',
-  `weight` decimal(12,4) DEFAULT '0.0000' COMMENT 'Weight',
-  `qty` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Qty',
-  `discount_amount` decimal(12,4) DEFAULT '0.0000' COMMENT 'Discount Amount',
-  `tax_amount` decimal(12,4) DEFAULT '0.0000' COMMENT 'Tax Amount',
-  `row_total` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Row Total',
-  `base_row_total` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Base Row Total',
-  `row_total_with_discount` decimal(12,4) DEFAULT '0.0000' COMMENT 'Row Total With Discount',
-  `base_discount_amount` decimal(12,4) DEFAULT '0.0000' COMMENT 'Base Discount Amount',
-  `base_tax_amount` decimal(12,4) DEFAULT '0.0000' COMMENT 'Base Tax Amount',
-  `row_weight` decimal(12,4) DEFAULT '0.0000' COMMENT 'Row Weight',
+  `applied_rule_ids` text DEFAULT NULL COMMENT 'Applied Rule Ids',
+  `additional_data` text DEFAULT NULL COMMENT 'Additional Data',
+  `weight` decimal(12,4) DEFAULT 0.0000 COMMENT 'Weight',
+  `qty` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Qty',
+  `discount_amount` decimal(12,4) DEFAULT 0.0000 COMMENT 'Discount Amount',
+  `tax_amount` decimal(12,4) DEFAULT 0.0000 COMMENT 'Tax Amount',
+  `row_total` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Row Total',
+  `base_row_total` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Base Row Total',
+  `row_total_with_discount` decimal(12,4) DEFAULT 0.0000 COMMENT 'Row Total With Discount',
+  `base_discount_amount` decimal(12,4) DEFAULT 0.0000 COMMENT 'Base Discount Amount',
+  `base_tax_amount` decimal(12,4) DEFAULT 0.0000 COMMENT 'Base Tax Amount',
+  `row_weight` decimal(12,4) DEFAULT 0.0000 COMMENT 'Row Weight',
   `product_id` int(10) unsigned DEFAULT NULL COMMENT 'Product Id',
   `super_product_id` int(10) unsigned DEFAULT NULL COMMENT 'Super Product Id',
   `parent_product_id` int(10) unsigned DEFAULT NULL COMMENT 'Parent Product Id',
   `sku` varchar(255) DEFAULT NULL COMMENT 'Sku',
   `image` varchar(255) DEFAULT NULL COMMENT 'Image',
   `name` varchar(255) DEFAULT NULL COMMENT 'Name',
-  `description` text COMMENT 'Description',
+  `description` text DEFAULT NULL COMMENT 'Description',
   `free_shipping` int(10) unsigned DEFAULT NULL COMMENT 'Free Shipping',
   `is_qty_decimal` int(10) unsigned DEFAULT NULL COMMENT 'Is Qty Decimal',
   `price` decimal(12,4) DEFAULT NULL COMMENT 'Price',
@@ -9305,7 +9305,7 @@ DROP TABLE IF EXISTS `sales_flat_quote_item`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sales_flat_quote_item` (
   `item_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Item Id',
-  `quote_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Quote Id',
+  `quote_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Quote Id',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Created At',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Updated At',
   `product_id` int(10) unsigned DEFAULT NULL COMMENT 'Product Id',
@@ -9314,27 +9314,27 @@ CREATE TABLE `sales_flat_quote_item` (
   `is_virtual` smallint(5) unsigned DEFAULT NULL COMMENT 'Is Virtual',
   `sku` varchar(255) DEFAULT NULL COMMENT 'Sku',
   `name` varchar(255) DEFAULT NULL COMMENT 'Name',
-  `description` text COMMENT 'Description',
-  `applied_rule_ids` text COMMENT 'Applied Rule Ids',
-  `additional_data` text COMMENT 'Additional Data',
-  `free_shipping` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Free Shipping',
+  `description` text DEFAULT NULL COMMENT 'Description',
+  `applied_rule_ids` text DEFAULT NULL COMMENT 'Applied Rule Ids',
+  `additional_data` text DEFAULT NULL COMMENT 'Additional Data',
+  `free_shipping` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Free Shipping',
   `is_qty_decimal` smallint(5) unsigned DEFAULT NULL COMMENT 'Is Qty Decimal',
-  `no_discount` smallint(5) unsigned DEFAULT '0' COMMENT 'No Discount',
-  `weight` decimal(12,4) DEFAULT '0.0000' COMMENT 'Weight',
-  `qty` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Qty',
-  `price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Price',
-  `base_price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Base Price',
+  `no_discount` smallint(5) unsigned DEFAULT 0 COMMENT 'No Discount',
+  `weight` decimal(12,4) DEFAULT 0.0000 COMMENT 'Weight',
+  `qty` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Qty',
+  `price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Price',
+  `base_price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Base Price',
   `custom_price` decimal(12,4) DEFAULT NULL COMMENT 'Custom Price',
-  `discount_percent` decimal(12,4) DEFAULT '0.0000' COMMENT 'Discount Percent',
-  `discount_amount` decimal(12,4) DEFAULT '0.0000' COMMENT 'Discount Amount',
-  `base_discount_amount` decimal(12,4) DEFAULT '0.0000' COMMENT 'Base Discount Amount',
-  `tax_percent` decimal(12,4) DEFAULT '0.0000' COMMENT 'Tax Percent',
-  `tax_amount` decimal(12,4) DEFAULT '0.0000' COMMENT 'Tax Amount',
-  `base_tax_amount` decimal(12,4) DEFAULT '0.0000' COMMENT 'Base Tax Amount',
-  `row_total` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Row Total',
-  `base_row_total` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Base Row Total',
-  `row_total_with_discount` decimal(12,4) DEFAULT '0.0000' COMMENT 'Row Total With Discount',
-  `row_weight` decimal(12,4) DEFAULT '0.0000' COMMENT 'Row Weight',
+  `discount_percent` decimal(12,4) DEFAULT 0.0000 COMMENT 'Discount Percent',
+  `discount_amount` decimal(12,4) DEFAULT 0.0000 COMMENT 'Discount Amount',
+  `base_discount_amount` decimal(12,4) DEFAULT 0.0000 COMMENT 'Base Discount Amount',
+  `tax_percent` decimal(12,4) DEFAULT 0.0000 COMMENT 'Tax Percent',
+  `tax_amount` decimal(12,4) DEFAULT 0.0000 COMMENT 'Tax Amount',
+  `base_tax_amount` decimal(12,4) DEFAULT 0.0000 COMMENT 'Base Tax Amount',
+  `row_total` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Row Total',
+  `base_row_total` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Base Row Total',
+  `row_total_with_discount` decimal(12,4) DEFAULT 0.0000 COMMENT 'Row Total With Discount',
+  `row_weight` decimal(12,4) DEFAULT 0.0000 COMMENT 'Row Weight',
   `product_type` varchar(255) DEFAULT NULL COMMENT 'Product Type',
   `base_tax_before_discount` decimal(12,4) DEFAULT NULL COMMENT 'Base Tax Before Discount',
   `tax_before_discount` decimal(12,4) DEFAULT NULL COMMENT 'Tax Before Discount',
@@ -9352,7 +9352,7 @@ CREATE TABLE `sales_flat_quote_item` (
   `weee_tax_row_disposition` decimal(12,4) DEFAULT NULL COMMENT 'Weee Tax Row Disposition',
   `base_weee_tax_disposition` decimal(12,4) DEFAULT NULL COMMENT 'Base Weee Tax Disposition',
   `base_weee_tax_row_disposition` decimal(12,4) DEFAULT NULL COMMENT 'Base Weee Tax Row Disposition',
-  `weee_tax_applied` text COMMENT 'Weee Tax Applied',
+  `weee_tax_applied` text DEFAULT NULL COMMENT 'Weee Tax Applied',
   `weee_tax_applied_amount` decimal(12,4) DEFAULT NULL COMMENT 'Weee Tax Applied Amount',
   `weee_tax_applied_row_amount` decimal(12,4) DEFAULT NULL COMMENT 'Weee Tax Applied Row Amount',
   `base_weee_tax_applied_amount` decimal(12,4) DEFAULT NULL COMMENT 'Base Weee Tax Applied Amount',
@@ -9390,7 +9390,7 @@ CREATE TABLE `sales_flat_quote_item_option` (
   `item_id` int(10) unsigned NOT NULL COMMENT 'Item Id',
   `product_id` int(10) unsigned NOT NULL COMMENT 'Product Id',
   `code` varchar(255) NOT NULL COMMENT 'Code',
-  `value` text COMMENT 'Value',
+  `value` text DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`option_id`),
   KEY `IDX_SALES_FLAT_QUOTE_ITEM_OPTION_ITEM_ID` (`item_id`),
   CONSTRAINT `FK_5F20E478CA64B6891EA8A9D6C2735739` FOREIGN KEY (`item_id`) REFERENCES `sales_flat_quote_item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -9415,7 +9415,7 @@ DROP TABLE IF EXISTS `sales_flat_quote_payment`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sales_flat_quote_payment` (
   `payment_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Payment Id',
-  `quote_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Quote Id',
+  `quote_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Quote Id',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Created At',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Updated At',
   `method` varchar(255) DEFAULT NULL COMMENT 'Method',
@@ -9424,15 +9424,15 @@ CREATE TABLE `sales_flat_quote_payment` (
   `cc_last4` varchar(255) DEFAULT NULL COMMENT 'Cc Last4',
   `cc_cid_enc` varchar(255) DEFAULT NULL COMMENT 'Cc Cid Enc',
   `cc_owner` varchar(255) DEFAULT NULL COMMENT 'Cc Owner',
-  `cc_exp_month` smallint(5) unsigned DEFAULT '0' COMMENT 'Cc Exp Month',
-  `cc_exp_year` smallint(5) unsigned DEFAULT '0' COMMENT 'Cc Exp Year',
+  `cc_exp_month` smallint(5) unsigned DEFAULT 0 COMMENT 'Cc Exp Month',
+  `cc_exp_year` smallint(5) unsigned DEFAULT 0 COMMENT 'Cc Exp Year',
   `cc_ss_owner` varchar(255) DEFAULT NULL COMMENT 'Cc Ss Owner',
-  `cc_ss_start_month` smallint(5) unsigned DEFAULT '0' COMMENT 'Cc Ss Start Month',
-  `cc_ss_start_year` smallint(5) unsigned DEFAULT '0' COMMENT 'Cc Ss Start Year',
+  `cc_ss_start_month` smallint(5) unsigned DEFAULT 0 COMMENT 'Cc Ss Start Month',
+  `cc_ss_start_year` smallint(5) unsigned DEFAULT 0 COMMENT 'Cc Ss Start Year',
   `po_number` varchar(255) DEFAULT NULL COMMENT 'Po Number',
-  `additional_data` text COMMENT 'Additional Data',
+  `additional_data` text DEFAULT NULL COMMENT 'Additional Data',
   `cc_ss_issue` varchar(255) DEFAULT NULL COMMENT 'Cc Ss Issue',
-  `additional_information` text COMMENT 'Additional Information',
+  `additional_information` text DEFAULT NULL COMMENT 'Additional Information',
   `paypal_payer_id` varchar(255) DEFAULT NULL COMMENT 'Paypal Payer Id',
   `paypal_payer_status` varchar(255) DEFAULT NULL COMMENT 'Paypal Payer Status',
   `paypal_correlation_id` varchar(255) DEFAULT NULL COMMENT 'Paypal Correlation Id',
@@ -9460,17 +9460,17 @@ DROP TABLE IF EXISTS `sales_flat_quote_shipping_rate`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sales_flat_quote_shipping_rate` (
   `rate_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Rate Id',
-  `address_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Address Id',
+  `address_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Address Id',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Created At',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Updated At',
   `carrier` varchar(255) DEFAULT NULL COMMENT 'Carrier',
   `carrier_title` varchar(255) DEFAULT NULL COMMENT 'Carrier Title',
   `code` varchar(255) DEFAULT NULL COMMENT 'Code',
   `method` varchar(255) DEFAULT NULL COMMENT 'Method',
-  `method_description` text COMMENT 'Method Description',
-  `price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Price',
-  `error_message` text COMMENT 'Error Message',
-  `method_title` text COMMENT 'Method Title',
+  `method_description` text DEFAULT NULL COMMENT 'Method Description',
+  `price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Price',
+  `error_message` text DEFAULT NULL COMMENT 'Error Message',
+  `method_title` text DEFAULT NULL COMMENT 'Method Title',
   PRIMARY KEY (`rate_id`),
   KEY `IDX_SALES_FLAT_QUOTE_SHIPPING_RATE_ADDRESS_ID` (`address_id`),
   CONSTRAINT `FK_B1F177EFB73D3EDF5322BA64AC48D150` FOREIGN KEY (`address_id`) REFERENCES `sales_flat_quote_address` (`address_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -9507,8 +9507,8 @@ CREATE TABLE `sales_flat_shipment` (
   `increment_id` varchar(50) DEFAULT NULL COMMENT 'Increment Id',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Created At',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Updated At',
-  `packages` text COMMENT 'Packed Products in Packages',
-  `shipping_label` mediumblob COMMENT 'Shipping Label Content',
+  `packages` text DEFAULT NULL COMMENT 'Packed Products in Packages',
+  `shipping_label` mediumblob DEFAULT NULL COMMENT 'Shipping Label Content',
   PRIMARY KEY (`entity_id`),
   UNIQUE KEY `UNQ_SALES_FLAT_SHIPMENT_INCREMENT_ID` (`increment_id`),
   KEY `IDX_SALES_FLAT_SHIPMENT_STORE_ID` (`store_id`),
@@ -9541,8 +9541,8 @@ CREATE TABLE `sales_flat_shipment_comment` (
   `entity_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Entity Id',
   `parent_id` int(10) unsigned NOT NULL COMMENT 'Parent Id',
   `is_customer_notified` int(11) DEFAULT NULL COMMENT 'Is Customer Notified',
-  `is_visible_on_front` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Visible On Front',
-  `comment` text COMMENT 'Comment',
+  `is_visible_on_front` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Visible On Front',
+  `comment` text DEFAULT NULL COMMENT 'Comment',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Created At',
   PRIMARY KEY (`entity_id`),
   KEY `IDX_SALES_FLAT_SHIPMENT_COMMENT_CREATED_AT` (`created_at`),
@@ -9618,8 +9618,8 @@ CREATE TABLE `sales_flat_shipment_item` (
   `qty` decimal(12,4) DEFAULT NULL COMMENT 'Qty',
   `product_id` int(11) DEFAULT NULL COMMENT 'Product Id',
   `order_item_id` int(11) DEFAULT NULL COMMENT 'Order Item Id',
-  `additional_data` text COMMENT 'Additional Data',
-  `description` text COMMENT 'Description',
+  `additional_data` text DEFAULT NULL COMMENT 'Additional Data',
+  `description` text DEFAULT NULL COMMENT 'Description',
   `name` varchar(255) DEFAULT NULL COMMENT 'Name',
   `sku` varchar(255) DEFAULT NULL COMMENT 'Sku',
   PRIMARY KEY (`entity_id`),
@@ -9650,8 +9650,8 @@ CREATE TABLE `sales_flat_shipment_track` (
   `weight` decimal(12,4) DEFAULT NULL COMMENT 'Weight',
   `qty` decimal(12,4) DEFAULT NULL COMMENT 'Qty',
   `order_id` int(10) unsigned NOT NULL COMMENT 'Order Id',
-  `track_number` text COMMENT 'Number',
-  `description` text COMMENT 'Description',
+  `track_number` text DEFAULT NULL COMMENT 'Number',
+  `description` text DEFAULT NULL COMMENT 'Description',
   `title` varchar(255) DEFAULT NULL COMMENT 'Title',
   `carrier_code` varchar(32) DEFAULT NULL COMMENT 'Carrier Code',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Created At',
@@ -9685,7 +9685,7 @@ CREATE TABLE `sales_invoiced_aggregated` (
   `period` date DEFAULT NULL COMMENT 'Period',
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
   `order_status` varchar(50) DEFAULT NULL COMMENT 'Order Status',
-  `orders_count` int(11) NOT NULL DEFAULT '0' COMMENT 'Orders Count',
+  `orders_count` int(11) NOT NULL DEFAULT 0 COMMENT 'Orders Count',
   `orders_invoiced` decimal(12,4) DEFAULT NULL COMMENT 'Orders Invoiced',
   `invoiced` decimal(12,4) DEFAULT NULL COMMENT 'Invoiced',
   `invoiced_captured` decimal(12,4) DEFAULT NULL COMMENT 'Invoiced Captured',
@@ -9718,7 +9718,7 @@ CREATE TABLE `sales_invoiced_aggregated_order` (
   `period` date DEFAULT NULL COMMENT 'Period',
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
   `order_status` varchar(50) NOT NULL DEFAULT '' COMMENT 'Order Status',
-  `orders_count` int(11) NOT NULL DEFAULT '0' COMMENT 'Orders Count',
+  `orders_count` int(11) NOT NULL DEFAULT 0 COMMENT 'Orders Count',
   `orders_invoiced` decimal(12,4) DEFAULT NULL COMMENT 'Orders Invoiced',
   `invoiced` decimal(12,4) DEFAULT NULL COMMENT 'Invoiced',
   `invoiced_captured` decimal(12,4) DEFAULT NULL COMMENT 'Invoiced Captured',
@@ -9751,22 +9751,22 @@ CREATE TABLE `sales_order_aggregated_created` (
   `period` date DEFAULT NULL COMMENT 'Period',
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
   `order_status` varchar(50) NOT NULL DEFAULT '' COMMENT 'Order Status',
-  `orders_count` int(11) NOT NULL DEFAULT '0' COMMENT 'Orders Count',
-  `total_qty_ordered` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Qty Ordered',
-  `total_qty_invoiced` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Qty Invoiced',
-  `total_income_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Income Amount',
-  `total_revenue_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Revenue Amount',
-  `total_profit_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Profit Amount',
-  `total_invoiced_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Invoiced Amount',
-  `total_canceled_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Canceled Amount',
-  `total_paid_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Paid Amount',
-  `total_refunded_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Refunded Amount',
-  `total_tax_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Tax Amount',
-  `total_tax_amount_actual` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Tax Amount Actual',
-  `total_shipping_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Shipping Amount',
-  `total_shipping_amount_actual` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Shipping Amount Actual',
-  `total_discount_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Discount Amount',
-  `total_discount_amount_actual` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Discount Amount Actual',
+  `orders_count` int(11) NOT NULL DEFAULT 0 COMMENT 'Orders Count',
+  `total_qty_ordered` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Qty Ordered',
+  `total_qty_invoiced` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Qty Invoiced',
+  `total_income_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Income Amount',
+  `total_revenue_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Revenue Amount',
+  `total_profit_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Profit Amount',
+  `total_invoiced_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Invoiced Amount',
+  `total_canceled_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Canceled Amount',
+  `total_paid_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Paid Amount',
+  `total_refunded_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Refunded Amount',
+  `total_tax_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Tax Amount',
+  `total_tax_amount_actual` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Tax Amount Actual',
+  `total_shipping_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Shipping Amount',
+  `total_shipping_amount_actual` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Shipping Amount Actual',
+  `total_discount_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Discount Amount',
+  `total_discount_amount_actual` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Discount Amount Actual',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNQ_SALES_ORDER_AGGREGATED_CREATED_PERIOD_STORE_ID_ORDER_STATUS` (`period`,`store_id`,`order_status`),
   KEY `IDX_SALES_ORDER_AGGREGATED_CREATED_STORE_ID` (`store_id`),
@@ -9795,22 +9795,22 @@ CREATE TABLE `sales_order_aggregated_updated` (
   `period` date DEFAULT NULL COMMENT 'Period',
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
   `order_status` varchar(50) NOT NULL COMMENT 'Order Status',
-  `orders_count` int(11) NOT NULL DEFAULT '0' COMMENT 'Orders Count',
-  `total_qty_ordered` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Qty Ordered',
-  `total_qty_invoiced` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Qty Invoiced',
-  `total_income_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Income Amount',
-  `total_revenue_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Revenue Amount',
-  `total_profit_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Profit Amount',
-  `total_invoiced_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Invoiced Amount',
-  `total_canceled_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Canceled Amount',
-  `total_paid_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Paid Amount',
-  `total_refunded_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Refunded Amount',
-  `total_tax_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Tax Amount',
-  `total_tax_amount_actual` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Tax Amount Actual',
-  `total_shipping_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Shipping Amount',
-  `total_shipping_amount_actual` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Shipping Amount Actual',
-  `total_discount_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Discount Amount',
-  `total_discount_amount_actual` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Total Discount Amount Actual',
+  `orders_count` int(11) NOT NULL DEFAULT 0 COMMENT 'Orders Count',
+  `total_qty_ordered` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Qty Ordered',
+  `total_qty_invoiced` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Qty Invoiced',
+  `total_income_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Income Amount',
+  `total_revenue_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Revenue Amount',
+  `total_profit_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Profit Amount',
+  `total_invoiced_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Invoiced Amount',
+  `total_canceled_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Canceled Amount',
+  `total_paid_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Paid Amount',
+  `total_refunded_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Refunded Amount',
+  `total_tax_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Tax Amount',
+  `total_tax_amount_actual` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Tax Amount Actual',
+  `total_shipping_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Shipping Amount',
+  `total_shipping_amount_actual` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Shipping Amount Actual',
+  `total_discount_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Discount Amount',
+  `total_discount_amount_actual` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Total Discount Amount Actual',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNQ_SALES_ORDER_AGGREGATED_UPDATED_PERIOD_STORE_ID_ORDER_STATUS` (`period`,`store_id`,`order_status`),
   KEY `IDX_SALES_ORDER_AGGREGATED_UPDATED_STORE_ID` (`store_id`),
@@ -9888,7 +9888,7 @@ DROP TABLE IF EXISTS `sales_order_status_state`;
 CREATE TABLE `sales_order_status_state` (
   `status` varchar(32) NOT NULL COMMENT 'Status',
   `state` varchar(32) NOT NULL COMMENT 'Label',
-  `is_default` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Is Default',
+  `is_default` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Is Default',
   PRIMARY KEY (`status`,`state`),
   CONSTRAINT `FK_SALES_ORDER_STATUS_STATE_STATUS_SALES_ORDER_STATUS_STATUS` FOREIGN KEY (`status`) REFERENCES `sales_order_status` (`status`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Sales Order Status Table';
@@ -9923,7 +9923,7 @@ CREATE TABLE `sales_order_tax` (
   `base_amount` decimal(12,4) DEFAULT NULL COMMENT 'Base Amount',
   `process` smallint(6) NOT NULL COMMENT 'Process',
   `base_real_amount` decimal(12,4) DEFAULT NULL COMMENT 'Base Real Amount',
-  `hidden` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Hidden',
+  `hidden` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Hidden',
   PRIMARY KEY (`tax_id`),
   KEY `IDX_SALES_ORDER_TAX_ORDER_ID_PRIORITY_POSITION` (`order_id`,`priority`,`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Sales Order Tax Table';
@@ -9978,13 +9978,13 @@ DROP TABLE IF EXISTS `sales_payment_transaction`;
 CREATE TABLE `sales_payment_transaction` (
   `transaction_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Transaction Id',
   `parent_id` int(10) unsigned DEFAULT NULL COMMENT 'Parent Id',
-  `order_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Order Id',
-  `payment_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Payment Id',
+  `order_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Order Id',
+  `payment_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Payment Id',
   `txn_id` varchar(100) DEFAULT NULL COMMENT 'Txn Id',
   `parent_txn_id` varchar(100) DEFAULT NULL COMMENT 'Parent Txn Id',
   `txn_type` varchar(15) DEFAULT NULL COMMENT 'Txn Type',
-  `is_closed` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Is Closed',
-  `additional_information` blob COMMENT 'Additional Information',
+  `is_closed` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Is Closed',
+  `additional_information` blob DEFAULT NULL COMMENT 'Additional Information',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Created At',
   PRIMARY KEY (`transaction_id`),
   UNIQUE KEY `UNQ_SALES_PAYMENT_TRANSACTION_ORDER_ID_PAYMENT_ID_TXN_ID` (`order_id`,`payment_id`,`txn_id`),
@@ -10027,26 +10027,26 @@ CREATE TABLE `sales_recurring_profile` (
   `internal_reference_id` varchar(42) NOT NULL COMMENT 'Internal Reference Id',
   `schedule_description` varchar(255) NOT NULL COMMENT 'Schedule Description',
   `suspension_threshold` smallint(5) unsigned DEFAULT NULL COMMENT 'Suspension Threshold',
-  `bill_failed_later` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Bill Failed Later',
+  `bill_failed_later` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Bill Failed Later',
   `period_unit` varchar(20) NOT NULL COMMENT 'Period Unit',
   `period_frequency` smallint(5) unsigned DEFAULT NULL COMMENT 'Period Frequency',
   `period_max_cycles` smallint(5) unsigned DEFAULT NULL COMMENT 'Period Max Cycles',
-  `billing_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Billing Amount',
+  `billing_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Billing Amount',
   `trial_period_unit` varchar(20) DEFAULT NULL COMMENT 'Trial Period Unit',
   `trial_period_frequency` smallint(5) unsigned DEFAULT NULL COMMENT 'Trial Period Frequency',
   `trial_period_max_cycles` smallint(5) unsigned DEFAULT NULL COMMENT 'Trial Period Max Cycles',
-  `trial_billing_amount` text COMMENT 'Trial Billing Amount',
+  `trial_billing_amount` text DEFAULT NULL COMMENT 'Trial Billing Amount',
   `currency_code` varchar(3) NOT NULL COMMENT 'Currency Code',
   `shipping_amount` decimal(12,4) DEFAULT NULL COMMENT 'Shipping Amount',
   `tax_amount` decimal(12,4) DEFAULT NULL COMMENT 'Tax Amount',
   `init_amount` decimal(12,4) DEFAULT NULL COMMENT 'Init Amount',
-  `init_may_fail` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Init May Fail',
+  `init_may_fail` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Init May Fail',
   `order_info` text NOT NULL COMMENT 'Order Info',
   `order_item_info` text NOT NULL COMMENT 'Order Item Info',
   `billing_address_info` text NOT NULL COMMENT 'Billing Address Info',
-  `shipping_address_info` text COMMENT 'Shipping Address Info',
-  `profile_vendor_info` text COMMENT 'Profile Vendor Info',
-  `additional_info` text COMMENT 'Additional Info',
+  `shipping_address_info` text DEFAULT NULL COMMENT 'Shipping Address Info',
+  `profile_vendor_info` text DEFAULT NULL COMMENT 'Profile Vendor Info',
+  `additional_info` text DEFAULT NULL COMMENT 'Additional Info',
   PRIMARY KEY (`profile_id`),
   UNIQUE KEY `UNQ_SALES_RECURRING_PROFILE_INTERNAL_REFERENCE_ID` (`internal_reference_id`),
   KEY `IDX_SALES_RECURRING_PROFILE_CUSTOMER_ID` (`customer_id`),
@@ -10074,8 +10074,8 @@ DROP TABLE IF EXISTS `sales_recurring_profile_order`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sales_recurring_profile_order` (
   `link_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Link Id',
-  `profile_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Profile Id',
-  `order_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Order Id',
+  `profile_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Profile Id',
+  `order_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Order Id',
   PRIMARY KEY (`link_id`),
   UNIQUE KEY `UNQ_SALES_RECURRING_PROFILE_ORDER_PROFILE_ID_ORDER_ID` (`profile_id`,`order_id`),
   KEY `IDX_SALES_RECURRING_PROFILE_ORDER_ORDER_ID` (`order_id`),
@@ -10105,7 +10105,7 @@ CREATE TABLE `sales_refunded_aggregated` (
   `period` date DEFAULT NULL COMMENT 'Period',
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
   `order_status` varchar(50) NOT NULL DEFAULT '' COMMENT 'Order Status',
-  `orders_count` int(11) NOT NULL DEFAULT '0' COMMENT 'Orders Count',
+  `orders_count` int(11) NOT NULL DEFAULT 0 COMMENT 'Orders Count',
   `refunded` decimal(12,4) DEFAULT NULL COMMENT 'Refunded',
   `online_refunded` decimal(12,4) DEFAULT NULL COMMENT 'Online Refunded',
   `offline_refunded` decimal(12,4) DEFAULT NULL COMMENT 'Offline Refunded',
@@ -10137,7 +10137,7 @@ CREATE TABLE `sales_refunded_aggregated_order` (
   `period` date DEFAULT NULL COMMENT 'Period',
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
   `order_status` varchar(50) DEFAULT NULL COMMENT 'Order Status',
-  `orders_count` int(11) NOT NULL DEFAULT '0' COMMENT 'Orders Count',
+  `orders_count` int(11) NOT NULL DEFAULT 0 COMMENT 'Orders Count',
   `refunded` decimal(12,4) DEFAULT NULL COMMENT 'Refunded',
   `online_refunded` decimal(12,4) DEFAULT NULL COMMENT 'Online Refunded',
   `offline_refunded` decimal(12,4) DEFAULT NULL COMMENT 'Offline Refunded',
@@ -10170,7 +10170,7 @@ CREATE TABLE `sales_shipping_aggregated` (
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
   `order_status` varchar(50) DEFAULT NULL COMMENT 'Order Status',
   `shipping_description` varchar(255) DEFAULT NULL COMMENT 'Shipping Description',
-  `orders_count` int(11) NOT NULL DEFAULT '0' COMMENT 'Orders Count',
+  `orders_count` int(11) NOT NULL DEFAULT 0 COMMENT 'Orders Count',
   `total_shipping` decimal(12,4) DEFAULT NULL COMMENT 'Total Shipping',
   `total_shipping_actual` decimal(12,4) DEFAULT NULL COMMENT 'Total Shipping Actual',
   PRIMARY KEY (`id`),
@@ -10202,7 +10202,7 @@ CREATE TABLE `sales_shipping_aggregated_order` (
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store Id',
   `order_status` varchar(50) DEFAULT NULL COMMENT 'Order Status',
   `shipping_description` varchar(255) DEFAULT NULL COMMENT 'Shipping Description',
-  `orders_count` int(11) NOT NULL DEFAULT '0' COMMENT 'Orders Count',
+  `orders_count` int(11) NOT NULL DEFAULT 0 COMMENT 'Orders Count',
   `total_shipping` decimal(12,4) DEFAULT NULL COMMENT 'Total Shipping',
   `total_shipping_actual` decimal(12,4) DEFAULT NULL COMMENT 'Total Shipping Actual',
   PRIMARY KEY (`id`),
@@ -10231,31 +10231,31 @@ DROP TABLE IF EXISTS `salesrule`;
 CREATE TABLE `salesrule` (
   `rule_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Rule Id',
   `name` varchar(255) DEFAULT NULL COMMENT 'Name',
-  `description` text COMMENT 'Description',
+  `description` text DEFAULT NULL COMMENT 'Description',
   `from_date` date DEFAULT NULL,
   `to_date` date DEFAULT NULL,
-  `uses_per_customer` int(11) NOT NULL DEFAULT '0' COMMENT 'Uses Per Customer',
-  `is_active` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Is Active',
-  `conditions_serialized` mediumtext COMMENT 'Conditions Serialized',
-  `actions_serialized` mediumtext COMMENT 'Actions Serialized',
-  `stop_rules_processing` smallint(6) NOT NULL DEFAULT '1' COMMENT 'Stop Rules Processing',
-  `is_advanced` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Is Advanced',
-  `product_ids` text COMMENT 'Product Ids',
-  `sort_order` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Sort Order',
+  `uses_per_customer` int(11) NOT NULL DEFAULT 0 COMMENT 'Uses Per Customer',
+  `is_active` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Is Active',
+  `conditions_serialized` mediumtext DEFAULT NULL COMMENT 'Conditions Serialized',
+  `actions_serialized` mediumtext DEFAULT NULL COMMENT 'Actions Serialized',
+  `stop_rules_processing` smallint(6) NOT NULL DEFAULT 1 COMMENT 'Stop Rules Processing',
+  `is_advanced` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Is Advanced',
+  `product_ids` text DEFAULT NULL COMMENT 'Product Ids',
+  `sort_order` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Sort Order',
   `simple_action` varchar(32) DEFAULT NULL COMMENT 'Simple Action',
-  `discount_amount` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Discount Amount',
+  `discount_amount` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Discount Amount',
   `discount_qty` decimal(12,4) DEFAULT NULL COMMENT 'Discount Qty',
   `discount_step` int(10) unsigned NOT NULL COMMENT 'Discount Step',
-  `simple_free_shipping` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Simple Free Shipping',
-  `apply_to_shipping` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Apply To Shipping',
-  `times_used` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Times Used',
-  `is_rss` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Is Rss',
-  `coupon_type` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Coupon Type',
-  `use_auto_generation` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Use Auto Generation',
-  `uses_per_coupon` int(11) NOT NULL DEFAULT '0' COMMENT 'Uses Per Coupon',
+  `simple_free_shipping` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Simple Free Shipping',
+  `apply_to_shipping` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Apply To Shipping',
+  `times_used` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Times Used',
+  `is_rss` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Is Rss',
+  `coupon_type` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Coupon Type',
+  `use_auto_generation` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Use Auto Generation',
+  `uses_per_coupon` int(11) NOT NULL DEFAULT 0 COMMENT 'Uses Per Coupon',
   PRIMARY KEY (`rule_id`),
   KEY `IDX_SALESRULE_IS_ACTIVE_SORT_ORDER_TO_DATE_FROM_DATE` (`is_active`,`sort_order`,`to_date`,`from_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Salesrule';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Salesrule';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -10281,17 +10281,17 @@ CREATE TABLE `salesrule_coupon` (
   `code` varchar(255) DEFAULT NULL COMMENT 'Code',
   `usage_limit` int(10) unsigned DEFAULT NULL COMMENT 'Usage Limit',
   `usage_per_customer` int(10) unsigned DEFAULT NULL COMMENT 'Usage Per Customer',
-  `times_used` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Times Used',
+  `times_used` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Times Used',
   `expiration_date` timestamp NULL DEFAULT NULL COMMENT 'Expiration Date',
   `is_primary` smallint(5) unsigned DEFAULT NULL COMMENT 'Is Primary',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Coupon Code Creation Date',
-  `type` smallint(6) DEFAULT '0' COMMENT 'Coupon Code Type',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Coupon Code Creation Date',
+  `type` smallint(6) DEFAULT 0 COMMENT 'Coupon Code Type',
   PRIMARY KEY (`coupon_id`),
   UNIQUE KEY `UNQ_SALESRULE_COUPON_CODE` (`code`),
   UNIQUE KEY `UNQ_SALESRULE_COUPON_RULE_ID_IS_PRIMARY` (`rule_id`,`is_primary`),
   KEY `IDX_SALESRULE_COUPON_RULE_ID` (`rule_id`),
   CONSTRAINT `FK_SALESRULE_COUPON_RULE_ID_SALESRULE_RULE_ID` FOREIGN KEY (`rule_id`) REFERENCES `salesrule` (`rule_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Salesrule Coupon';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Salesrule Coupon';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -10314,7 +10314,7 @@ DROP TABLE IF EXISTS `salesrule_coupon_usage`;
 CREATE TABLE `salesrule_coupon_usage` (
   `coupon_id` int(10) unsigned NOT NULL COMMENT 'Coupon Id',
   `customer_id` int(10) unsigned NOT NULL COMMENT 'Customer Id',
-  `times_used` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Times Used',
+  `times_used` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Times Used',
   PRIMARY KEY (`coupon_id`,`customer_id`),
   KEY `IDX_SALESRULE_COUPON_USAGE_COUPON_ID` (`coupon_id`),
   KEY `IDX_SALESRULE_COUPON_USAGE_CUSTOMER_ID` (`customer_id`),
@@ -10341,9 +10341,9 @@ DROP TABLE IF EXISTS `salesrule_customer`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `salesrule_customer` (
   `rule_customer_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Rule Customer Id',
-  `rule_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Rule Id',
-  `customer_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Customer Id',
-  `times_used` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Times Used',
+  `rule_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Rule Id',
+  `customer_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Customer Id',
+  `times_used` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Times Used',
   PRIMARY KEY (`rule_customer_id`),
   KEY `IDX_SALESRULE_CUSTOMER_RULE_ID_CUSTOMER_ID` (`rule_id`,`customer_id`),
   KEY `IDX_SALESRULE_CUSTOMER_CUSTOMER_ID_RULE_ID` (`customer_id`,`rule_id`),
@@ -10489,8 +10489,8 @@ DROP TABLE IF EXISTS `sendfriend_log`;
 CREATE TABLE `sendfriend_log` (
   `log_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Log ID',
   `ip` varbinary(16) DEFAULT NULL,
-  `time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Log time',
-  `website_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Website ID',
+  `time` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Log time',
+  `website_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Website ID',
   PRIMARY KEY (`log_id`),
   KEY `IDX_SENDFRIEND_LOG_IP` (`ip`),
   KEY `IDX_SENDFRIEND_LOG_TIME` (`time`)
@@ -10515,14 +10515,14 @@ DROP TABLE IF EXISTS `shipping_tablerate`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `shipping_tablerate` (
   `pk` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
-  `website_id` int(11) NOT NULL DEFAULT '0' COMMENT 'Website Id',
+  `website_id` int(11) NOT NULL DEFAULT 0 COMMENT 'Website Id',
   `dest_country_id` varchar(4) NOT NULL DEFAULT '0' COMMENT 'Destination coutry ISO/2 or ISO/3 code',
-  `dest_region_id` int(11) NOT NULL DEFAULT '0' COMMENT 'Destination Region Id',
+  `dest_region_id` int(11) NOT NULL DEFAULT 0 COMMENT 'Destination Region Id',
   `dest_zip` varchar(10) NOT NULL DEFAULT '*' COMMENT 'Destination Post Code (Zip)',
   `condition_name` varchar(20) NOT NULL COMMENT 'Rate Condition name',
-  `condition_value` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Rate condition value',
-  `price` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Price',
-  `cost` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Cost',
+  `condition_value` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Rate condition value',
+  `price` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Price',
+  `cost` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Cost',
   PRIMARY KEY (`pk`),
   UNIQUE KEY `D60821CDB2AFACEE1566CFC02D0D4CAA` (`website_id`,`dest_country_id`,`dest_region_id`,`dest_zip`,`condition_name`,`condition_value`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Shipping Tablerate';
@@ -10550,7 +10550,7 @@ CREATE TABLE `sitemap` (
   `sitemap_filename` varchar(32) DEFAULT NULL COMMENT 'Sitemap Filename',
   `sitemap_path` varchar(255) DEFAULT NULL COMMENT 'Sitemap Path',
   `sitemap_time` timestamp NULL DEFAULT NULL COMMENT 'Sitemap Time',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store id',
   PRIMARY KEY (`sitemap_id`),
   KEY `IDX_SITEMAP_STORE_ID` (`store_id`),
   CONSTRAINT `FK_SITEMAP_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -10576,7 +10576,7 @@ DROP TABLE IF EXISTS `tag`;
 CREATE TABLE `tag` (
   `tag_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Tag Id',
   `name` varchar(255) DEFAULT NULL COMMENT 'Name',
-  `status` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Status',
+  `status` smallint(6) NOT NULL DEFAULT 0 COMMENT 'Status',
   `first_customer_id` int(10) unsigned DEFAULT NULL COMMENT 'First Customer Id',
   `first_store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'First Store Id',
   PRIMARY KEY (`tag_id`),
@@ -10604,9 +10604,9 @@ DROP TABLE IF EXISTS `tag_properties`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tag_properties` (
-  `tag_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Tag Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
-  `base_popularity` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Base Popularity',
+  `tag_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Tag Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
+  `base_popularity` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Base Popularity',
   PRIMARY KEY (`tag_id`,`store_id`),
   KEY `IDX_TAG_PROPERTIES_STORE_ID` (`store_id`),
   CONSTRAINT `FK_TAG_PROPERTIES_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -10632,11 +10632,11 @@ DROP TABLE IF EXISTS `tag_relation`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tag_relation` (
   `tag_relation_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Tag Relation Id',
-  `tag_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Tag Id',
+  `tag_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Tag Id',
   `customer_id` int(10) unsigned DEFAULT NULL COMMENT 'Customer Id',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Store Id',
-  `active` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT 'Active',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Store Id',
+  `active` smallint(5) unsigned NOT NULL DEFAULT 1 COMMENT 'Active',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Created At',
   PRIMARY KEY (`tag_relation_id`),
   UNIQUE KEY `UNQ_TAG_RELATION_TAG_ID_CUSTOMER_ID_PRODUCT_ID_STORE_ID` (`tag_id`,`customer_id`,`product_id`,`store_id`),
@@ -10668,14 +10668,14 @@ DROP TABLE IF EXISTS `tag_summary`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tag_summary` (
-  `tag_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Tag Id',
-  `store_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Store Id',
-  `customers` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Customers',
-  `products` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Products',
-  `uses` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Uses',
-  `historical_uses` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Historical Uses',
-  `popularity` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Popularity',
-  `base_popularity` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Base Popularity',
+  `tag_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Tag Id',
+  `store_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Store Id',
+  `customers` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Customers',
+  `products` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Products',
+  `uses` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Uses',
+  `historical_uses` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Historical Uses',
+  `popularity` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Popularity',
+  `base_popularity` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Base Popularity',
   PRIMARY KEY (`tag_id`,`store_id`),
   KEY `IDX_TAG_SUMMARY_STORE_ID` (`store_id`),
   KEY `IDX_TAG_SUMMARY_TAG_ID` (`tag_id`),
@@ -10861,7 +10861,7 @@ CREATE TABLE `tax_order_aggregated_created` (
   `code` varchar(255) NOT NULL COMMENT 'Code',
   `order_status` varchar(50) NOT NULL COMMENT 'Order Status',
   `percent` float DEFAULT NULL COMMENT 'Percent',
-  `orders_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Orders Count',
+  `orders_count` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Orders Count',
   `tax_base_amount_sum` float DEFAULT NULL COMMENT 'Tax Base Amount Sum',
   PRIMARY KEY (`id`),
   UNIQUE KEY `FCA5E2C02689EB2641B30580D7AACF12` (`period`,`store_id`,`code`,`percent`,`order_status`),
@@ -10893,7 +10893,7 @@ CREATE TABLE `tax_order_aggregated_updated` (
   `code` varchar(255) NOT NULL COMMENT 'Code',
   `order_status` varchar(50) NOT NULL COMMENT 'Order Status',
   `percent` float DEFAULT NULL COMMENT 'Percent',
-  `orders_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Orders Count',
+  `orders_count` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Orders Count',
   `tax_base_amount_sum` float DEFAULT NULL COMMENT 'Tax Base Amount Sum',
   PRIMARY KEY (`id`),
   UNIQUE KEY `DB0AF14011199AA6CD31D5078B90AA8D` (`period`,`store_id`,`code`,`percent`,`order_status`),
@@ -10919,10 +10919,10 @@ DROP TABLE IF EXISTS `weee_discount`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `weee_discount` (
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
-  `website_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Website Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
+  `website_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Website Id',
   `customer_group_id` smallint(5) unsigned NOT NULL COMMENT 'Customer Group Id',
-  `value` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Value',
+  `value` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Value',
   KEY `IDX_WEEE_DISCOUNT_WEBSITE_ID` (`website_id`),
   KEY `IDX_WEEE_DISCOUNT_ENTITY_ID` (`entity_id`),
   KEY `IDX_WEEE_DISCOUNT_CUSTOMER_GROUP_ID` (`customer_group_id`),
@@ -10950,10 +10950,10 @@ DROP TABLE IF EXISTS `weee_tax`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `weee_tax` (
   `value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Value Id',
-  `website_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Website Id',
-  `entity_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Entity Id',
+  `website_id` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Website Id',
+  `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity Id',
   `country` varchar(2) DEFAULT NULL COMMENT 'Country',
-  `value` decimal(12,4) NOT NULL DEFAULT '0.0000' COMMENT 'Value',
+  `value` decimal(12,4) NOT NULL DEFAULT 0.0000 COMMENT 'Value',
   `state` varchar(255) NOT NULL DEFAULT '*' COMMENT 'State',
   `attribute_id` smallint(5) unsigned NOT NULL COMMENT 'Attribute Id',
   `entity_type_id` smallint(5) unsigned NOT NULL COMMENT 'Entity Type Id',
@@ -10989,7 +10989,7 @@ CREATE TABLE `widget` (
   `widget_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Widget Id',
   `widget_code` varchar(255) DEFAULT NULL COMMENT 'Widget code for template directive',
   `widget_type` varchar(255) DEFAULT NULL COMMENT 'Widget Type',
-  `parameters` text COMMENT 'Parameters',
+  `parameters` text DEFAULT NULL COMMENT 'Parameters',
   PRIMARY KEY (`widget_id`),
   KEY `IDX_WIDGET_WIDGET_CODE` (`widget_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Preconfigured Widgets';
@@ -11017,8 +11017,8 @@ CREATE TABLE `widget_instance` (
   `package_theme` varchar(255) DEFAULT NULL COMMENT 'Package Theme',
   `title` varchar(255) DEFAULT NULL COMMENT 'Widget Title',
   `store_ids` varchar(255) NOT NULL DEFAULT '0' COMMENT 'Store ids',
-  `widget_parameters` text COMMENT 'Widget parameters',
-  `sort_order` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Sort order',
+  `widget_parameters` text DEFAULT NULL COMMENT 'Widget parameters',
+  `sort_order` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Sort order',
   PRIMARY KEY (`instance_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Instances of Widget for Package Theme';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -11041,12 +11041,12 @@ DROP TABLE IF EXISTS `widget_instance_page`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `widget_instance_page` (
   `page_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Page Id',
-  `instance_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Instance Id',
+  `instance_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Instance Id',
   `page_group` varchar(25) DEFAULT NULL COMMENT 'Block Group Type',
   `layout_handle` varchar(255) DEFAULT NULL COMMENT 'Layout Handle',
   `block_reference` varchar(255) DEFAULT NULL COMMENT 'Block Reference',
   `page_for` varchar(25) DEFAULT NULL COMMENT 'For instance entities',
-  `entities` text COMMENT 'Catalog entities (comma separated)',
+  `entities` text DEFAULT NULL COMMENT 'Catalog entities (comma separated)',
   `page_template` varchar(255) DEFAULT NULL COMMENT 'Path to widget template',
   PRIMARY KEY (`page_id`),
   KEY `IDX_WIDGET_INSTANCE_PAGE_INSTANCE_ID` (`instance_id`),
@@ -11071,8 +11071,8 @@ DROP TABLE IF EXISTS `widget_instance_page_layout`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `widget_instance_page_layout` (
-  `page_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Page Id',
-  `layout_update_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Layout Update Id',
+  `page_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Page Id',
+  `layout_update_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Layout Update Id',
   UNIQUE KEY `UNQ_WIDGET_INSTANCE_PAGE_LAYOUT_LAYOUT_UPDATE_ID_PAGE_ID` (`layout_update_id`,`page_id`),
   KEY `IDX_WIDGET_INSTANCE_PAGE_LAYOUT_PAGE_ID` (`page_id`),
   KEY `IDX_WIDGET_INSTANCE_PAGE_LAYOUT_LAYOUT_UPDATE_ID` (`layout_update_id`),
@@ -11099,8 +11099,8 @@ DROP TABLE IF EXISTS `wishlist`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wishlist` (
   `wishlist_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Wishlist ID',
-  `customer_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Customer ID',
-  `shared` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Sharing flag (0 or 1)',
+  `customer_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Customer ID',
+  `shared` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT 'Sharing flag (0 or 1)',
   `sharing_code` varchar(32) DEFAULT NULL COMMENT 'Sharing encrypted code',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Last updated date',
   PRIMARY KEY (`wishlist_id`),
@@ -11128,11 +11128,11 @@ DROP TABLE IF EXISTS `wishlist_item`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wishlist_item` (
   `wishlist_item_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Wishlist item ID',
-  `wishlist_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Wishlist ID',
-  `product_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Product ID',
+  `wishlist_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Wishlist ID',
+  `product_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Product ID',
   `store_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Store ID',
   `added_at` timestamp NULL DEFAULT NULL COMMENT 'Add date and time',
-  `description` text COMMENT 'Short description of wish list item',
+  `description` text DEFAULT NULL COMMENT 'Short description of wish list item',
   `qty` decimal(12,4) NOT NULL COMMENT 'Qty',
   PRIMARY KEY (`wishlist_item_id`),
   KEY `IDX_WISHLIST_ITEM_WISHLIST_ID` (`wishlist_id`),
@@ -11165,7 +11165,7 @@ CREATE TABLE `wishlist_item_option` (
   `wishlist_item_id` int(10) unsigned NOT NULL COMMENT 'Wishlist Item Id',
   `product_id` int(10) unsigned NOT NULL COMMENT 'Product Id',
   `code` varchar(255) NOT NULL COMMENT 'Code',
-  `value` text COMMENT 'Value',
+  `value` text DEFAULT NULL COMMENT 'Value',
   PRIMARY KEY (`option_id`),
   KEY `FK_A014B30B04B72DD0EAB3EECD779728D6` (`wishlist_item_id`),
   CONSTRAINT `FK_A014B30B04B72DD0EAB3EECD779728D6` FOREIGN KEY (`wishlist_item_id`) REFERENCES `wishlist_item` (`wishlist_item_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -11190,4 +11190,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-04 11:17:16
+-- Dump completed on 2019-08-21 20:33:17
